@@ -1,0 +1,43 @@
+{
+  "name": "<%= projectName %>",
+  "description": "<%= projectDescription %>",
+  "version": "<%= projectVersion %>",
+  "filename": "./src/<%= projectName %>.js",
+  "homepage": "http://github.com/<%=githubUsername %>/<%= projectName %>",
+  "author": {
+    "name": "<%= authorName %>",
+    "url": "http://github.com/<%=githubUsername %>"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<%=githubUsername %>/<%= projectName %>.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "angular" <% for (keyword in projectKeywords) { %> ,
+	"<%= keyword %>"<% } %>
+  ],
+  "bugs": {
+    "url": "http://github.com/<%=githubUsername %>/<%= projectName %>/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-conventional-changelog": "latest",
+    "grunt-karma": "latest",
+    "grunt-ng-annotate": "latest",
+    "grunt-bump": "latest",
+    "grunt-build-control": "latest",
+    "grunt-html2js": "latest",
+    "karma": "latest",
+    "karma-jasmine": "latest",
+    "karma-phantomjs-launcher": "latest"
+  }
+}

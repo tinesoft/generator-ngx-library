@@ -1,0 +1,36 @@
+{
+  "name": "<%= projectName %>",
+  "version": "<%= projectVersion %>",
+  "main": [
+    "dist/<%= projectName %>.js",
+    "dist/<%= projectName %>.min.js",
+    "dist/<%= projectName %>.min.js.map"
+  ],
+  "ignore": [
+
+      "src",
+      "demo",
+      ".bowerrc",
+      ".gitignore",
+      ".travis.yml",
+      "bower.json",
+      "Gruntfile.js",
+      "build.config.js",
+      "karma-unit.tpl.js",
+      "changelog.tpl",
+      "package.json",
+      "module.prefix",
+      "module.suffix",
+      "LICENSE",
+      "README.md"
+  ],
+  "dependencies": {
+    "angular": "<%- angularVersion %>"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3",
+    "angular-mocks": "<%- angularVersion %>",
+    "angular-bootstrap": "~0.13.0",
+    "google-code-prettify": "~1.0.3"
+  }
+}
