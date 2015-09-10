@@ -18,8 +18,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'authorName',
           validate: function (input) {
-              if (/^([a-zA-Z0-9 -_]*)$/.test(input)) return true;
-              return 'Your author name cannot be empty';
+             return (/^([a-zA-Z0-9 -_]*)$/.test(input)) ? true : 'Your author name cannot be empty';
           },
           message: '(1/10) What is your name?',
           default: 'Tine Kondo'
@@ -28,8 +27,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'githubUsername',
           validate: function (input) {
-              if (/^([a-zA-Z0-9]*)$/.test(input)) return true;
-              return 'Your github username cannot contain special characters or a blank space, using the default name instead';
+             return (/^([a-zA-Z0-9]*)$/.test(input)) ? true : 'Your github username cannot contain special characters or a blank space, using the default name instead';
           },
           message: '(2/10) What is your Github username?',
           default: 'tinesoft'
@@ -38,8 +36,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'projectName',
           validate: function (input) {
-              if (/^([a-zA-Z0-9-_]*)$/.test(input)) return true;
-              return 'Your project name cannot contain special characters or a blank space, using the default name instead';
+             return (/^([a-zA-Z0-9-_]*)$/.test(input)) ? true : 'Your project name cannot contain special characters or a blank space, using the default name instead';
           },
           message: '(3/10) What is the base name of your project?',
           default: 'ng-plugin'
@@ -48,8 +45,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'projectVersion',
           validate: function (input) {
-              if (/^([0-9]\.[0-9]\.[0-9])$/.test(input)) return true;
-              return 'Your project version does not follow semantic versioning convention (eg: X.Y.Z)';
+             return (/^([0-9]\.[0-9]\.[0-9])$/.test(input)) ? true : 'Your project version does not follow semantic versioning convention (eg: X.Y.Z)';
           },
           message: '(4/10) What is the version of your project?',
           default: '1.0.0'
@@ -86,8 +82,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'angularVersion',
           validate: function (input) {
-              if (input != '') return true;
-              return 'Your Angular JS version cannot be empty';
+              return (input !== '') ? true : 'Your Angular JS version cannot be empty';
           },
           message: '(7/10) Which version of Angular JS do you want to use for your project?',
           default: '>=1.0.8'
@@ -96,8 +91,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'ngModuleName',
           validate: function (input) {
-              if (/^([a-zA-Z0-9-_]*)$/.test(input)) return true;
-              return 'Your Angular module name cannot contain special characters or a blank space, using the default name instead';
+              return (/^([a-zA-Z0-9-_]*)$/.test(input)) ? true : 'Your Angular module name cannot contain special characters or a blank space, using the default name instead';
           },
           message: '(8/10) What is the name of your Angular module?',
           default: 'ngModule'
@@ -106,8 +100,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'ngDirectiveName',
           validate: function (input) {
-              if (/^([a-z-]*)$/.test(input)) return true;
-              return 'Your directive name cannot contain special characters or a blank space, using the default name instead';
+              return (/^([a-z-]*)$/.test(input)) ? true : 'Your directive name cannot contain special characters or a blank space, using the default name instead';
           },
           message: '(9/10) What is the name of your main directive?',
           default: 'directive-name'
@@ -116,8 +109,7 @@ module.exports = yeoman.generators.Base.extend({
           type: 'input',
           name: 'mainColor',
           validate: function (input) {
-              if (input != '') return true;
-              return 'Your brand color cannot be empty';
+              return (input !== '') ? true : 'Your brand color cannot be empty';
           },
           message: '(10/10) What is the brand color (for the demo app)?',
           default: '#f75b00'
@@ -136,15 +128,15 @@ module.exports = yeoman.generators.Base.extend({
     this.mainColor = this.config.get('mainColor');
 
     
-    if (this.authorName != null &&
-        this.githubUsername != null &&
-        this.projectName != null &&
-        this.projectVersion != null &&
-        this.projectDescription != null &&
-        this.angularVersion != null &&
-        this.ngModuleName != null &&
-        this.ngDirectiveName != null &&
-        this.mainColor != null) {
+    if (!!this.authorName &&
+        !!this.githubUsername &&
+        !!this.projectName &&
+        !!this.projectVersion &&
+        !!this.projectDescription &&
+        !!this.angularVersion &&
+        !!this.ngModuleName &&
+        !!this.ngDirectiveName &&
+        !!this.mainColor) {
 
 
         this.log(chalk.green('This is an existing project, using the configuration from your .yo-rc.json file \n' +

@@ -3,22 +3,21 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var os = require('os');
 
 describe('ng-plugin:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions({ skipInstall: true })
       .withPrompts({
-        "authorName": "Tine Kondo",
-        "githubUsername": "tinesoft",
-        "projectName": "ng-plugin",
-        "projectVersion": "1.0.0",
-        "angularVersion": ">=1.0.8",
-        "ngModuleName": "ngModule",
-        "ngDirectiveName": "directive-name",
-        "projectDescription": "AngularJS plugin for ...",
-        "mainColor": ""
+        'authorName': 'Tine Kondo',
+        'githubUsername': 'tinesoft',
+        'projectName': 'ng-plugin',
+        'projectVersion': '1.0.0',
+        'angularVersion': '>=1.0.8',
+        'ngModuleName': 'ngModule',
+        'ngDirectiveName': 'directive-name',
+        'projectDescription': 'AngularJS plugin for ...',
+        'mainColor': ''
       })
       .on('end', done);
   });

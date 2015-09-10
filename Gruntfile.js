@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 
     // Load Grunt tasks
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-mocha-cov');
 
     grunt.initConfig({
         jshint: {
@@ -15,22 +15,22 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'test/test-load.js', 
-                'test/test-creation.js'
-                ]
-        },
-        mochaTest: {
-            unit: {
-                src: [
+                'app/index.js',
                 'test/test-app.js'
                 ]
-            }
+        },
+      mochacov: {
+        options: {
+          reporter: 'spec',
+          coveralls:true
+        },
+        all: ['test/test-app.js']
         }
     });
 
     grunt.registerTask('test', [
         'jshint:all',
-        'mochaTest:unit'
+        'mochacov'
     ]);
 
     // Default task
