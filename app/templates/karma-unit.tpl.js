@@ -17,12 +17,19 @@ module.exports = function ( karma ) {
       'src/assets/**/*.js'
     ],
     frameworks: [ 'jasmine' ],
-    plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher'],
+    plugins: [ 'karma-jasmine', 'karma-coverage', 'karma-phantomjs-launcher'],
 
     /**
-     * How to report, by default.
+     * Coverage
      */
-    reporters: 'dots',
+    preprocessors : {
+      'src/**/*.js': 'coverage'
+    },
+    reporters: ['dots','coverage'],
+    coverageReporter : {
+      type : 'lcov',
+      dir : 'coverage/'
+    },
 
     /**
      * On which port should the browser connect, on which port is the test runner

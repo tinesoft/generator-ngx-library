@@ -8,6 +8,7 @@ module.exports = {
    * completely built, and the `compile_dir` for our main files.
    */
   build_dir: 'build',
+  coverage_dir: 'coverage',
   compile_dir: 'dist',
   compile_dir_demo: 'dist/demo',
 

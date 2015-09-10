@@ -4,5 +4,6 @@
 *.sh
 /dist
 /build
+/coverage
 /node_modules
 /bower_components

@@ -17,6 +17,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-build-control');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-coveralls');
 
 
   /**
@@ -107,11 +108,27 @@ module.exports = function ( grunt ) {
     },
 
     /**
+     * grunt plugin to load coverage results and submit them to Coveralls.io
+     */
+    coveralls: {
+      options: {
+        // LCOV coverage file relevant to every target 
+        src: 'coverage/**/lcov.info',
+   
+        // When true, grunt-coveralls will only print a warning rather than 
+        // an error, to prevent CI builds from failing unnecessarily (e.g. if 
+        // coveralls.io is down). Optional, defaults to false. 
+        force: false
+      }
+    },
+
+    /**
      * The directories to delete when `grunt clean` is executed.
      */
     clean: [ 
       '<%%= build_dir %>', 
-      '<%%= compile_dir %>'
+      '<%%= compile_dir %>',
+      '<%%= coverage_dir %>'
     ],
 
     /**
