@@ -1,7 +1,9 @@
-node_modules
-.idea
-*.iml
-atlassian-ide-plugin.xml
-/.project
-test/temp/
-npm-debug.log
+*.sw*
+*~
+*.bat
+*.sh
+.coveralls.yml
+/dist
+/build
+/coverage
+/node_modules

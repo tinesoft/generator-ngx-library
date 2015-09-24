@@ -34,17 +34,25 @@ module.exports = function (grunt) {
                 ]
         },
       mochacov: {
-        options: {
-          reporter: 'spec',
-          coveralls:true
+        coverage: {
+          options: {
+            coveralls: true
+          }
         },
-        all: ['test/test-app.js']
+        test: {
+          options: {
+            reporter: 'spec'
+          }
+        },
+        options: {
+          files: 'test/test-app.js'
         }
+      }
     });
 
     grunt.registerTask('test', [
         'jshint:all',
-        'mochacov'
+        'mochacov:test'
     ]);
 
     // Default task
