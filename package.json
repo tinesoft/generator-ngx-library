@@ -1,6 +1,6 @@
 {
   "name": "generator-ng-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yeoman generator to bootstrap AngularJS plugin creation, with integrated demo app, continuous integration system, dependencies and code coverage status",
   "license": "MIT",
   "keywords": [
