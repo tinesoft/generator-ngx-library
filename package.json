@@ -1,20 +1,25 @@
 {
-  "name": "generator-ng-plugin",
+  "name": "generator-ngx-library",
   "version": "1.0.1",
-  "description": "Yeoman generator to bootstrap AngularJS plugin creation, with integrated demo app, continuous integration system, dependencies and code coverage status",
+  "description": "Yeoman generator to bootstrap Angular library creation, with integrated demo app, continuous integration/deployment system, code coverage status and much more!",
   "license": "MIT",
   "keywords": [
     "yeoman-generator",
-    "AngularJS",
-    "Plugin",
-    "Directive",
-    "Library",
-    "Project",
-    "Quickstart",
-    "Initializer"
+    "yeoman",
+    "generator",
+    "angularjs",
+    "angular",
+    "plugin",
+    "component",
+    "directive",
+    "library",
+    "project",
+    "quickstart",
+    "initializer",
+    "starter"
   ],
   "homepage": "http://tinesoft.github.io/",
-  "bugs": "https://github.com/tinesoft/generator-ng-plugin/issues",
+  "bugs": "https://github.com/tinesoft/generator-ngx-library/issues",
   "author": {
     "name": "Tine Kondo",
     "email": "",
@@ -23,29 +28,39 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tinesoft/generator-ng-plugin.git"
+    "url": "git://github.com/tinesoft/generator-ngx-library.git"
   },
   "scripts": {
     "test": "mocha --reporter spec"
   },
   "dependencies": {
-    "chalk": "^1.0.0",
+    "chalk": "^1.1.3",
     "mkdirp": "^0.5.1",
-    "yeoman-generator": "^0.20.1",
-    "yosay": "^1.0.2"
+    "yeoman-generator": "^1.1.1",
+    "yosay": "^2.0.0"
   },
   "devDependencies": {
-    "grunt": "latest",
-    "grunt-bump": "latest",
-    "grunt-contrib-jshint": "latest",
-    "grunt-mocha-cov": "latest",
-    "time-grunt": "latest"
-  },
-  "config": {
-    "blanket": {
-      "pattern": [
-        "app/index.js"
-      ]
-    }
+    "@types/yeoman-generator": "^1.0.1",
+    "conventional-github-releaser": "^1.1.3",
+    "eslint": "^3.18.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.7.0",
+    "gulp-conventional-changelog": "^1.1.3",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-eslint": "^3.0.1",
+    "gulp-git": "^2.2.0",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-nsp": "^2.4.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-shell": "^0.6.3",
+    "gulp-util": "^3.0.8",
+    "lodash": "^4.17.4",
+    "run-sequence": "^1.2.2",
+    "semver": "^5.3.0",
+    "yargs": "^7.1.0",
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "^1.6.0"
   }
 }

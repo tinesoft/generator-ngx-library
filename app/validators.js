@@ -1,0 +1,63 @@
+'use strict';
+
+const semver = require('semver');
+const _ = require('lodash');
+
+const NG_MODULES_DEPENDENCIES = {
+  'core': ['rxjs', 'zone.js'],
+  'common': ['core'],
+  'forms': ['core', 'common'],
+  'http': ['core', 'platform-browser', 'rxjs'],
+  'compiler': ['core'],
+  'router': ['core', 'common', 'platform-browser', 'rxjs'],
+  'upgrade': ['core', 'compiler', 'platform-browser', 'platform-browser-dynamic'],
+  'language-service': [],
+  'platform-browser-dynamic': ['core', 'common', 'compiler', 'platform-browser'],
+  'platform-browser': ['core', 'common'],
+  'platform-server': ['core', 'common', 'compiler', 'platform-browser'],
+  'platform-webworker-dynamic': ['core', 'compiler', 'platform-browser', 'platform-webworker'],
+  'platform-webworker': ['core', 'platform-browser'],
+  'animations': ['core']
+};
+
+module.exports = {
+
+  validateAuthorName: input => {
+    return /^[a-zA-Z0-9 -_]+$/.test(input) ? true : 'Your author name is not valid';
+  },
+
+  validateAuthorEmail: input => {
+    return /^([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,2}$/.test(input) ? true : 'Your author email is not valid';
+  },
+
+  validateGithubUsername: input => {
+    return /^[a-zA-Z0-9]+$/.test(input) ? true : 'Your github username cannot contain special characters or a blank space';
+  },
+
+  validateProjectName: input => {
+    return /^[a-zA-Z0-9-_]+$/.test(input) ? true : 'Your project name cannot contain special characters or a blank space';
+  },
+  validateProjectVersion: input => {
+    return semver.valid(input) ? true : 'Your project version does not follow semantic versioning convention (eg: X.Y.Z)';
+  },
+
+  validateModuleName: input => {
+    return /^[a-zA-Z0-9-_]+$/.test(input) ? true : 'Your Angular module name cannot contain special characters or a blank space';
+  },
+  validateNgModules: selectedModules => {
+    if (!selectedModules || selectedModules.indexOf('core') === -1) {
+      return 'Your library must at least include Angular\'s "core" module';
+    }
+
+    let requiredModules = [...selectedModules];
+    // Add all dependent modules by traversing through selected modules' dependencies
+    for (let ngModule of selectedModules) {
+      requiredModules = requiredModules.concat(NG_MODULES_DEPENDENCIES[ngModule]);
+    }
+    requiredModules = _.uniq(requiredModules);
+    let missingModules = _.difference(requiredModules, selectedModules);
+    // Remove dev dependencies
+    _.remove(missingModules, m => m === 'rxjs' || m === 'zone.js');
+    return missingModules.length === 0 ? true : `The following modules must be selected as well to satisfy dependencies: ${missingModules}`;
+  }
+};

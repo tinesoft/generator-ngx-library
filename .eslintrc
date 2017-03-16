@@ -1,0 +1,12 @@
+{
+  "extends": "xo-space",
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "quote-props": [
+      "error",
+      "consistent-as-needed"
+    ]
+  }
+}

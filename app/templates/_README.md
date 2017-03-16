@@ -1,94 +1,72 @@
-<%= projectName %> [![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>.svg)](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>)[![devDependency Status](https://david-dm.org/<%= githubUsername %>/<%= projectName %>/dev-status.svg)](https://david-dm.org/<%= githubUsername %>/<%= projectName %>#info=devDependencies)
-===========================================================================================================================================
+# <%= projectName %> - <%= projectDescription %>
 
-<%= projectDescription %>
+[![npm version](https://badge.fury.io/js/<%= projectName %>.svg)](https://badge.fury.io/js/<%= projectName %>)
+[![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>)
+[![Coverage Status](https://coveralls.io/repos/github/<%= githubUsername %>/<%= projectName %>/badge.svg?branch=master)](https://coveralls.io/github/<%= githubUsername %>/<%= projectName %>?branch=master)
+[![devDependency Status](https://david-dm.org/<%= githubUsername %>/<%= projectName %>/dev-status.svg?branch=master)](https://david-dm.org/<%= githubUsername %>/<%= projectName %>#info=devDependencies)
 
-Demo: http://<%= githubUsername %>.github.io/<%= projectName %>
+## Demo
 
-### Installation
+View all the directives in action at https://<%= githubUsername %>.github.io/<%= projectName %>
 
-Using bower:
+## Dependencies
+* [Angular](https://angular.io) (*requires* Angular 2 or higher, tested with 2.0.0)
 
-```
-$ bower install <%= projectName %>
-```
+## Installation
+Install above dependencies via *npm*. 
 
-Using npm:
-
-```
-$ npm install <%= projectName %>
-```
-
-
-### How to use it
-
-You should already have angular script referenced. If not, add it:
-
-```
-<script type="text/javascript" src="angular.min.js"></script>
+Now install `<%= projectName %>` via:
+```shell
+npm install --save <%= projectName %>
 ```
 
-to the list above, you should add:
-
+---
+##### SystemJS
+>**Note**:If you are using `SystemJS`, you should adjust your configuration to point to the UMD bundle.
+In your systemjs config file, `map` needs to tell the System loader where to look for `<%= projectName %>`:
+```js
+map: {
+  '<%= projectName %>': 'node_modules/<%= projectName %>/bundles/<%= projectName %>.umd.js',
+}
 ```
-<script type="text/javascript" src="<%= projectName %>.min.js"></script>
+---
+
+Once installed you need to import the main module:
+```js
+import {<%= moduleClass %>} from '<%= projectName %>';
 ```
+The only remaining part is to list the imported module in your application module. The exact method will be slightly
+different for the root (top-level) module for which you should end up with the code similar to (notice `<%= moduleClass %>.forRoot()`):
+```js
+import {<%= moduleClass %>} from '<%= projectName %>';
 
-Then, inject `<%= ngModuleName %>` in your application module:
-
-```
-angular.module('myApp', ['<%= ngModuleName %>']);
-```
-
-and then just add an `<%= ngDirectiveName %>` tag:
-
-```
-<<%= ngDirectiveName %>></<%= ngDirectiveName %>>
-```
-
-### Implemented features so far
-
-* `option1` : description1
-* `option2` : description2
-* `reminder` : atfer how many hours should the message reappear: 0 = show all the time
-* ...
-
-Example with some above features:
-
-```
-<<%= ngDirectiveName %>  
- option1="value1"
- option2="value2"
- ...
-</<%= ngDirectiveName %>>
+@NgModule({
+  declarations: [AppComponent, ...],
+  imports: [<%= moduleClass %>.forRoot(), ...],  
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
 ```
 
-### Features to be implemented:
+Other modules in your application can simply import `<%= moduleClass %>`:
 
+```js
+import {<%= moduleClass %>} from '<%= projectName %>';
 
-
-### Build
-
-You can run the tests by cloning the repo and then (inside the project folder) running
-
-```
-$ npm install
-$ bower install
-$ grunt watch
-```
-
-assuming you already have `grunt` installed, otherwise you also need to do:
-
-```
-$ npm install -g grunt-cli
+@NgModule({
+  declarations: [OtherComponent, ...],
+  imports: [<%= moduleClass %>, ...], 
+})
+export class OtherModule {
+}
 ```
 
-### License
-
-Copyright (c) <%%= grunt.template.today("yyyy") %> <%= authorName %>. Licensed under the MIT License (MIT)
+## Usage
 
 
-### Thanks To
 
+## License
 
+Copyright (c) <%= today.getFullYear() %> <%= authorName %>. Licensed under the MIT License (MIT)
 
