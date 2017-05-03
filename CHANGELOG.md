@@ -1,3 +1,13 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/tinesoft/generator-ngx-library/compare/v2.0.0...v2.0.1) (2017-05-03)
+
+
+### Bug Fixes
+
+* **peerDependencies:** align some angular and typescript dev dependencies with angular v4+ ([6b7f3cb](https://github.com/tinesoft/generator-ngx-library/commit/6b7f3cb)), closes [#1](https://github.com/tinesoft/generator-ngx-library/issues/1)
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v1.0.1...v2.0.0) (2017-05-01)
 
