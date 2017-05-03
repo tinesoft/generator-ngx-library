@@ -133,10 +133,20 @@ module.exports = class extends Generator {
         this.devDependencies.push('"@angular/compiler-cli" : "0.6.2"');
         this.devDependencies.push('"zone.js" : "0.6.21"');
         this.devDependencies.push('"rxjs" : "5.0.0-beta.12"');
+        this.devDependencies.push('"tslint" : "^3.15.1"');
+        this.devDependencies.push('"typescript" : "2.0.3"');
+        this.devDependencies.push('"codelyzer" : "1.0.0-beta.0"');
       } else {
         this.devDependencies.push('"@angular/compiler-cli" : "4.0.0"');
         this.devDependencies.push('"zone.js" : "0.8.4"');
         this.devDependencies.push('"rxjs" : "5.0.1"');
+        this.devDependencies.push('"tslint" : "~4.5.0"');
+        this.devDependencies.push('"typescript" : "~2.2.0"');
+        this.devDependencies.push('"codelyzer" : "~2.0.0"');
+
+        if (this.ngModules.indexOf('animations') === -1) {
+          this.devDependencies.push(`"@angular/animations" : "${this.ngVersion}"`);
+        }
       }
     };
 

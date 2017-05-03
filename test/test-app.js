@@ -155,7 +155,10 @@ describe('ngx-library:app', () => {
             '"@angular/platform-browser-dynamic" : "2.0.0"',
             '"@angular/compiler-cli" : "0.6.2"',
             '"zone.js" : "0.6.21"',
-            '"rxjs" : "5.0.0-beta.12"']);
+            '"rxjs" : "5.0.0-beta.12"',
+            '"tslint" : "^3.15.1"',
+            '"typescript" : "2.0.3"',
+            '"codelyzer" : "1.0.0-beta.0"']);
       });
     });
   });
@@ -188,7 +191,10 @@ describe('ngx-library:app', () => {
             '"@angular/platform-browser-dynamic" : "4.0.0"',
             '"@angular/compiler-cli" : "4.0.0"',
             '"zone.js" : "0.8.4"',
-            '"rxjs" : "5.0.1"']);
+            '"rxjs" : "5.0.1"',
+            '"tslint" : "~4.5.0"',
+            '"typescript" : "~2.2.0"',
+            '"codelyzer" : "~2.0.0"']);
       });
     });
   });
