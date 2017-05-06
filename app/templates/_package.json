@@ -3,14 +3,14 @@
   "description": "<%= projectDescription %>",
   "version": "<%= projectVersion %>",
   "filename": "./src/<%= projectName %>.js",
-  "homepage": "http://github.com/<%=githubUsername %>/<%= projectName %>",
+  "homepage": "http://github.com/<%= githubUsername %>/<%= projectName %>",
   "author": {
     "name": "<%= authorName %>",
-    "url": "http://github.com/<%=githubUsername %>"
+    "url": "http://github.com/<%= githubUsername %>"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/<%=githubUsername %>/<%= projectName %>.git"
+    "url": "git://github.com/<%= githubUsername %>/<%= projectName %>.git"
   },
   "license": "MIT",
   "keywords": [
@@ -20,14 +20,15 @@
 	  "<%= keyword %>"<% } %>
   ],
   "bugs": {
-    "url": "http://github.com/<%=githubUsername %>/<%= projectName %>/issues"
+    "url": "http://github.com/<%= githubUsername %>/<%= projectName %>/issues"
   },
   "main": "./dist",
   "typings": "./dist",
   "scripts": {
     "start": "gulp build",
     "test": " gulp test",
-    "demo": " gulp build:demo"
+    "demo": " gulp build:demo",
+    "check-travis": " travis-status --repo=<%= githubUsername %>/<%= projectName %> --branch=master --fail-pending || echo 'Not yet passing'"
   },
   "dependencies": {<% let dependencies = [];
   for (ngModule of ngModules) {
@@ -80,6 +81,7 @@
     "postcss-strip-inline-comments": "^0.1.5",
     "source-map-loader": "^0.1.5",
     "to-string-loader": "^1.1.5",
+    "travis-status": "^1.0.0",
     "webpack": "~2.4.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "~2.4.2",

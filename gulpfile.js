@@ -4,6 +4,7 @@ const path = require('path');
 const gulp = require('gulp');
 const gulpUtil = require('gulp-util');
 const gulpShell = require('gulp-shell');
+const execSync = require('child_process').execSync;
 
 const gulpEslint = require('gulp-eslint');
 const gulpMocha = require('gulp-mocha');
@@ -36,6 +37,27 @@ const getPackageJsonVersion = () => {
   // We parse the json file instead of using require because require caches
   // multiple calls so the version number won't be updated
   return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
+};
+
+const isOK = condition => {
+  return condition ? gulpUtil.colors.green('[OK]') : gulpUtil.colors.red('[KO]');
+};
+
+const readyToRelease = () => {
+
+  let isTravisPassing = /build #\d+ passed/.test(execSync('npm run check-travis').toString().trim());
+  let onMasterBranch = execSync('git symbolic-ref --short -q HEAD').toString() === 'master';
+  let canBump = !!argv.version;
+  let canGhRelease = argv.ghToken || process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN;
+  let canNpmPublish = !!execSync('npm whoami').toString().trim() && execSync('npm config get registry').toString().trim() === 'https://registry.npmjs.org/';
+
+  gulpUtil.log(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(isTravisPassing)}`);
+  gulpUtil.log(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
+  gulpUtil.log(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
+  gulpUtil.log(`[bump-version]   Option '--version' provided, with values : 'major', 'minor', 'patch'..................${isOK(canBump)}`);
+  gulpUtil.log(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(canGhRelease)}`);
+
+  return isTravisPassing && onMasterBranch && canBump && canGhRelease && canNpmPublish;
 };
 
 gulp.task('static', () => {
@@ -150,25 +172,39 @@ gulp.task('create-new-tag', (cb) => {
 
 gulp.task('build', ['static', 'test'])
 
-gulp.task('publish', gulpShell.task('npm publish'));
+gulp.task('npm-publish', gulpShell.task('npm publish'));
+
+gulp.task('pre-release', cb => {
+  readyToRelease();
+  cb();
+});
 
 gulp.task('release', (cb) => {
-  runSequence(
-    'bump-version',
-    'changelog',
-    'commit-changes',
-    'push-changes',
-    'create-new-tag',
-    'github-release',
-    'publish',
-    (error) => {
-      if (error) {
-        console.log(error.message);
-      } else {
-        console.log('RELEASE FINISHED SUCCESSFULLY');
-      }
-      cb(error);
-    });
+  gulpUtil.log('# Performing Pre-Release Checks...');
+  if (!readyToRelease()) {
+    gulpUtil.log(gulpUtil.colors.red('# Pre-Release Checks have failed. Please fix them and try again. Aborting...'));
+    cb();
+  }
+  else {
+    gulpUtil.log(gulpUtil.colors.green('# Pre-Release Checks have succeeded. Continuing...'));
+    runSequence(
+      'bump-version',
+      'changelog',
+      'commit-changes',
+      'push-changes',
+      'create-new-tag',
+      'github-release',
+      'npm-publish',
+      (error) => {
+        if (error) {
+          gulpUtil.log(error.message);
+        } else {
+          gulpUtil.log(gulpUtil.colors.green('RELEASE FINISHED SUCCESSFULLY'));
+        }
+        cb(error);
+      });
+
+  }
 });
 
 

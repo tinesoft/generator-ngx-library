@@ -9,8 +9,9 @@ const gulpUtil = require('gulp-util');
 const gulpTslint = require('gulp-tslint');
 
 /** External command runner */
-const gulpShell = require('gulp-shell');
 const process = require('process');
+const gulpShell = require('gulp-shell');
+const execSync = require('child_process').execSync;
 
 /** File Access */
 const fs = require('fs');
@@ -22,6 +23,7 @@ const pump = require('pump');
 
 /** To upload code coverage to coveralls */
 const gulpCoveralls = require('gulp-coveralls');
+
 /** To order tasks */
 const runSequence = require('run-sequence');
 
@@ -30,7 +32,7 @@ const gulpRollup = require('gulp-better-rollup');
 const rollupNodeResolve = require('rollup-plugin-node-resolve');
 const rollupUglify = require('rollup-plugin-uglify');
 
-/** load templates and styles in ng2 components */
+/** To load templates and styles in ng2 components */
 const gulpInlineNgTemplate = require('gulp-inline-ng2-template');
 
 /** Sass style */
@@ -98,6 +100,27 @@ const getPackageJsonVersion = () => {
   return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
 }
 
+const isOK = condition => {
+  return condition ? gulpUtil.colors.green('[OK]') : gulpUtil.colors.red('[KO]');
+};
+
+const readyToRelease = () => {
+
+  let isTravisPassing = /build #\d+ passed/.test(execSync('npm run check-travis').toString().trim()) ;
+  let onMasterBranch = execSync('git symbolic-ref --short -q HEAD').toString() === 'master';
+  let canBump = !!argv.version;
+  let canGhRelease = argv.ghToken || process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN;
+  let canNpmPublish = !!execSync('npm whoami').toString().trim() && execSync('npm config get registry').toString().trim() === 'https://registry.npmjs.org/';
+
+  gulpUtil.log(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(isTravisPassing)}`);
+  gulpUtil.log(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
+  gulpUtil.log(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
+  gulpUtil.log(`[bump-version]   Option '--version' provided, with values : 'major', 'minor', 'patch'..................${isOK(canBump)}`);
+  gulpUtil.log(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(canGhRelease)}`);
+
+  return isTravisPassing && onMasterBranch && canBump && canGhRelease && canNpmPublish;
+};
+
 // Clean Tasks
 gulp.task('clean:dist', () => {
   return del(config.outputDir);
@@ -124,40 +147,40 @@ const styleProcessor = (stylePath, ext, styleFile, callback) => {
    * Remove comments, autoprefixer, Minifier
    */
   const processors = [
-      stripInlineComments,
-      autoprefixer,
-      cssnano
+    stripInlineComments,
+    autoprefixer,
+    cssnano
   ];
 
   if (/\.(scss|sass)$/.test(ext[0])) {
     let sassObj = sass.renderSync({ file: stylePath });
-    if (sassObj && sassObj['css']){
-     let css = sassObj.css.toString('utf8');
-     postcss(processors).process(css).then(function (result) {
+    if (sassObj && sassObj['css']) {
+      let css = sassObj.css.toString('utf8');
+      postcss(processors).process(css).then(function (result) {
         result.warnings().forEach(function (warn) {
           gutil.warn(warn.toString());
         });
         styleFile = result.css;
         callback(null, styleFile);
-    });
+      });
     }
   }
 };
 
 gulp.task('inline-templates', (cb) => {
-    const options = {
-        base: '/src',
-        target: 'es5',
-        styleProcessor: styleProcessor,
-        useRelativePaths: true
-    };
-    pump(
-        [
-            gulp.src(config.allTs),
-            gulpInlineNgTemplate(options),
-            gulp.dest(`${config.outputDir}/inlined`)
-        ],
-        cb);
+  const options = {
+    base: '/src',
+    target: 'es5',
+    styleProcessor: styleProcessor,
+    useRelativePaths: true
+  };
+  pump(
+    [
+      gulp.src(config.allTs),
+      gulpInlineNgTemplate(options),
+      gulp.dest(`${config.outputDir}/inlined`)
+    ],
+    cb);
 });
 
 // Compile inlined TS files with Angular Compiler (ngc)
@@ -228,54 +251,54 @@ gulp.task('package', (cb) => {
 gulp.task('bundle', (cb) => {
   const globals = {
     // Angular dependencies <% for (ngModule of ngModules) { %>
-	  '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
+    '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
 
-    // Rxjs dependencies
-    'rxjs/Subject': 'Rx',
-    'rxjs/add/observable/fromEvent': 'Rx.Observable',
-    'rxjs/add/observable/forkJoin': 'Rx.Observable',
-    'rxjs/add/observable/of': 'Rx.Observable',
-    'rxjs/add/observable/merge': 'Rx.Observable',
-    'rxjs/add/observable/throw': 'Rx.Observable',
-    'rxjs/add/operator/auditTime': 'Rx.Observable.prototype',
-    'rxjs/add/operator/toPromise': 'Rx.Observable.prototype',
-    'rxjs/add/operator/map': 'Rx.Observable.prototype',
-    'rxjs/add/operator/filter': 'Rx.Observable.prototype',
-    'rxjs/add/operator/do': 'Rx.Observable.prototype',
-    'rxjs/add/operator/share': 'Rx.Observable.prototype',
-    'rxjs/add/operator/finally': 'Rx.Observable.prototype',
-    'rxjs/add/operator/catch': 'Rx.Observable.prototype',
-    'rxjs/add/observable/empty': 'Rx.Observable.prototype',
-    'rxjs/add/operator/first': 'Rx.Observable.prototype',
-    'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
-    'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
-    'rxjs/Observable': 'Rx'
+  // Rxjs dependencies
+  'rxjs/Subject': 'Rx',
+  'rxjs/add/observable/fromEvent': 'Rx.Observable',
+  'rxjs/add/observable/forkJoin': 'Rx.Observable',
+  'rxjs/add/observable/of': 'Rx.Observable',
+  'rxjs/add/observable/merge': 'Rx.Observable',
+  'rxjs/add/observable/throw': 'Rx.Observable',
+  'rxjs/add/operator/auditTime': 'Rx.Observable.prototype',
+  'rxjs/add/operator/toPromise': 'Rx.Observable.prototype',
+  'rxjs/add/operator/map': 'Rx.Observable.prototype',
+  'rxjs/add/operator/filter': 'Rx.Observable.prototype',
+  'rxjs/add/operator/do': 'Rx.Observable.prototype',
+  'rxjs/add/operator/share': 'Rx.Observable.prototype',
+  'rxjs/add/operator/finally': 'Rx.Observable.prototype',
+  'rxjs/add/operator/catch': 'Rx.Observable.prototype',
+  'rxjs/add/observable/empty': 'Rx.Observable.prototype',
+  'rxjs/add/operator/first': 'Rx.Observable.prototype',
+  'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
+  'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
+  'rxjs/Observable': 'Rx'
   };
 
-  const rollupOptions = {
-    context: 'this',
-    external: Object.keys(globals),
-    plugins: [
-      rollupNodeResolve({ module: true }),
-      rollupUglify()
-    ]
-  };
+const rollupOptions = {
+  context: 'this',
+  external: Object.keys(globals),
+  plugins: [
+    rollupNodeResolve({ module: true }),
+    rollupUglify()
+  ]
+};
 
-  const rollupGenerateOptions = {
-    // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
-    moduleId: '',
-    moduleName: `${_.camelCase(LIBRARY_NAME)}`, //require for 'umd' bundling, must be a valid js identifier, see rollup/rollup/issues/584
-    format: 'umd',
-    globals,
-    dest: `${LIBRARY_NAME}.umd.js`
-  };
+const rollupGenerateOptions = {
+  // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
+  moduleId: '',
+  moduleName: `${_.camelCase(LIBRARY_NAME)}`, //require for 'umd' bundling, must be a valid js identifier, see rollup/rollup/issues/584
+  format: 'umd',
+  globals,
+  dest: `${LIBRARY_NAME}.umd.js`
+};
 
-  pump(
-    [
-      gulp.src(`${config.outputDir}/index.js`),
-      gulpRollup(rollupOptions, rollupGenerateOptions),
-      gulp.dest(`${config.outputDir}/bundles`)
-    ], cb);
+pump(
+  [
+    gulp.src(`${config.outputDir}/index.js`),
+    gulpRollup(rollupOptions, rollupGenerateOptions),
+    gulp.dest(`${config.outputDir}/bundles`)
+  ], cb);
 });
 
 //Demo Tasks
@@ -388,27 +411,42 @@ gulp.task('create-new-tag', (cb) => {
 
 });
 
-gulp.task('release', (cb) => {
-  runSequence(
-    'bump-version',
-    'changelog',
-    'commit-changes',
-    'push-changes',
-    'create-new-tag',
-    'github-release',
-    'publish',
-    'deploy:demo',
-    (error) => {
-      if (error) {
-        console.log(error.message);
-      } else {
-        console.log('RELEASE FINISHED SUCCESSFULLY');
-      }
-      cb(error);
-    });
+gulp.task('pre-release', cb => {
+  readyToRelease();
+  cb();
 });
 
+gulp.task('release', (cb) => {
+  gulpUtil.log('# Performing Pre-Release Checks...');
+  if (!readyToRelease()) {
+    gulpUtil.log(gulpUtil.colors.red('# Pre-Release Checks have failed. Please fix them and try again. Aborting...'));
+    cb();
+  }
+  else {
+    gulpUtil.log(gulpUtil.colors.green('# Pre-Release Checks have succeeded. Continuing...'));
+    runSequence(
+      'bump-version',
+      'changelog',
+      'commit-changes',
+      'push-changes',
+      'create-new-tag',
+      'github-release',
+      'npm-publish',
+      'deploy:demo',
+      (error) => {
+        if (error) {
+          gulpUtil.log(error.message);
+        } else {
+          gulpUtil.log(gulpUtil.colors.green('RELEASE FINISHED SUCCESSFULLY'));
+        }
+        cb(error);
+      });
+
+  }
+});
+
+
 // Build and then Publish 'dist' folder to NPM
-gulp.task('publish', ['build'], gulpShell.task(`npm publish ${config.outputDir}`));
+gulp.task('npm-publish', ['build'], gulpShell.task(`npm publish ${config.outputDir}`));
 
 gulp.task('default', ['build']);

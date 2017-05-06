@@ -190,9 +190,21 @@ Task                    | Purpose
 
 To take full advantage of the generator, use [Angular's commit message convention](https://github.com/conventional-changelog-archived-repos/conventional-changelog-angular/blob/master/convention.md). This way, the gulp's `changelog` task can be used to generate/update the project's `CHANGELOG.md` file from Git metadata. Only relevant commit messages are considered (commits about new features, fixes, performance, and breaking changes).
 
+# Pre-Releasing :checkered_flag:
+
+A set of checks is automatically performed for you prior to releasing (during `gulp release`), to ensure that you are indeed ready for it. Right now, we check that:
+
+* Travis build on `master` branch is passing
+* User is currently on `master` branch
+* User is currently logged in to NPM
+* Option `--version` has been provided to `gulp release` task, with value: `major`, `minor` or `patch`
+* Option `--ghToken` has been provided or env variable `CONVENTIONAL_GITHUB_RELEASER_TOKEN` is set
+
+You can also run the `gulp pre-release` task alone, to solely perform these checks without actually releasing anything.
+
 # Releasing
 
-Once your killer library is done, **Travis is green** and **coverage is looking good**, then, it is time unleash the beast!
+Once your killer library is done, then it is time unleash the beast!
 
 Nothing is simpler :stuck_out_tongue: 
 
@@ -209,6 +221,7 @@ As you can see above, the releasing task can take 2 parameters:
 
 Running this task will (in that order) :
 
+0. check if ready for release (see [Pre-Releasing](#Pre-Releasing) above) and abort if not
 1. bump the version of your library in `package.json`
 2. update the `CHANGELOG.md` file based on your commit messages (provided they follow the [angular git message convention](https://github.com/conventional-changelog-archived-repos/conventional-changelog-angular/blob/master/convention.md))
 3. commit on `master` branch
