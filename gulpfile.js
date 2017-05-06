@@ -46,7 +46,7 @@ const isOK = condition => {
 const readyToRelease = () => {
 
   let isTravisPassing = /build #\d+ passed/.test(execSync('npm run check-travis').toString().trim());
-  let onMasterBranch = execSync('git symbolic-ref --short -q HEAD').toString() === 'master';
+  let onMasterBranch = execSync('git symbolic-ref --short -q HEAD').toString().trim() === 'master';
   let canBump = !!argv.version;
   let canGhRelease = argv.ghToken || process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN;
   let canNpmPublish = !!execSync('npm whoami').toString().trim() && execSync('npm config get registry').toString().trim() === 'https://registry.npmjs.org/';
