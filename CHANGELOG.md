@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.0.1...v2.1.0) (2017-05-06)
+
+
+### Features
+
+* **release:** add pre-release checks to ensure library is ready to be released ([b67fd55](https://github.com/tinesoft/generator-ngx-library/commit/b67fd55))
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/tinesoft/generator-ngx-library/compare/v2.0.0...v2.0.1) (2017-05-03)
 
