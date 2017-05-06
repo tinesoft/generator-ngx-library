@@ -3,6 +3,7 @@
 [![npm version](https://badge.fury.io/js/<%= projectName %>.svg)](https://badge.fury.io/js/<%= projectName %>)
 [![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>)
 [![Coverage Status](https://coveralls.io/repos/github/<%= githubUsername %>/<%= projectName %>/badge.svg?branch=master)](https://coveralls.io/github/<%= githubUsername %>/<%= projectName %>?branch=master)
+[![dependency Status](https://david-dm.org/<%= githubUsername %>/<%= projectName %>/status.svg)](https://david-dm.org/<%= githubUsername %>/<%= projectName %>)
 [![devDependency Status](https://david-dm.org/<%= githubUsername %>/<%= projectName %>/dev-status.svg?branch=master)](https://david-dm.org/<%= githubUsername %>/<%= projectName %>#info=devDependencies)
 
 ## Demo

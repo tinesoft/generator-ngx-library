@@ -1,8 +1,11 @@
 # generator-ngx-library - [Yeoman](http://yeoman.io/) generator to bootstrap your [Angular](https://angular.io) library creation
 
+[![Join the chat at https://gitter.im/generator-ngx-library/Lobby](https://badges.gitter.im/generator-ngx-library/Lobby.svg)](https://gitter.im/generator-ngx-library/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![npm version](https://badge.fury.io/js/generator-ngx-library.svg)](https://badge.fury.io/js/generator-ngx-library)
 [![Build Status](https://travis-ci.org/tinesoft/generator-ngx-library.svg?branch=master)](https://travis-ci.org/tinesoft/generator-ngx-library)
 [![Coverage Status](https://coveralls.io/repos/github/tinesoft/generator-ngx-library/badge.svg?branch=master)](https://coveralls.io/github/tinesoft/generator-ngx-library?branch=master)
+[![dependencies Status](https://david-dm.org/tinesoft/generator-ngx-library/status.svg)](https://david-dm.org/tinesoft/generator-ngx-library)
 [![devDependency Status](https://david-dm.org/tinesoft/generator-ngx-library/dev-status.svg?branch=master)](https://david-dm.org/tinesoft/generator-ngx-library#info=devDependencies)
 ===========================================================================================================================================
 
@@ -231,6 +234,10 @@ Running this task will (in that order) :
 7. build and deploy :rocket: the demo application in `demo/dist` to `gh-pages` branch
 
 The demo application will be available at : `http://USERNAME.github.io/REPO_NAME/`
+
+# Support
+
+Having trouble using the generator for your project? Want to discuss about a new feature to add? Come and join the project's [Gitter](https://gitter.im/generator-ngx-library/Lobby) to chat about it!
 
 # License
 
