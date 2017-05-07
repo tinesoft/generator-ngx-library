@@ -115,7 +115,7 @@ const readyToRelease = () => {
   gulpUtil.log(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(isTravisPassing)}`);
   gulpUtil.log(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
   gulpUtil.log(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
-  gulpUtil.log(`[bump-version]   Option '--version' provided, with values : 'major', 'minor', 'patch'..................${isOK(canBump)}`);
+  gulpUtil.log(`[bump-version]   Option '--version' provided, with value : 'major', 'minor' or 'patch'.................${isOK(canBump)}`);
   gulpUtil.log(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(canGhRelease)}`);
 
   return isTravisPassing && onMasterBranch && canBump && canGhRelease && canNpmPublish;
