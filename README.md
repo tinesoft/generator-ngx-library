@@ -27,7 +27,7 @@ These are the main features of the generator:
 * **Integrated demo app** built with [angular-cli](https://cli.angular.io) and [ng-bootstrap](https://ng-bootstrap.github.io) 
 * **Continuous Integration** with [Travis CI](https://travis-ci.org)
 * **Code Coverage** with [Coveralls.io](https://coveralls.io/)
-* **UMD Bundling** with [RollupJS](https://rollupjs.org) 
+* **Minification and UMD Bundling** with [RollupJS](https://rollupjs.org) 
 * **Publication** to [npm registry](https://npmjs.org)
 * **Github Releasing** :octocat:
 * and so much more out-of-the-box :package:!
@@ -103,7 +103,15 @@ my-ngx-library/
   |  |- src/
   |  |	|- app/
   |  |	|  |- getting-started/
+  |  |	|  |  |- getting-started.component.html
+  |  |	|  |  |- getting-started.component.scss
+  |  |	|  |  |- getting-started.component.ts
+  |  |	|  |  |- getting-started.component.spec.ts
   |  |	|  |- home/
+  |  |	|  |  |- home.component.html
+  |  |	|  |  |- home.component.scss
+  |  |	|  |  |- home.component.ts
+  |  |	|  |  |- home.component.spec.ts
   |  |	|  |- shared/
   |  |	|  |- app-rooting.ts
   |  |	|  |- app.component.html
@@ -118,6 +126,7 @@ my-ngx-library/
   |  |	|- environments/
   |  |	|  |- environment.prod.ts
   |  |	|  |- environment.ts
+  |  |	|- _variabbles.scss
   |  |	|- index.html
   |  |	|- favicon.ico
   |  |	|- main.ts
@@ -173,9 +182,9 @@ File / Folder       | Purpose
 
 # Development
 
-It's now up to you to write your kick-ass Angular library by adding your components, directives, pipes, services... and test spec files in `src/`.
+It's now up to you to write your kick-ass Angular library by adding your components, directives, pipes, services... and test specification files in `src/`.
 
-It doesn't matter how you organize these files inside the folder, but it is important to **keep the** `index.ts` **at the root**, and to **export every file that must be publicly** available in your package.
+It doesn't matter how you organize files inside the folder, but it is important to **keep the** `index.ts` **at the root**, and to **export every file that must be publicly** available in your package.
 
 Here are the most important `gulp` tasks to use during your development workflow:
 
@@ -185,8 +194,8 @@ Task                    | Purpose
 `gulp test`             | Launches the tests (`*.spec.ts`) you wrote in `src/` and run code coverage on them. The coverage report can be found in `coverage/` folder
 `gulp test:watch`       | Launches tests in watch mode. Every changes in `*.spec.ts` 
 `gulp test:watch-no-cc` | Same as `gulp test:watch` but files do not get instrumented for code coverage (useful for debugging)
-`gulp test:demo`       | Launches demo application tests(same as running `ng test` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn\|npm install` inside `demo/`
-`gulp serve:demo`       | Launches demo application (same as running `ng serve` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn\|npm install` inside `demo/`
+`gulp test:demo`       | Launches demo application tests(same as running `ng test` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
+`gulp serve:demo`       | Launches demo application (same as running `ng serve` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
 
 
 # Versioning
@@ -237,7 +246,7 @@ The demo application will be available at : `http://USERNAME.github.io/REPO_NAME
 
 # Support
 
-Having trouble using the generator for your project? Want to discuss about a new feature to add? Come and join the project's [Gitter](https://gitter.im/generator-ngx-library/Lobby) to chat about it!
+Having trouble using the generator? Want to discuss about new features to add? Come and join the project's [Gitter](https://gitter.im/generator-ngx-library/Lobby) to chat about it!
 
 # License
 
