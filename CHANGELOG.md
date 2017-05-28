@@ -1,3 +1,19 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.1.0...v2.2.0) (2017-05-28)
+
+
+### Bug Fixes
+
+* **devDependencies:** pin dev dependencies to exact versions to avoid build breakages ([30d8e9c](https://github.com/tinesoft/generator-ngx-library/commit/30d8e9c))
+* **LICENSE:** set inception year in LICENSE file ([0e996d4](https://github.com/tinesoft/generator-ngx-library/commit/0e996d4))
+
+
+### Features
+
+* **tests:** add `karma-jasmine-html-reporter` for tests results output in browser ([cba12cf](https://github.com/tinesoft/generator-ngx-library/commit/cba12cf))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.0.1...v2.1.0) (2017-05-06)
 
