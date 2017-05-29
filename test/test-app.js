@@ -17,7 +17,8 @@ const createNgLibraryApp = (options, prompts) => {
       projectkeywords: 'ng, angular,library',
       moduleName: 'my-module',
       ngVersion: '2.0.0',
-      ngModules: ['core', 'common']
+      ngModules: ['core', 'common'],
+      useGreenkeeper: true
     });
 };
 
@@ -128,7 +129,7 @@ describe('ngx-library:app', () => {
   });
 
   describe('check generation for ng2', () => {
-    it('should have set appropriate options', () => {
+    it('should have set appropriate properties', () => {
       let ngLibraryApp = createNgLibraryApp(
         {
           skipInstall: true,
@@ -144,11 +145,12 @@ describe('ngx-library:app', () => {
           projectkeywords: 'ng, angular,library',
           moduleName: 'my-module',
           ngVersion: '2.0.0',
-          ngModules: ['core', 'common', 'animations']
+          ngModules: ['core', 'common', 'animations'],
+          useGreenkeeper: true
         });
       return ngLibraryApp.then(() => {
         assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common']);
-        assert.deepEqual(ngLibraryApp.generator.devDependencies,
+        assert.deepEqual(ngLibraryApp.generator.ngDevDependencies,
           ['"@angular/compiler" : "2.0.0"',
             '"@angular/platform-server" : "2.0.0"',
             '"@angular/platform-browser" : "2.0.0"',
@@ -164,7 +166,7 @@ describe('ngx-library:app', () => {
   });
 
   describe('check generation for ng4', () => {
-    it('should have set appropriate options', () => {
+    it('should have set appropriate properties', () => {
       let ngLibraryApp = createNgLibraryApp(
         {
           skipInstall: true,
@@ -180,11 +182,12 @@ describe('ngx-library:app', () => {
           projectkeywords: 'ng, angular,library',
           moduleName: 'my-module',
           ngVersion: '4.0.0',
-          ngModules: ['core', 'common', 'animations']
+          ngModules: ['core', 'common', 'animations'],
+          useGreenkeeper: true
         });
       return ngLibraryApp.then(() => {
         assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common', 'animations']);
-        assert.deepEqual(ngLibraryApp.generator.devDependencies,
+        assert.deepEqual(ngLibraryApp.generator.ngDevDependencies,
           ['"@angular/compiler" : "4.0.0"',
             '"@angular/platform-server" : "4.0.0"',
             '"@angular/platform-browser" : "4.0.0"',
@@ -231,6 +234,64 @@ describe('ngx-library:app', () => {
 
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.useYarn, false);
+      });
+    });
+  });
+
+  describe('check greenkeeper', () => {
+    it('should add greenkeeper exlusions in "package.json" if "useGreenkeeper" is set to true ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          moduleName: 'my-module',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: true
+        });
+      return ngLibraryApp.then(() => {
+        let greenkeeperExclusions = ngLibraryApp.generator.greenkeeperExclusions;
+        assert.equal(ngLibraryApp.generator.useGreenkeeper, true);
+        assert.notDeepEqual(greenkeeperExclusions, []);
+        assert.fileContent('package.json', `  "greenkeeper": {\n    "ignore": [\n      ${greenkeeperExclusions.join(',\n      ')}\n    ]\n  }`);
+        assert.fileContent('README.md', '[![Greenkeeper Badge](https://badges.greenkeeper.io/awesomedeveloper/my-ngx-library.svg)](https://greenkeeper.io/)');
+      });
+    });
+
+    it('should not add greenkeeper exlusions in "package.json" if "useGreenkeeper" is set to false ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          moduleName: 'my-module',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: false
+        });
+      return ngLibraryApp.then(() => {
+        let greenkeeperExclusions = ngLibraryApp.generator.greenkeeperExclusions;
+        assert.equal(ngLibraryApp.generator.useGreenkeeper, false);
+        assert.deepEqual(greenkeeperExclusions, []);
+        assert.noFileContent('package.json', '  "greenkeeper":');
+        assert.noFileContent('README.md', '![Greenkeeper Badge]');
       });
     });
   });

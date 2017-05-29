@@ -30,13 +30,10 @@
     "demo": " gulp build:demo",
     "check-travis": " travis-status --repo=<%= githubUsername %>/<%= projectName %> --branch=master --fail-pending || echo 'Not yet passing'"
   },
-  "dependencies": {<% let dependencies = [];
-  for (ngModule of ngModules) {
-    dependencies.push(`"@angular/${ngModule}": "${(ngModule === 'router' && ngVersion === '2.0.0') ? '3.0.0' : ngVersion}"`);
-  }%>
-    <%- dependencies.join(',\n    ') %>
+  "dependencies": {
+    <%- ngDependencies.join(',\n    ') %>
    },
-  "devDependencies": {<% for (dep of devDependencies) { %>
+  "devDependencies": {<% for (dep of ngDevDependencies) { %>
     <%- dep %>,<% } %>
     "@types/jasmine": "2.5.41",
     "@types/node": "6.0.58",
@@ -45,7 +42,8 @@
     "awesome-typescript-loader": "3.0.0-beta.18",
     "conventional-github-releaser": "1.1.3",
     "core-js": "2.4.1",
-    "del": "2.2.2",
+    "del": "2.2.2",<% if(useYarn) { %>
+    "greenkeeper-lockfile": "1.3.2",<% } %>
     "gulp": "3.9.1",
     "gulp-better-rollup": "1.0.2",
     "gulp-bump": "2.5.0",
@@ -87,5 +85,10 @@
     "webpack-dev-middleware": "1.10.2",
     "webpack-dev-server": "2.4.2",
     "yargs": "6.4.0"
-  }
+  }<% if(useGreenkeeper){%>,
+  "greenkeeper": {
+    "ignore": [
+      <%- greenkeeperExclusions.join(',\n      ') %>
+    ]
+  }<% } %>
 }
