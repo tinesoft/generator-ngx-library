@@ -18,7 +18,8 @@ const createNgLibraryApp = (options, prompts) => {
       moduleName: 'my-module',
       ngVersion: '2.0.0',
       ngModules: ['core', 'common'],
-      useGreenkeeper: true
+      useGreenkeeper: true,
+      useCompodoc: false
     });
 };
 
@@ -146,7 +147,8 @@ describe('ngx-library:app', () => {
           moduleName: 'my-module',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common', 'animations'],
-          useGreenkeeper: true
+          useGreenkeeper: true,
+          useCompodoc: false
         });
       return ngLibraryApp.then(() => {
         assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common']);
@@ -183,7 +185,8 @@ describe('ngx-library:app', () => {
           moduleName: 'my-module',
           ngVersion: '4.0.0',
           ngModules: ['core', 'common', 'animations'],
-          useGreenkeeper: true
+          useGreenkeeper: true,
+          useCompodoc: false
         });
       return ngLibraryApp.then(() => {
         assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common', 'animations']);
@@ -239,7 +242,7 @@ describe('ngx-library:app', () => {
   });
 
   describe('check greenkeeper', () => {
-    it('should add greenkeeper exlusions in "package.json" if "useGreenkeeper" is set to true ', () => {
+    it('should add greenkeeper-related code in "package.json" & "README.md" if "useGreenkeeper" is set to true ', () => {
       let ngLibraryApp = createNgLibraryApp(
         {
           skipInstall: true,
@@ -256,7 +259,8 @@ describe('ngx-library:app', () => {
           moduleName: 'my-module',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
-          useGreenkeeper: true
+          useGreenkeeper: true,
+          useCompodoc: false
         });
       return ngLibraryApp.then(() => {
         let greenkeeperExclusions = ngLibraryApp.generator.greenkeeperExclusions;
@@ -267,7 +271,7 @@ describe('ngx-library:app', () => {
       });
     });
 
-    it('should not add greenkeeper exlusions in "package.json" if "useGreenkeeper" is set to false ', () => {
+    it('should not add greenkeeper-related code in "package.json" & "README.md" if "useGreenkeeper" is set to false ', () => {
       let ngLibraryApp = createNgLibraryApp(
         {
           skipInstall: true,
@@ -284,7 +288,8 @@ describe('ngx-library:app', () => {
           moduleName: 'my-module',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
-          useGreenkeeper: false
+          useGreenkeeper: false,
+          useCompodoc: false
         });
       return ngLibraryApp.then(() => {
         let greenkeeperExclusions = ngLibraryApp.generator.greenkeeperExclusions;
@@ -292,6 +297,64 @@ describe('ngx-library:app', () => {
         assert.deepEqual(greenkeeperExclusions, []);
         assert.noFileContent('package.json', '  "greenkeeper":');
         assert.noFileContent('README.md', '![Greenkeeper Badge]');
+      });
+    });
+  });
+
+  describe('check compodoc', () => {
+    it('should add compodoc-related code in "package.json" & "gulpfile.js" if "useCompodoc" is set to true ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          moduleName: 'my-module',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: false,
+          useCompodoc: true,
+        });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.useCompodoc, true);
+        assert.file('demo/proxy.conf.json');
+        assert.fileContent('package.json', '    "@compodoc/compodoc":');
+        assert.fileContent('gulpfile.js', `gulp.task('build:doc'`);
+      });
+    });
+
+    it('should not add compodoc-related code in "package.json" & "gulpfile.js" if "useCompodoc" is set to false ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          moduleName: 'my-module',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: false,
+          useCompodoc: false,
+        });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.useCompodoc, false);
+        assert.noFile('demo/proxy.conf.json');
+        assert.noFileContent('package.json', '    "@compodoc/compodoc":');
+        assert.noFileContent('gulpfile.js', `gulp.task('build:doc'`);
       });
     });
   });

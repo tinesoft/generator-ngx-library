@@ -128,7 +128,11 @@ gulp.task('clean:dist', () => {
 
 gulp.task('clean:coverage', () => {
   return del(config.coverageDir);
-});
+});<% if(useCompodoc){ %>
+
+gulp.task('clean:doc', ()=>{
+  return del(`${config.outputDir}/doc`);
+});<% } %>
 
 gulp.task('clean', ['clean:dist', 'clean:coverage']);
 
@@ -304,14 +308,18 @@ pump(
 //Demo Tasks
 gulp.task('test:demo', gulpShell.task('ng test', { cwd: `${config.demoDir}` }));
 
-gulp.task('serve:demo', gulpShell.task('ng serve', { cwd: `${config.demoDir}` }));
+gulp.task('serve:demo', gulpShell.task('ng serve<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` }));
 
-gulp.task('build:demo', gulpShell.task(`ng build --prod --aot --base-href https://<%= githubUsername %>.github.io/${LIBRARY_NAME}/`, { cwd: `${config.demoDir}` }));
+gulp.task('build:demo', gulpShell.task(`ng build --prod --aot --base-href https://<%= githubUsername %>.github.io/${LIBRARY_NAME}/`, { cwd: `${config.demoDir}` }));<% if(useCompodoc){ %>
+
+gulp.task('build:doc', gulpShell.task(`compodoc -p tsconfig.json --hideGenerator --disableCoverage -d  ${config.demoDir}/dist/doc/`));
+
+gulp.task('serve:doc', <% if(useCompodoc){ %> ['clean:doc'], <% } %>gulpShell.task(`compodoc -p tsconfig.json -s -d  ${config.outputDir}/doc/`));<% } %>
 
 gulp.task('push:demo', gulpShell.task(`ngh --dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`));
 
 gulp.task('deploy:demo', (cb) => {
-  runSequence('build:demo', 'push:demo', cb);
+  runSequence('build:demo', 'build:doc', 'push:demo', cb);
 });
 
 // Link 'dist' folder (create a local 'ng-scrollreveal' package that symlinks to it)

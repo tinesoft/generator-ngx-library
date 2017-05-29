@@ -30,6 +30,7 @@ These are the main features of the generator:
 * **Styles** and **Templates Inlining** in components
 * **SASS/SCSS** to **CSS** compilation
 * **Integrated demo app** built with [angular-cli](https://cli.angular.io) and [ng-bootstrap](https://ng-bootstrap.github.io) 
+* **Project Documentation** built with [compodoc](https://compodoc.github.io/website/) and published along with demo app :books:
 * **Continuous Integration** with [Travis CI](https://travis-ci.org)
 * **Code Coverage** with [Coveralls.io](https://coveralls.io/)
 * **Real-time Monitoring** and **Automatic Updates** of npm dependencies with [Greenkeeper](https://greenkeeper.io) :palm_tree:
@@ -202,7 +203,19 @@ Task                    | Purpose
 `gulp test:watch-no-cc` | Same as `gulp test:watch` but files do not get instrumented for code coverage (useful for debugging)
 `gulp test:demo`       | Launches demo application tests(same as running `ng test` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
 `gulp serve:demo`       | Launches demo application (same as running `ng serve` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
+`gulp serve:doc`       | Serves the generated compodoc documentation (from `dist/doc` folder) at https://localhost:8080. **This task is only available if you chose to use compodoc during generator setup**
 
+> **Note About compodoc and demo application** :
+>
+> compodoc documentation is only available if you chose to use compodoc during generator setup.
+>
+> When serving demo app (via `gulp serve:demo`), in order to access documenation files (which are available at URL `/doc/`),
+> be sure to also serve compodoc's generated documentation files (via `gulp serve:doc`).
+>
+> In development, the url `/doc/` is proxied to redirect to that locally running server for compodoc files (at https://localhost:8080)
+>
+> In production, the generated documentations files are deployed along with the demo application and are available at same url (`/doc/`) from root `index.html`
+>
 
 # Versioning
 
@@ -250,7 +263,7 @@ Running this task will (in that order) :
 6. publish the package :package: on [npm registry](https://npmjs.com) (you must be [logged in](https://docs.npmjs.com/cli/adduser) to npm)
 7. build and deploy :rocket: the demo application in `demo/dist` to `gh-pages` branch
 
-The demo application will be available at : `http://USERNAME.github.io/REPO_NAME/`
+The demo application will be available at : `https://USERNAME.github.io/REPO_NAME/`
 
 # Support
 

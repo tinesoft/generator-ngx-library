@@ -9,8 +9,9 @@
 				<p><%= projectDescription %></p>
 				<p>Scroll down to see it in action!</p>
 				<p class="buttons">
-					<a class="btn btn-outline-primary btn-lg" href="https://github.com/<%= githubUsername %>/<%= projectName %>" target="_blank"><i class="fa fa-github fa-lg"></i>  Code on Github</a>
-				</p>
+					<a class="btn btn-outline-primary btn-lg" href="https://github.com/<%= githubUsername %>/<%= projectName %>" target="_blank"><i class="fa fa-github fa-lg"></i>  Code on Github</a><% if(useCompodoc){%>
+					<a class="btn btn-outline-primary btn-lg" href="doc/index.html" target="_blank"><i class="fa fa-book fa-lg"></i>  Documentation</a><% } %>
+        </p>
 
 			</div>
 		</div>
