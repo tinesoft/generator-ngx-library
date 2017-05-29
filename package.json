@@ -52,7 +52,7 @@
     "gulp-eslint": "3.0.1",
     "gulp-git": "2.3.0",
     "gulp-istanbul": "1.1.1",
-    "gulp-mocha": "4.3.1",
+    "gulp-mocha": "3.0.1",
     "gulp-nsp": "2.4.2",
     "gulp-plumber": "1.1.0",
     "gulp-shell": "0.6.3",
@@ -64,5 +64,11 @@
     "yargs": "8.0.1",
     "yeoman-assert": "3.0.0",
     "yeoman-test": "1.6.0"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "gulp-mocha"
+    ]
   }
+
 }
