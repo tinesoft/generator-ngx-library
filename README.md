@@ -29,6 +29,7 @@ These are the main features of the generator:
 * **Integrated demo app** built with [angular-cli](https://cli.angular.io) and [ng-bootstrap](https://ng-bootstrap.github.io) 
 * **Continuous Integration** with [Travis CI](https://travis-ci.org)
 * **Code Coverage** with [Coveralls.io](https://coveralls.io/)
+* **Real-time Monitoring** and **Automatic Updates** of npm dependencies with [Greenkeeper](https://greenkeeper.io) :palm_tree:
 * **Minification and UMD Bundling** with [RollupJS](https://rollupjs.org) 
 * **Publication** to [npm registry](https://npmjs.org)
 * **Github Releasing** :octocat:
@@ -62,7 +63,7 @@ $ yo ngx-library
 ```
 And answer the questions you are prompted to.
 
-![generator-ngx-library in action!](ngx-library.png)
+![generator-ngx-library in action!](assets/ngx-library.png)
 
 ## Options
 
@@ -213,6 +214,8 @@ A set of checks is automatically performed for you prior to releasing (during `g
 * User is currently logged in to NPM
 * Option `--version` has been provided to `gulp release` task, with value: `major`, `minor` or `patch`
 * Option `--ghToken` has been provided or env variable `CONVENTIONAL_GITHUB_RELEASER_TOKEN` is set
+
+![pre release checks](assets/pre-release-checks.png)
 
 You can also run the `gulp pre-release` task alone, to solely perform these checks without actually releasing anything.
 
