@@ -111,42 +111,58 @@ module.exports = class extends Generator {
       this.moduleClass = `${_.upperFirst(_.camelCase(this.moduleName))}Module`;
       this.projectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}Page`;
       this.today = new Date();
-      this.devDependencies = [];
 
+      //set up ng dependencies
+      this.ngDependencies = [];
+      for (let ngModule of this.ngModules) {
+        this.ngDependencies.push(`"@angular/${ngModule}": "${(ngModule === 'router' && this.ngVersion === '2.0.0') ? '3.0.0' : this.ngVersion}"`);
+      }
+
+      //set up  ng dev dependencies
+      this.ngDevDependencies = [];
       if (this.ngModules.indexOf('compiler') === -1) {
-        this.devDependencies.push(`"@angular/compiler" : "${this.ngVersion}"`);
+        this.ngDevDependencies.push(`"@angular/compiler" : "${this.ngVersion}"`);
       }
 
       if (this.ngModules.indexOf('platform-server') === -1) {
-        this.devDependencies.push(`"@angular/platform-server" : "${this.ngVersion}"`);
+        this.ngDevDependencies.push(`"@angular/platform-server" : "${this.ngVersion}"`);
       }
 
       if (this.ngModules.indexOf('platform-browser') === -1) {
-        this.devDependencies.push(`"@angular/platform-browser" : "${this.ngVersion}"`);
+        this.ngDevDependencies.push(`"@angular/platform-browser" : "${this.ngVersion}"`);
       }
 
       if (this.ngModules.indexOf('platform-browser-dynamic') === -1) {
-        this.devDependencies.push(`"@angular/platform-browser-dynamic" : "${this.ngVersion}"`);
+        this.ngDevDependencies.push(`"@angular/platform-browser-dynamic" : "${this.ngVersion}"`);
       }
 
       if (this.ngVersion === '2.0.0') {
-        this.devDependencies.push('"@angular/compiler-cli" : "0.6.2"');
-        this.devDependencies.push('"zone.js" : "0.6.21"');
-        this.devDependencies.push('"rxjs" : "5.0.0-beta.12"');
-        this.devDependencies.push('"tslint" : "^3.15.1"');
-        this.devDependencies.push('"typescript" : "2.0.3"');
-        this.devDependencies.push('"codelyzer" : "1.0.0-beta.0"');
+        this.ngDevDependencies.push('"@angular/compiler-cli" : "0.6.2"');
+        this.ngDevDependencies.push('"zone.js" : "0.6.21"');
+        this.ngDevDependencies.push('"rxjs" : "5.0.0-beta.12"');
+        this.ngDevDependencies.push('"tslint" : "^3.15.1"');
+        this.ngDevDependencies.push('"typescript" : "2.0.3"');
+        this.ngDevDependencies.push('"codelyzer" : "1.0.0-beta.0"');
       } else {
-        this.devDependencies.push('"@angular/compiler-cli" : "4.0.0"');
-        this.devDependencies.push('"zone.js" : "0.8.4"');
-        this.devDependencies.push('"rxjs" : "5.0.1"');
-        this.devDependencies.push('"tslint" : "~4.5.0"');
-        this.devDependencies.push('"typescript" : "~2.2.0"');
-        this.devDependencies.push('"codelyzer" : "~2.0.0"');
+        this.ngDevDependencies.push('"@angular/compiler-cli" : "4.0.0"');
+        this.ngDevDependencies.push('"zone.js" : "0.8.4"');
+        this.ngDevDependencies.push('"rxjs" : "5.0.1"');
+        this.ngDevDependencies.push('"tslint" : "~4.5.0"');
+        this.ngDevDependencies.push('"typescript" : "~2.2.0"');
+        this.ngDevDependencies.push('"codelyzer" : "~2.0.0"');
 
         if (this.ngModules.indexOf('animations') === -1) {
-          this.devDependencies.push(`"@angular/animations" : "${this.ngVersion}"`);
+          this.ngDevDependencies.push(`"@angular/animations" : "${this.ngVersion}"`);
         }
+      }
+
+      //greenkeeper exluded packages
+      this.greenkeeperExclusions = [];
+      if (this.useGreenkeeper) {
+        let allDependencies = this.ngDependencies.concat(this.ngDevDependencies);
+        let allDependenciesAsJsonText = `{${allDependencies.join(',\n')}}`;
+        this.greenkeeperExclusions = _.keys(JSON.parse(allDependenciesAsJsonText)).map(p => `"${p}"`);
+        this.greenkeeperExclusions.push(`"gulp-tslint"`); // Because it depends on 'tslint', which is also excluded
       }
     };
 
@@ -160,6 +176,7 @@ module.exports = class extends Generator {
     this.moduleName = this.config.get('moduleName');
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
+    this.useGreenkeeper = this.config.get('useGreenkeeper');
 
     if (this.fs.exists('.yo-rc.json') && !this.skipCache) {
       this.log(chalk.green('This is an existing project, using the configuration from your .yo-rc.json file to re-generate it...\n'));
@@ -177,6 +194,7 @@ module.exports = class extends Generator {
         this.moduleName = props.moduleName;
         this.ngVersion = props.ngVersion;
         this.ngModules = props.ngModules;
+        this.useGreenkeeper = props.useGreenkeeper;
 
         // Filter ngModules
         if (this.ngVersion === '2.0.0' && this.ngModules.indexOf('animations') !== -1) {
@@ -197,6 +215,7 @@ module.exports = class extends Generator {
         this.config.set('moduleName', this.moduleName);
         this.config.set('ngVersion', this.ngVersion);
         this.config.set('ngModules', this.ngModules);
+        this.config.set('useGreenkeeper', this.useGreenkeeper);
 
         done();
       });
