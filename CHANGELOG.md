@@ -1,3 +1,14 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.2.0...v2.3.0) (2017-05-31)
+
+
+### Features
+
+* **compodoc:** add support for compodoc (awesome documentation tool for your Angular projects) ([52d3f9c](https://github.com/tinesoft/generator-ngx-library/commit/52d3f9c))
+* **greenkeeper:** add support for greenkeeper (real-time monitoring and automatic updates for npm dependencies) ([f3136a8](https://github.com/tinesoft/generator-ngx-library/commit/f3136a8))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.1.0...v2.2.0) (2017-05-28)
 
