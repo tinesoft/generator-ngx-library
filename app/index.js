@@ -177,6 +177,7 @@ module.exports = class extends Generator {
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
     this.useGreenkeeper = this.config.get('useGreenkeeper');
+    this.useCompodoc = this.config.get('useCompodoc');
 
     if (this.fs.exists('.yo-rc.json') && !this.skipCache) {
       this.log(chalk.green('This is an existing project, using the configuration from your .yo-rc.json file to re-generate it...\n'));
@@ -195,6 +196,7 @@ module.exports = class extends Generator {
         this.ngVersion = props.ngVersion;
         this.ngModules = props.ngModules;
         this.useGreenkeeper = props.useGreenkeeper;
+        this.useCompodoc = props.useCompodoc;
 
         // Filter ngModules
         if (this.ngVersion === '2.0.0' && this.ngModules.indexOf('animations') !== -1) {
@@ -216,6 +218,7 @@ module.exports = class extends Generator {
         this.config.set('ngVersion', this.ngVersion);
         this.config.set('ngModules', this.ngModules);
         this.config.set('useGreenkeeper', this.useGreenkeeper);
+        this.config.set('useCompodoc', this.useCompodoc);
 
         done();
       });
@@ -298,6 +301,9 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath('demo/gitignore'), this.destinationPath('demo/.gitignore'));
     this.fs.copy(this.templatePath('demo/karma.conf.js'), this.destinationPath('demo/karma.conf.js'));
     this.fs.copy(this.templatePath('demo/protractor.conf.js'), this.destinationPath('demo/protractor.conf.js'));
+    if (this.useCompodoc) {
+      this.fs.copy(this.templatePath('demo/proxy.conf.json'), this.destinationPath('demo/proxy.conf.json'));
+    }
     this.fs.copy(this.templatePath('demo/tsconfig.json'), this.destinationPath('demo/tsconfig.json'));
     this.fs.copy(this.templatePath('demo/tslint.json'), this.destinationPath('demo/tslint.json'));
 
