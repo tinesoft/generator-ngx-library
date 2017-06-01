@@ -1,6 +1,7 @@
 const helpers = require('./helpers');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');const {CheckerPlugin} = require('awesome-typescript-loader');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const {CheckerPlugin} = require('awesome-typescript-loader');
 
 const getConfig = (hasCoverage, isTddMode) => {
 
