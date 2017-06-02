@@ -22,6 +22,7 @@
   "bugs": {
     "url": "http://github.com/<%= githubUsername %>/<%= projectName %>/issues"
   },
+  "private": true,
   "main": "./dist",
   "typings": "./dist",
   "scripts": {
