@@ -197,10 +197,6 @@ gulp.task('ngc', (cb) => {
   }).stdout.on('data', (data) => console.log(data));
 });
 
-
-// Compile TS files with Angular Compiler (ngc)
-gulp.task('ngc', gulpShell.task(`ngc -p ./tsconfig-aot.json`));
-
 // Test tasks
 gulp.task('test', (cb) => {
   const ENV = process.env.NODE_ENV = process.env.ENV = 'test';
