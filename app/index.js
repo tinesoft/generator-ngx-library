@@ -109,7 +109,7 @@ module.exports = class extends Generator {
     let done = this.async();
     let init = () => {
       this.moduleClass = `${_.upperFirst(_.camelCase(this.moduleName))}Module`;
-      this.projectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}Page`;
+      this.demoProjectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}DemoPage`;
       this.today = new Date();
 
       //set up ng dependencies

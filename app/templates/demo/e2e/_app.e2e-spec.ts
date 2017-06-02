@@ -1,10 +1,10 @@
-import { <%= projectPageClass %> } from './app.po';
+import { <%= demoProjectPageClass %> } from './app.po';
 
-describe('<%= projectName %> App', () => {
-  let page: <%= projectPageClass %>;
+describe('<%= projectName %>-demo App', () => {
+  let page: <%= demoProjectPageClass %>;
 
   beforeEach(() => {
-    page = new <%= projectPageClass %> ();
+    page = new <%= demoProjectPageClass %> ();
   });
 
   it('should display message saying app works', () => {
