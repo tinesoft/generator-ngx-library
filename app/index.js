@@ -20,6 +20,13 @@ module.exports = class extends Generator {
       defaults: false
     });
 
+    // This adds support for a `--skip-styles` flag
+    this.option('skip-styles', {
+      description: 'Generate code to inline styles in Angular components',
+      type: Boolean,
+      defaults: false
+    });
+
     // This adds support for a `--npm` flag
     this.option('npm', {
       description: 'Use npm instead of yarn',
@@ -27,8 +34,10 @@ module.exports = class extends Generator {
       defaults: false
     });
 
+
     this.skipChecks = this.options.skipChecks;
     this.skipInstall = this.options.skipInstall;
+    this.skipStyles = this.options.skipStyles;
     this.skipCache = this.options.skipCache;
     this.useYarn = !this.options.npm;
 

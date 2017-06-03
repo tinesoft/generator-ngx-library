@@ -83,6 +83,7 @@ Name         | Purpose
 skip-install | skips the automatic installation of project dependencies at the end of the generator
 skip-checks  | skips the checks of required tools (yarn, angular-cli) prior to generation
 skip-cache   | forces the regeneration on an exising project (ignore previous answers)
+skip-styles  | skips the generation of style inlining related code (in case you don't use styles)
 npm          | forces usage of `npm` to install dependencies
 
 
