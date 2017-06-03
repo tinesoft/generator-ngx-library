@@ -358,4 +358,43 @@ describe('ngx-library:app', () => {
       });
     });
   });
+
+  describe('check skipStyles', () => {
+    it('should not generate styles-related code in "package.json" & "gulpfile.js" when "skipStyles" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipStyles: true
+      });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipStyles, true);
+
+        assert.noFileContent('package.json', '    "autoprefixer":');
+        assert.noFileContent('package.json', '    "cssnano":');
+        assert.noFileContent('package.json', '    "gulp-inline-ng2-template":');
+        assert.noFileContent('package.json', '    "postcss":');
+        assert.noFileContent('package.json', '    "postcss-strip-inline-comments":');
+        assert.noFileContent('gulpfile.js', `gulp.task('inline-templates'`);
+      });
+    });
+
+    it('should  generate styles-related code in "package.json" & "gulpfile.js" when "skipStyles" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipStyles: false
+      });
+
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipStyles, false);
+
+        assert.fileContent('package.json', '    "autoprefixer":');
+        assert.fileContent('package.json', '    "cssnano":');
+        assert.fileContent('package.json', '    "gulp-inline-ng2-template":');
+        assert.fileContent('package.json', '    "postcss":');
+        assert.fileContent('package.json', '    "postcss-strip-inline-comments":');
+        assert.fileContent('gulpfile.js', `gulp.task('inline-templates'`);
+      });
+    });
+  });
 });

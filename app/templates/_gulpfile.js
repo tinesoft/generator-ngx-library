@@ -30,7 +30,7 @@ const runSequence = require('run-sequence');
 /** To bundle the library with Rollup */
 const gulpRollup = require('gulp-better-rollup');
 const rollupNodeResolve = require('rollup-plugin-node-resolve');
-const rollupUglify = require('rollup-plugin-uglify');
+const rollupUglify = require('rollup-plugin-uglify');<% if(!skipStyles) { %>
 
 /** To load templates and styles in ng2 components */
 const gulpInlineNgTemplate = require('gulp-inline-ng2-template');
@@ -40,7 +40,7 @@ const sass = require('node-sass');
 const cssnano = require('cssnano');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
-const stripInlineComments = require('postcss-strip-inline-comments');
+const stripInlineComments = require('postcss-strip-inline-comments');<% } %>
 
 //Bumping, Releasing tools
 const gulpGit = require('gulp-git');
@@ -64,9 +64,9 @@ const argv = yargs
   .argv;
 
 const config = {
-  allTs: 'src/**/!(*.spec).ts',
-  allSass: 'src/**/*.scss',
-  allHtml: 'src/**/*.html',
+  allTs: 'src/**/!(*.spec).ts',<% if(!skipStyles) { %>
+  allSass: 'src/**/*.(scss|sass)',
+  allHtml: 'src/**/*.html',<% } %>
   demoDir: 'demo/',
   outputDir: 'dist/',
   coverageDir: 'coverage/'
@@ -74,10 +74,10 @@ const config = {
 
 const LIBRARY_NAME = '<%= projectName %>';
 
-//Helper functions
+//Helper functions<% if(!skipStyles) { %>
 const platformPath = (path) => {
   return /^win/.test(os.platform()) ? `${path}.cmd` : path;
-};
+};<% } %>
 
 const startKarmaServer = (isTddMode, hasCoverage, cb) => {
   const karmaServer = require('karma').Server;
@@ -144,7 +144,10 @@ gulp.task('lint', (cb) => {
     gulpTslint.report()
   ], cb);
 });
-
+<% if(skipStyles) { %>
+// Compile TS files with Angular Compiler (ngc)
+gulp.task('ngc', gulpShell.task(`ngc -p ./tsconfig-aot.json`));
+<% } else { %>
 // Compile Sass to css and Inline templates and styles in ng2 components
 const styleProcessor = (stylePath, ext, styleFile, callback) => {
   /**
@@ -195,7 +198,7 @@ gulp.task('ngc', (cb) => {
     del(`${config.outputDir}/inlined`); //delete temporary *.ts files with inlined templates and styles
     cb();
   }).stdout.on('data', (data) => console.log(data));
-});
+});<% } %>
 
 // Test tasks
 gulp.task('test', (cb) => {
@@ -336,14 +339,14 @@ gulp.task('coveralls', (cb) => {
     ], cb);
 });
 
-// Lint, Sass to css, Inline templates & Styles and Compile
+// Lint<% if(!skipStyles) { %>, Sass to css, Inline templates & Styles<% } %> and Compile
 gulp.task('compile', (cb) => {
-  runSequence('lint', 'inline-templates', 'ngc', cb);
+  runSequence('lint',<% if(!skipStyles) { %> 'inline-templates',<% } %> 'ngc', cb);
 });
 
-// Watch changes on (*.ts, *.sass, *.html) and Compile
+// Watch changes on (*.ts<% if(!skipStyles) { %>, *.sass, *.html<% } %>) and Compile
 gulp.task('watch', () => {
-  gulp.watch([config.allTs, config.allHtml, config.allSass], ['compile']);
+  gulp.watch([config.allTs<% if(!skipStyles) { %>, config.allHtml, config.allSass<% } %>], ['compile']);
 });
 
 // Build the 'dist' folder (without publishing it to NPM)
