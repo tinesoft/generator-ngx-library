@@ -323,6 +323,9 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath('git/hooks/*.sample'), this.destinationPath('.git/hooks/'));
     this.fs.copy(this.templatePath('git/info/exclude'), this.destinationPath('.git/info/exclude'));
 
+    // Create Github files
+    this.fs.copy(this.templatePath('github/ISSUE_TEMPLATE.md'), this.destinationPath('.github/ISSUE_TEMPLATE.md'));
+
     // Create config files
     this.fs.copy(this.templatePath('config/helpers.js'), this.destinationPath('config/helpers.js'));
     this.fs.copy(this.templatePath('config/karma-test-shim.js'), this.destinationPath('config/karma-test-shim.js'));

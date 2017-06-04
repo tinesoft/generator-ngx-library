@@ -120,6 +120,9 @@ describe('ngx-library:app', () => {
         '.git/hooks/',
         '.git/info/exclude',
 
+        // Create Github files
+        '.github/ISSUE_TEMPLATE.md',
+
         // Create config files
         'config/helpers.js',
         'config/karma-test-shim.js',
