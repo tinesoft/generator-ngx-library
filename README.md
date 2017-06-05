@@ -218,6 +218,10 @@ Task                    | Purpose
 > In production, the generated documentations files are deployed along with the demo application and are available at same url (`/doc/`) from root `index.html`
 >
 
+### Recipes
+
+Some useful recipes to help you during the development process can be found [here](recipes/)
+
 # Versioning
 
 To take full advantage of the generator, use [Angular's commit message convention](https://github.com/conventional-changelog-archived-repos/conventional-changelog-angular/blob/master/convention.md). This way, the gulp's `changelog` task can be used to generate/update the project's `CHANGELOG.md` file from Git metadata. Only relevant commit messages are considered (commits about new features, fixes, performance, and breaking changes).
