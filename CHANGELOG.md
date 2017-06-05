@@ -1,3 +1,19 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.3.0...v2.4.0) (2017-06-05)
+
+
+### Bug Fixes
+
+* **template/gulpfile:** remove duplicated 'ngc'  gulp task ([2e93bd3](https://github.com/tinesoft/generator-ngx-library/commit/2e93bd3))
+
+
+### Features
+
+* **skipStyles:** add `--skip-styles` to skip generation of styles inlining related code ([0d8ac6c](https://github.com/tinesoft/generator-ngx-library/commit/0d8ac6c))
+* **template/github:** add github's `ISSUE_TEMPLATE.md` file ([6fb36ed](https://github.com/tinesoft/generator-ngx-library/commit/6fb36ed))
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.2.0...v2.3.0) (2017-05-31)
 
