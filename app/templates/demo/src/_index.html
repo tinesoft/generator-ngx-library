@@ -2,17 +2,39 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<title><%= projectName %></title>
-	<base href="/">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="utf-8">
+  <title>
+    <%= projectName %>
+  </title>
+  <base href="/">
+  <meta name="description" content="<%= projectDescription %>" />
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@<%= githubUsername %>">
+  <meta name="twitter:title" content="<%= projectName %>">
+  <!-- Page description less than 200 characters -->
+  <meta name="twitter:description" content="<%= projectDescription %>">
+  <meta name="twitter:creator" content="@<%= githubUsername %>">
+  <!-- Twitter Summary card images must be at least 120x120px -->
+  <meta name="twitter:image" content="https://<%= githubUsername %>.github.io/<%= projectName %>/logo.svg">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="<%= projectName %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://<%= githubUsername %>.github.io/<%= projectName %>" />
+  <meta property="og:image" content="https://<%= githubUsername %>.github.io/<%= projectName %>.svg" />
+  <meta property="og:description" content="<%= projectDescription %>" />
+  <meta property="og:site_name" content="<%= projectName %>" />
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
-	<app-root>Loading...</app-root>
+  <app-root>Loading...</app-root>
 </body>
 
 </html>
