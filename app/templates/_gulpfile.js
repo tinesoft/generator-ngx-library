@@ -304,22 +304,25 @@ pump(
   ], cb);
 });
 
-//Demo Tasks
+<% if(useCompodoc){ %>//Doc Tasks
+gulp.task('build:doc', gulpShell.task(`compodoc -p tsconfig.json --hideGenerator --disableCoverage -d  <%= skipDemo ? "${config.outputDir}/doc/": "${config.demoDir}/dist/doc/"%>`));
+
+gulp.task('serve:doc', ['clean:doc'], gulpShell.task(`compodoc -p tsconfig.json -s -d  ${config.outputDir}/doc/`));<% } if(skipDemo) { %>
+
+gulp.task('push:doc', gulpShell.task(`ngh --dir ${config.outputDir}/doc/ --message="chore(doc): :rocket: deploy new version"`));<% } %>
+
+<% if(!skipDemo) { %>//Demo Tasks
 gulp.task('test:demo', gulpShell.task('ng test', { cwd: `${config.demoDir}` }));
 
 gulp.task('serve:demo', gulpShell.task('ng serve<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` }));
 
-gulp.task('build:demo', gulpShell.task(`ng build --prod --aot --base-href https://<%= githubUsername %>.github.io/${LIBRARY_NAME}/`, { cwd: `${config.demoDir}` }));<% if(useCompodoc){ %>
-
-gulp.task('build:doc', gulpShell.task(`compodoc -p tsconfig.json --hideGenerator --disableCoverage -d  ${config.demoDir}/dist/doc/`));
-
-gulp.task('serve:doc', <% if(useCompodoc){ %> ['clean:doc'], <% } %>gulpShell.task(`compodoc -p tsconfig.json -s -d  ${config.outputDir}/doc/`));<% } %>
+gulp.task('build:demo', gulpShell.task(`ng build --prod --aot --base-href https://<%= githubUsername %>.github.io/${LIBRARY_NAME}/`, { cwd: `${config.demoDir}` }));
 
 gulp.task('push:demo', gulpShell.task(`ngh --dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`));
 
 gulp.task('deploy:demo', (cb) => {
-  runSequence('build:demo', 'build:doc', 'push:demo', cb);
-});
+  runSequence('build:demo'<%- (useCompodoc) ? ", 'build:doc'": ""%>, 'push:demo', cb);
+});<% } %>
 
 // Link 'dist' folder (create a local 'ng-scrollreveal' package that symlinks to it)
 // This way, we can have the demo project declare a dependency on 'ng-scrollreveal' (as it should)
@@ -438,8 +441,8 @@ gulp.task('release', (cb) => {
       'push-changes',
       'create-new-tag',
       'github-release',
-      'npm-publish',
-      'deploy:demo',
+      'npm-publish',<% if(!skipDemo || useCompodoc) { %>
+      'deploy:<%= !skipDemo? "demo":"doc" %>',<% } %>
       (error) => {
         if (error) {
           gulpUtil.log(error.message);
@@ -448,7 +451,6 @@ gulp.task('release', (cb) => {
         }
         cb(error);
       });
-
   }
 });
 
