@@ -340,6 +340,7 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath('config/karma-test-shim.js'), this.destinationPath('config/karma-test-shim.js'));
     this.fs.copy(this.templatePath('config/karma.conf.js'), this.destinationPath('config/karma.conf.js'));
     this.fs.copy(this.templatePath('config/webpack.test.js'), this.destinationPath('config/webpack.test.js'));
+    this.fs.copy(this.templatePath('config/gulp-tasks/README.md'), this.destinationPath('config/gulp-tasks/README.md'));
 
     // Empty folders are not created by 'mem-fs-editor' by default
     mkdirp('.git/objects/info');

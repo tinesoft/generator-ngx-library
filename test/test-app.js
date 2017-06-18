@@ -127,7 +127,8 @@ describe('ngx-library:app', () => {
         'config/helpers.js',
         'config/karma-test-shim.js',
         'config/karma.conf.js',
-        'config/webpack.test.js'
+        'config/webpack.test.js',
+        'config/gulp-tasks/README.md'
       ]);
     });
   });
