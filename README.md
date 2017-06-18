@@ -84,6 +84,7 @@ skip-install | skips the automatic installation of project dependencies at the e
 skip-checks  | skips the checks of required tools (yarn, angular-cli) prior to generation
 skip-cache   | forces the regeneration on an exising project (ignore previous answers)
 skip-styles  | skips the generation of style inlining related code (in case you don't use styles)
+skip-demo    | skips the generation of the demo application
 npm          | forces usage of `npm` to install dependencies
 
 
@@ -202,9 +203,10 @@ Task                    | Purpose
 `gulp test`             | Launches the tests (`*.spec.ts`) you wrote in `src/` and run code coverage on them. The coverage report can be found in `coverage/` folder
 `gulp test:watch`       | Launches tests in watch mode. Every changes in `*.spec.ts` 
 `gulp test:watch-no-cc` | Same as `gulp test:watch` but files do not get instrumented for code coverage (useful for debugging)
-`gulp test:demo`       | Launches demo application tests(same as running `ng test` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
-`gulp serve:demo`       | Launches demo application (same as running `ng serve` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
-`gulp serve:doc`       | Serves the generated compodoc documentation (from `dist/doc` folder) at https://localhost:8080. **This task is only available if you chose to use compodoc during generator setup**
+`gulp test:demo`<sup>1</sup>       | Launches demo application tests(same as running `ng test` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
+`gulp serve:demo`<sup>1</sup>      | Launches demo application (same as running `ng serve` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
+`gulp serve:doc`<sup>2</sup>       | Serves the generated compodoc documentation (from `dist/doc` folder) at https://localhost:8080. 
+
 
 > **Note About compodoc and demo application** :
 >
@@ -217,6 +219,11 @@ Task                    | Purpose
 >
 > In production, the generated documentations files are deployed along with the demo application and are available at same url (`/doc/`) from root `index.html`
 >
+
+
+> <sup>1</sup> = This task is only available if you chose not to skip demo app generation during generator setup
+>
+> <sup>2</sup> = This task is only available if you chose to use compodoc during generator setup
 
 ### Recipes
 
@@ -268,7 +275,10 @@ Running this task will (in that order) :
 6. publish the package :package: on [npm registry](https://npmjs.com) (you must be [logged in](https://docs.npmjs.com/cli/adduser) to npm)
 7. build and deploy :rocket: the demo application in `demo/dist` to `gh-pages` branch
 
-The demo application will be available at : `https://USERNAME.github.io/REPO_NAME/`
+The demo application will be available at : `https://USERNAME.github.io/REPO_NAME/` (provided you chose to generate one).
+
+The documentation will be available at : `https://USERNAME.github.io/REPO_NAME/doc/` (provided you chose to generate one) or
+at `https://USERNAME.github.io/REPO_NAME/`, if you chose to skip demo application generation.
 
 # Support
 

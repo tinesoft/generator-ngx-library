@@ -15,14 +15,21 @@ module.exports = class extends Generator {
 
     // This adds support for a `--skip-checks` flag
     this.option('skip-checks', {
-      description: 'Check the status of the required tools',
+      description: 'Skip checking the status of the required tools',
       type: Boolean,
       defaults: false
     });
 
     // This adds support for a `--skip-styles` flag
     this.option('skip-styles', {
-      description: 'Generate code to inline styles in Angular components',
+      description: 'Skip generation of code to inline styles in Angular components',
+      type: Boolean,
+      defaults: false
+    });
+
+    // This adds support for a `--skip-demo` flag
+    this.option('skip-demo', {
+      description: 'Skip generation of demo application',
       type: Boolean,
       defaults: false
     });
@@ -38,6 +45,7 @@ module.exports = class extends Generator {
     this.skipChecks = this.options.skipChecks;
     this.skipInstall = this.options.skipInstall;
     this.skipStyles = this.options.skipStyles;
+    this.skipDemo = this.options.skipDemo;
     this.skipCache = this.options.skipCache;
     this.useYarn = !this.options.npm;
 
@@ -255,67 +263,68 @@ module.exports = class extends Generator {
     this.fs.copyTpl(this.templatePath('src/_index.ts'), this.destinationPath('src/index.ts'), this);
     this.fs.copyTpl(this.templatePath('src/_moduleName.module.ts'), this.destinationPath(`src/${this.moduleName}.module.ts`), this);
 
-    // Create Demo files
-    this.fs.copyTpl(this.templatePath('demo/e2e/_app.e2e-spec.ts'), this.destinationPath('demo/e2e/app.e2e-spec.ts'), this);
-    this.fs.copyTpl(this.templatePath('demo/e2e/_app.po.ts'), this.destinationPath('demo/e2e/app.po.ts'), this);
-    this.fs.copy(this.templatePath('demo/e2e/tsconfig.e2e.json'), this.destinationPath('demo/e2e/tsconfig.e2e.json'));
-    this.fs.copyTpl(this.templatePath('demo/src/app/getting-started/_getting-started.component.ts'), this.destinationPath('demo/src/app/getting-started/getting-started.component.ts'), this);
-    this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.html'), this.destinationPath('demo/src/app/getting-started/getting-started.component.html'));
-    this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.scss'), this.destinationPath('demo/src/app/getting-started/getting-started.component.scss'));
-    this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.spec.ts'), this.destinationPath('demo/src/app/getting-started/getting-started.component.spec.ts'));
-    this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.html'), this.destinationPath('demo/src/app/home/home.component.html'), this);
-    this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.ts'), this.destinationPath('demo/src/app/home/home.component.ts'), this);
-    this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.spec.ts'), this.destinationPath('demo/src/app/home/home.component.spec.ts'), this);
-    this.fs.copy(this.templatePath('demo/src/app/home/home.component.scss'), this.destinationPath('demo/src/app/home/home.component.scss'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.ts'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.ts'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.html'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.html'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.scss'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.scss'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.spec.ts'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.spec.ts'));
-    this.fs.copyTpl(this.templatePath('demo/src/app/shared/footer/_footer.component.html'), this.destinationPath('demo/src/app/shared/footer/footer.component.html'), this);
-    this.fs.copy(this.templatePath('demo/src/app/shared/footer/footer.component.scss'), this.destinationPath('demo/src/app/shared/footer/footer.component.scss'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/footer/footer.component.spec.ts'), this.destinationPath('demo/src/app/shared/footer/footer.component.spec.ts'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/footer/footer.component.ts'), this.destinationPath('demo/src/app/shared/footer/footer.component.ts'));
-    this.fs.copyTpl(this.templatePath('demo/src/app/shared/header/_header.component.html'), this.destinationPath('demo/src/app/shared/header/header.component.html'), this);
-    this.fs.copyTpl(this.templatePath('demo/src/app/shared/header/_header.component.spec.ts'), this.destinationPath('demo/src/app/shared/header/header.component.spec.ts'), this);
-    this.fs.copy(this.templatePath('demo/src/app/shared/header/header.component.scss'), this.destinationPath('demo/src/app/shared/header/header.component.scss'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/header/header.component.ts'), this.destinationPath('demo/src/app/shared/header/header.component.ts'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/index.ts'), this.destinationPath('demo/src/app/shared/index.ts'));
-    this.fs.copy(this.templatePath('demo/src/app/shared/shared.module.ts'), this.destinationPath('demo/src/app/shared/shared.module.ts'));
-    this.fs.copyTpl(this.templatePath('demo/src/app/_app.component.spec.ts'), this.destinationPath('demo/src/app/app.component.spec.ts'), this);
-    this.fs.copy(this.templatePath('demo/src/app/app-routing.ts'), this.destinationPath('demo/src/app/app-routing.ts'));
-    this.fs.copy(this.templatePath('demo/src/app/app.component.html'), this.destinationPath('demo/src/app/app.component.html'));
-    this.fs.copy(this.templatePath('demo/src/app/app.component.scss'), this.destinationPath('demo/src/app/app.component.scss'));
-    this.fs.copy(this.templatePath('demo/src/app/app.component.ts'), this.destinationPath('demo/src/app/app.component.ts'));
-    this.fs.copy(this.templatePath('demo/src/app/app.module.ts'), this.destinationPath('demo/src/app/app.module.ts'));
-    this.fs.copy(this.templatePath('demo/src/assets/gitkeep'), this.destinationPath('demo/src/assets/.gitkeep'));
-    this.fs.copy(this.templatePath('demo/src/assets/npmignore'), this.destinationPath('demo/src/assets/.npmignore'));
-    this.fs.copy(this.templatePath('demo/src/assets/logo.svg'), this.destinationPath('demo/src/assets/logo.svg'));
-    this.fs.copy(this.templatePath('demo/src/environments/environment.prod.ts'), this.destinationPath('demo/src/environments/environment.prod.ts'));
-    this.fs.copy(this.templatePath('demo/src/environments/environment.ts'), this.destinationPath('demo/src/environments/environment.ts'));
-    this.fs.copyTpl(this.templatePath('demo/src/_index.html'), this.destinationPath('demo/src/index.html'), this);
-    this.fs.copy(this.templatePath('demo/src/_variables.scss'), this.destinationPath('demo/src/_variables.scss'));
-    this.fs.copy(this.templatePath('demo/src/favicon.ico'), this.destinationPath('demo/src/favicon.ico'));
-    this.fs.copy(this.templatePath('demo/src/favicon.ico'), this.destinationPath('demo/src/favicon.ico'));
-    this.fs.copy(this.templatePath('demo/src/main.ts'), this.destinationPath('demo/src/main.ts'));
-    this.fs.copy(this.templatePath('demo/src/polyfills.ts'), this.destinationPath('demo/src/polyfills.ts'));
-    this.fs.copy(this.templatePath('demo/src/styles.scss'), this.destinationPath('demo/src/styles.scss'));
-    this.fs.copy(this.templatePath('demo/src/test.ts'), this.destinationPath('demo/src/test.ts'));
-    this.fs.copy(this.templatePath('demo/src/tsconfig.app.json'), this.destinationPath('demo/src/tsconfig.app.json'));
-    this.fs.copy(this.templatePath('demo/src/tsconfig.spec.json'), this.destinationPath('demo/src/tsconfig.spec.json'));
-    this.fs.copy(this.templatePath('demo/src/typings.d.ts'), this.destinationPath('demo/src/typings.d.ts'));
-    this.fs.copyTpl(this.templatePath('demo/_angular-cli.json'), this.destinationPath('demo/.angular-cli.json'), this);
-    this.fs.copyTpl(this.templatePath('demo/_package.json'), this.destinationPath('demo/package.json'), this);
-    this.fs.copyTpl(this.templatePath('demo/_README.md'), this.destinationPath('demo/README.md'), this);
-    this.fs.copy(this.templatePath('demo/editorconfig'), this.destinationPath('demo/.editorconfig'));
-    this.fs.copy(this.templatePath('demo/gitignore'), this.destinationPath('demo/.gitignore'));
-    this.fs.copy(this.templatePath('demo/karma.conf.js'), this.destinationPath('demo/karma.conf.js'));
-    this.fs.copy(this.templatePath('demo/protractor.conf.js'), this.destinationPath('demo/protractor.conf.js'));
-    if (this.useCompodoc) {
-      this.fs.copy(this.templatePath('demo/proxy.conf.json'), this.destinationPath('demo/proxy.conf.json'));
+    if (!this.skipDemo) {
+      // Create Demo files
+      this.fs.copyTpl(this.templatePath('demo/e2e/_app.e2e-spec.ts'), this.destinationPath('demo/e2e/app.e2e-spec.ts'), this);
+      this.fs.copyTpl(this.templatePath('demo/e2e/_app.po.ts'), this.destinationPath('demo/e2e/app.po.ts'), this);
+      this.fs.copy(this.templatePath('demo/e2e/tsconfig.e2e.json'), this.destinationPath('demo/e2e/tsconfig.e2e.json'));
+      this.fs.copyTpl(this.templatePath('demo/src/app/getting-started/_getting-started.component.ts'), this.destinationPath('demo/src/app/getting-started/getting-started.component.ts'), this);
+      this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.html'), this.destinationPath('demo/src/app/getting-started/getting-started.component.html'));
+      this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.scss'), this.destinationPath('demo/src/app/getting-started/getting-started.component.scss'));
+      this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.spec.ts'), this.destinationPath('demo/src/app/getting-started/getting-started.component.spec.ts'));
+      this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.html'), this.destinationPath('demo/src/app/home/home.component.html'), this);
+      this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.ts'), this.destinationPath('demo/src/app/home/home.component.ts'), this);
+      this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.spec.ts'), this.destinationPath('demo/src/app/home/home.component.spec.ts'), this);
+      this.fs.copy(this.templatePath('demo/src/app/home/home.component.scss'), this.destinationPath('demo/src/app/home/home.component.scss'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.ts'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.ts'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.html'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.html'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.scss'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.scss'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.spec.ts'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.spec.ts'));
+      this.fs.copyTpl(this.templatePath('demo/src/app/shared/footer/_footer.component.html'), this.destinationPath('demo/src/app/shared/footer/footer.component.html'), this);
+      this.fs.copy(this.templatePath('demo/src/app/shared/footer/footer.component.scss'), this.destinationPath('demo/src/app/shared/footer/footer.component.scss'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/footer/footer.component.spec.ts'), this.destinationPath('demo/src/app/shared/footer/footer.component.spec.ts'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/footer/footer.component.ts'), this.destinationPath('demo/src/app/shared/footer/footer.component.ts'));
+      this.fs.copyTpl(this.templatePath('demo/src/app/shared/header/_header.component.html'), this.destinationPath('demo/src/app/shared/header/header.component.html'), this);
+      this.fs.copyTpl(this.templatePath('demo/src/app/shared/header/_header.component.spec.ts'), this.destinationPath('demo/src/app/shared/header/header.component.spec.ts'), this);
+      this.fs.copy(this.templatePath('demo/src/app/shared/header/header.component.scss'), this.destinationPath('demo/src/app/shared/header/header.component.scss'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/header/header.component.ts'), this.destinationPath('demo/src/app/shared/header/header.component.ts'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/index.ts'), this.destinationPath('demo/src/app/shared/index.ts'));
+      this.fs.copy(this.templatePath('demo/src/app/shared/shared.module.ts'), this.destinationPath('demo/src/app/shared/shared.module.ts'));
+      this.fs.copyTpl(this.templatePath('demo/src/app/_app.component.spec.ts'), this.destinationPath('demo/src/app/app.component.spec.ts'), this);
+      this.fs.copy(this.templatePath('demo/src/app/app-routing.ts'), this.destinationPath('demo/src/app/app-routing.ts'));
+      this.fs.copy(this.templatePath('demo/src/app/app.component.html'), this.destinationPath('demo/src/app/app.component.html'));
+      this.fs.copy(this.templatePath('demo/src/app/app.component.scss'), this.destinationPath('demo/src/app/app.component.scss'));
+      this.fs.copy(this.templatePath('demo/src/app/app.component.ts'), this.destinationPath('demo/src/app/app.component.ts'));
+      this.fs.copy(this.templatePath('demo/src/app/app.module.ts'), this.destinationPath('demo/src/app/app.module.ts'));
+      this.fs.copy(this.templatePath('demo/src/assets/gitkeep'), this.destinationPath('demo/src/assets/.gitkeep'));
+      this.fs.copy(this.templatePath('demo/src/assets/npmignore'), this.destinationPath('demo/src/assets/.npmignore'));
+      this.fs.copy(this.templatePath('demo/src/assets/logo.svg'), this.destinationPath('demo/src/assets/logo.svg'));
+      this.fs.copy(this.templatePath('demo/src/environments/environment.prod.ts'), this.destinationPath('demo/src/environments/environment.prod.ts'));
+      this.fs.copy(this.templatePath('demo/src/environments/environment.ts'), this.destinationPath('demo/src/environments/environment.ts'));
+      this.fs.copyTpl(this.templatePath('demo/src/_index.html'), this.destinationPath('demo/src/index.html'), this);
+      this.fs.copy(this.templatePath('demo/src/_variables.scss'), this.destinationPath('demo/src/_variables.scss'));
+      this.fs.copy(this.templatePath('demo/src/favicon.ico'), this.destinationPath('demo/src/favicon.ico'));
+      this.fs.copy(this.templatePath('demo/src/favicon.ico'), this.destinationPath('demo/src/favicon.ico'));
+      this.fs.copy(this.templatePath('demo/src/main.ts'), this.destinationPath('demo/src/main.ts'));
+      this.fs.copy(this.templatePath('demo/src/polyfills.ts'), this.destinationPath('demo/src/polyfills.ts'));
+      this.fs.copy(this.templatePath('demo/src/styles.scss'), this.destinationPath('demo/src/styles.scss'));
+      this.fs.copy(this.templatePath('demo/src/test.ts'), this.destinationPath('demo/src/test.ts'));
+      this.fs.copy(this.templatePath('demo/src/tsconfig.app.json'), this.destinationPath('demo/src/tsconfig.app.json'));
+      this.fs.copy(this.templatePath('demo/src/tsconfig.spec.json'), this.destinationPath('demo/src/tsconfig.spec.json'));
+      this.fs.copy(this.templatePath('demo/src/typings.d.ts'), this.destinationPath('demo/src/typings.d.ts'));
+      this.fs.copyTpl(this.templatePath('demo/_angular-cli.json'), this.destinationPath('demo/.angular-cli.json'), this);
+      this.fs.copyTpl(this.templatePath('demo/_package.json'), this.destinationPath('demo/package.json'), this);
+      this.fs.copyTpl(this.templatePath('demo/_README.md'), this.destinationPath('demo/README.md'), this);
+      this.fs.copy(this.templatePath('demo/editorconfig'), this.destinationPath('demo/.editorconfig'));
+      this.fs.copy(this.templatePath('demo/gitignore'), this.destinationPath('demo/.gitignore'));
+      this.fs.copy(this.templatePath('demo/karma.conf.js'), this.destinationPath('demo/karma.conf.js'));
+      this.fs.copy(this.templatePath('demo/protractor.conf.js'), this.destinationPath('demo/protractor.conf.js'));
+      if (this.useCompodoc) {
+        this.fs.copy(this.templatePath('demo/proxy.conf.json'), this.destinationPath('demo/proxy.conf.json'));
+      }
+      this.fs.copy(this.templatePath('demo/tsconfig.json'), this.destinationPath('demo/tsconfig.json'));
+      this.fs.copy(this.templatePath('demo/tslint.json'), this.destinationPath('demo/tslint.json'));
     }
-    this.fs.copy(this.templatePath('demo/tsconfig.json'), this.destinationPath('demo/tsconfig.json'));
-    this.fs.copy(this.templatePath('demo/tslint.json'), this.destinationPath('demo/tslint.json'));
-
     // Create Git files
     this.fs.copyTpl(this.templatePath('git/_config'), this.destinationPath('.git/config'), this);
     this.fs.copy(this.templatePath('git/description'), this.destinationPath('.git/description'));

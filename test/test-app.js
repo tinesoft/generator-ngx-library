@@ -32,7 +32,7 @@ describe('ngx-library:app', () => {
       });
     });
 
-    it('creates files', () => {
+    it('should create files', () => {
       assert.file([
         // Create project
         'gulpfile.js',
@@ -305,7 +305,7 @@ describe('ngx-library:app', () => {
   });
 
   describe('check compodoc', () => {
-    it('should add compodoc-related code in "package.json" & "gulpfile.js" if "useCompodoc" is set to true ', () => {
+    it('should add compodoc-related code if "useCompodoc" is set to true ', () => {
       let ngLibraryApp = createNgLibraryApp(
         {
           skipInstall: true,
@@ -329,11 +329,11 @@ describe('ngx-library:app', () => {
         assert.equal(ngLibraryApp.generator.useCompodoc, true);
         assert.file('demo/proxy.conf.json');
         assert.fileContent('package.json', '    "@compodoc/compodoc":');
-        assert.fileContent('gulpfile.js', `gulp.task('build:doc'`);
+        assert.fileContent('gulpfile.js', /gulp\.task\('(serve|build|clean):doc'/);
       });
     });
 
-    it('should not add compodoc-related code in "package.json" & "gulpfile.js" if "useCompodoc" is set to false ', () => {
+    it('should not add compodoc-related code if "useCompodoc" is set to false ', () => {
       let ngLibraryApp = createNgLibraryApp(
         {
           skipInstall: true,
@@ -358,12 +358,13 @@ describe('ngx-library:app', () => {
         assert.noFile('demo/proxy.conf.json');
         assert.noFileContent('package.json', '    "@compodoc/compodoc":');
         assert.noFileContent('gulpfile.js', `gulp.task('build:doc'`);
+        assert.noFileContent('gulpfile.js', /gulp\.task\('(serve|build|clean):doc'/);
       });
     });
   });
 
-  describe('check skipStyles', () => {
-    it('should not generate styles-related code in "package.json" & "gulpfile.js" when "skipStyles" is set to true', () => {
+  describe('check "skipStyles" option', () => {
+    it('should not generate styles-related code when "skipStyles" is set to true', () => {
       let ngLibraryApp = createNgLibraryApp({
         skipInstall: true,
         skipChecks: true,
@@ -381,7 +382,7 @@ describe('ngx-library:app', () => {
       });
     });
 
-    it('should  generate styles-related code in "package.json" & "gulpfile.js" when "skipStyles" is set to true', () => {
+    it('should generate styles-related code when "skipStyles" is set to false', () => {
       let ngLibraryApp = createNgLibraryApp({
         skipInstall: true,
         skipChecks: true,
@@ -397,6 +398,149 @@ describe('ngx-library:app', () => {
         assert.fileContent('package.json', '    "postcss":');
         assert.fileContent('package.json', '    "postcss-strip-inline-comments":');
         assert.fileContent('gulpfile.js', `gulp.task('inline-templates'`);
+      });
+    });
+  });
+
+  describe('check "skipDemo" option', () => {
+    it('should not generate demo-related code when "skipDemo" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipDemo: true
+      });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipDemo, true);
+        assert.noFile([
+          'demo/e2e/app.e2e-spec.ts',
+          'demo/e2e/app.po.ts',
+          'demo/e2e/tsconfig.e2e.json',
+          'demo/src/app/getting-started/getting-started.component.ts',
+          'demo/src/app/getting-started/getting-started.component.html',
+          'demo/src/app/getting-started/getting-started.component.scss',
+          'demo/src/app/getting-started/getting-started.component.spec.ts',
+          'demo/src/app/home/home.component.ts',
+          'demo/src/app/home/home.component.html',
+          'demo/src/app/home/home.component.scss',
+          'demo/src/app/home/home.component.spec.ts',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.ts',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.html',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.scss',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.spec.ts',
+          'demo/src/app/shared/footer/footer.component.html',
+          'demo/src/app/shared/footer/footer.component.scss',
+          'demo/src/app/shared/footer/footer.component.spec.ts',
+          'demo/src/app/shared/footer/footer.component.ts',
+          'demo/src/app/shared/header/header.component.html',
+          'demo/src/app/shared/header/header.component.scss',
+          'demo/src/app/shared/header/header.component.spec.ts',
+          'demo/src/app/shared/header/header.component.ts',
+          'demo/src/app/shared/index.ts',
+          'demo/src/app/shared/shared.module.ts',
+          'demo/src/app/app.component.spec.ts',
+          'demo/src/app/app-routing.ts',
+          'demo/src/app/app.component.html',
+          'demo/src/app/app.component.scss',
+          'demo/src/app/app.component.ts',
+          'demo/src/app/app.module.ts',
+          'demo/src/assets/.gitkeep',
+          'demo/src/assets/.npmignore',
+          'demo/src/assets/logo.svg',
+          'demo/src/environments/environment.prod.ts',
+          'demo/src/environments/environment.ts',
+          'demo/src/index.html',
+          'demo/src/_variables.scss',
+          'demo/src/favicon.ico',
+          'demo/src/favicon.ico',
+          'demo/src/main.ts',
+          'demo/src/polyfills.ts',
+          'demo/src/styles.scss',
+          'demo/src/test.ts',
+          'demo/src/tsconfig.app.json',
+          'demo/src/tsconfig.spec.json',
+          'demo/src/typings.d.ts',
+          'demo/package.json',
+          'demo/.angular-cli.json',
+          'demo/.editorconfig',
+          'demo/.gitignore',
+          'demo/karma.conf.js',
+          'demo/protractor.conf.js',
+          'demo/README.md',
+          'demo/tsconfig.json',
+          'demo/tslint.json'
+        ]);
+        assert.noFileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo'/);
+      });
+    });
+
+    it('should generate demo-related code when "skipDemo" is set to false', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipDemo: false
+      });
+
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipDemo, false);
+        assert.file([
+          'demo/e2e/app.e2e-spec.ts',
+          'demo/e2e/app.po.ts',
+          'demo/e2e/tsconfig.e2e.json',
+          'demo/src/app/getting-started/getting-started.component.ts',
+          'demo/src/app/getting-started/getting-started.component.html',
+          'demo/src/app/getting-started/getting-started.component.scss',
+          'demo/src/app/getting-started/getting-started.component.spec.ts',
+          'demo/src/app/home/home.component.ts',
+          'demo/src/app/home/home.component.html',
+          'demo/src/app/home/home.component.scss',
+          'demo/src/app/home/home.component.spec.ts',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.ts',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.html',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.scss',
+          'demo/src/app/shared/content-wrapper/content-wrapper.component.spec.ts',
+          'demo/src/app/shared/footer/footer.component.html',
+          'demo/src/app/shared/footer/footer.component.scss',
+          'demo/src/app/shared/footer/footer.component.spec.ts',
+          'demo/src/app/shared/footer/footer.component.ts',
+          'demo/src/app/shared/header/header.component.html',
+          'demo/src/app/shared/header/header.component.scss',
+          'demo/src/app/shared/header/header.component.spec.ts',
+          'demo/src/app/shared/header/header.component.ts',
+          'demo/src/app/shared/index.ts',
+          'demo/src/app/shared/shared.module.ts',
+          'demo/src/app/app.component.spec.ts',
+          'demo/src/app/app-routing.ts',
+          'demo/src/app/app.component.html',
+          'demo/src/app/app.component.scss',
+          'demo/src/app/app.component.ts',
+          'demo/src/app/app.module.ts',
+          'demo/src/assets/.gitkeep',
+          'demo/src/assets/.npmignore',
+          'demo/src/assets/logo.svg',
+          'demo/src/environments/environment.prod.ts',
+          'demo/src/environments/environment.ts',
+          'demo/src/index.html',
+          'demo/src/_variables.scss',
+          'demo/src/favicon.ico',
+          'demo/src/favicon.ico',
+          'demo/src/main.ts',
+          'demo/src/polyfills.ts',
+          'demo/src/styles.scss',
+          'demo/src/test.ts',
+          'demo/src/tsconfig.app.json',
+          'demo/src/tsconfig.spec.json',
+          'demo/src/typings.d.ts',
+          'demo/package.json',
+          'demo/.angular-cli.json',
+          'demo/.editorconfig',
+          'demo/.gitignore',
+          'demo/karma.conf.js',
+          'demo/protractor.conf.js',
+          'demo/README.md',
+          'demo/tsconfig.json',
+          'demo/tslint.json'
+        ]);
+        assert.fileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo'/);
       });
     });
   });
