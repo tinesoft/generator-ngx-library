@@ -49,6 +49,8 @@ const gulpBump = require('gulp-bump');
 const gulpConventionalChangelog = require('gulp-conventional-changelog');
 const conventionalGithubReleaser = require('conventional-github-releaser');
 
+/** To load gulp tasks from multiple files */
+const gulpHub = require('gulp-hub');
 
 const yargs = require('yargs');
 const argv = yargs
@@ -459,3 +461,6 @@ gulp.task('release', (cb) => {
 gulp.task('npm-publish', ['build'], gulpShell.task(`npm publish ${config.outputDir}`));
 
 gulp.task('default', ['build']);
+
+// Load additional tasks
+gulpHub(['./config/gulp-tasks/*.js']);
