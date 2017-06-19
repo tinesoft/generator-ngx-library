@@ -13,8 +13,11 @@ const process = require('process');
 const gulpShell = require('gulp-shell');
 const execSync = require('child_process').execSync;
 
-/** File Access */
+/** OS/File Access */
 const fs = require('fs');
+<% if(!skipStyles) { %>
+const os = require('os');
+const exec = require('child_process').exec;<% } %>
 const path = require('path');
 const gulpFile = require('gulp-file');
 
