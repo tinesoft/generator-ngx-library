@@ -261,26 +261,26 @@ gulp.task('bundle', (cb) => {
     // Angular dependencies <% for (ngModule of ngModules) { %>
     '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
 
-  // Rxjs dependencies
-  'rxjs/Subject': 'Rx',
-  'rxjs/add/observable/fromEvent': 'Rx.Observable',
-  'rxjs/add/observable/forkJoin': 'Rx.Observable',
-  'rxjs/add/observable/of': 'Rx.Observable',
-  'rxjs/add/observable/merge': 'Rx.Observable',
-  'rxjs/add/observable/throw': 'Rx.Observable',
-  'rxjs/add/operator/auditTime': 'Rx.Observable.prototype',
-  'rxjs/add/operator/toPromise': 'Rx.Observable.prototype',
-  'rxjs/add/operator/map': 'Rx.Observable.prototype',
-  'rxjs/add/operator/filter': 'Rx.Observable.prototype',
-  'rxjs/add/operator/do': 'Rx.Observable.prototype',
-  'rxjs/add/operator/share': 'Rx.Observable.prototype',
-  'rxjs/add/operator/finally': 'Rx.Observable.prototype',
-  'rxjs/add/operator/catch': 'Rx.Observable.prototype',
-  'rxjs/add/observable/empty': 'Rx.Observable.prototype',
-  'rxjs/add/operator/first': 'Rx.Observable.prototype',
-  'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
-  'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
-  'rxjs/Observable': 'Rx'
+    // Rxjs dependencies
+    'rxjs/Subject': 'Rx',
+    'rxjs/add/observable/fromEvent': 'Rx.Observable',
+    'rxjs/add/observable/forkJoin': 'Rx.Observable',
+    'rxjs/add/observable/of': 'Rx.Observable',
+    'rxjs/add/observable/merge': 'Rx.Observable',
+    'rxjs/add/observable/throw': 'Rx.Observable',
+    'rxjs/add/operator/auditTime': 'Rx.Observable.prototype',
+    'rxjs/add/operator/toPromise': 'Rx.Observable.prototype',
+    'rxjs/add/operator/map': 'Rx.Observable.prototype',
+    'rxjs/add/operator/filter': 'Rx.Observable.prototype',
+    'rxjs/add/operator/do': 'Rx.Observable.prototype',
+    'rxjs/add/operator/share': 'Rx.Observable.prototype',
+    'rxjs/add/operator/finally': 'Rx.Observable.prototype',
+    'rxjs/add/operator/catch': 'Rx.Observable.prototype',
+    'rxjs/add/observable/empty': 'Rx.Observable.prototype',
+    'rxjs/add/operator/first': 'Rx.Observable.prototype',
+    'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
+    'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
+    'rxjs/Observable': 'Rx'
   };
 
 const rollupOptions = {
