@@ -45,7 +45,7 @@
     "conventional-github-releaser": "1.1.11",
     "eslint": "3.19.0",
     "eslint-config-xo-space": "0.16.0",
-    "greenkeeper-lockfile": "1.7.0",
+    "greenkeeper-lockfile": "1.7.1",
     "gulp": "3.9.1",
     "gulp-bump": "2.7.0",
     "gulp-conventional-changelog": "1.1.3",
