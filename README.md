@@ -1,4 +1,4 @@
-# generator-ngx-library - [Yeoman](http://yeoman.io/) generator to bootstrap your [Angular](https://angular.io) library creation
+# generator-ngx-library - [Yeoman](http://yeoman.io/) generator to bootstrap your [Angular](https://angular.io) library creation and publication
 
 
 [![Join the chat at https://gitter.im/generator-ngx-library/Lobby](https://badges.gitter.im/generator-ngx-library/Lobby.svg)](https://gitter.im/generator-ngx-library/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -25,7 +25,7 @@ These are some that [i know of](https://github.com/search?q=generator-ngx-librar
 
 These are the main features of the generator:
 
-* **AoT** compatibility
+* **Aheat Of Time**(AOT) compatibility
 * **Code Linting** based on [codelyzer](https://github.com/mgechev/codelyzer) rules 
 * **Styles** and **Templates Inlining** in components
 * **SASS/SCSS** to **CSS** compilation
