@@ -12,7 +12,7 @@
         "baseUrl": ".",
         "stripInternal": true,
         "outDir": "./dist",
-        "rootDir": "./src", 
+        "rootDir": <%- (skipStyles) ? '"./src"' : '"./dist/inlined"' %>,
         "sourceMap": true,
         "inlineSources": true,
         "skipLibCheck": true,
@@ -21,7 +21,7 @@
         ]
     },
     "files": [
-        "./src/index.ts"
+        <%- (skipStyles) ? '"./src/index.ts"' : '"./dist/inlined/index.ts"' %>
     ],
     "exclude": [
         "node_modules",
