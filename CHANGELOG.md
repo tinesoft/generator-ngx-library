@@ -1,5 +1,16 @@
+<a name="2.5.1"></a>
+## [2.5.1](https://github.com/tinesoft/generator-ngx-library/compare/v2.5.0...v2.5.1) (2017-06-28)
+
+
+### Bug Fixes
+
+* **resourcesInlining:** fix resources not inlined when building library files (wrong path in `tsconfig-aot.json`) ([86149f0](https://github.com/tinesoft/generator-ngx-library/commit/86149f0)), closes [#28](https://github.com/tinesoft/generator-ngx-library/issues/28)
+* **templates/demo:** fix margin in demo's home page ([8bd3e98](https://github.com/tinesoft/generator-ngx-library/commit/8bd3e98))
+
+
+
 <a name="2.5.0"></a>
-# [2.5.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.4.1...v2.5.0) (2017-06-19)
+# [2.5.0](https://github.com/tinesoft/generator-ngx-library/compare/1.1.2...v2.5.0) (2017-06-19)
 
 
 ### Bug Fixes
