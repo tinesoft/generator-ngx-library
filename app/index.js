@@ -157,16 +157,18 @@ module.exports = class extends Generator {
         this.ngDevDependencies.push('"@angular/compiler-cli" : "0.6.2"');
         this.ngDevDependencies.push('"zone.js" : "0.6.21"');
         this.ngDevDependencies.push('"rxjs" : "5.0.0-beta.12"');
-        this.ngDevDependencies.push('"tslint" : "^3.15.1"');
+        this.ngDevDependencies.push('"tslint" : "3.15.1"');
+        this.ngDevDependencies.push('"gulp-tslint" : "6.1.1"'); // Because it depends on 'tslint'
         this.ngDevDependencies.push('"typescript" : "2.0.3"');
         this.ngDevDependencies.push('"codelyzer" : "1.0.0-beta.0"');
       } else {
         this.ngDevDependencies.push('"@angular/compiler-cli" : "4.0.0"');
         this.ngDevDependencies.push('"zone.js" : "0.8.4"');
         this.ngDevDependencies.push('"rxjs" : "5.0.1"');
-        this.ngDevDependencies.push('"tslint" : "~4.5.0"');
-        this.ngDevDependencies.push('"typescript" : "~2.2.0"');
-        this.ngDevDependencies.push('"codelyzer" : "~2.0.0"');
+        this.ngDevDependencies.push('"tslint" : "5.4.3"');
+        this.ngDevDependencies.push('"gulp-tslint" : "8.1.1"'); // Because it depends on 'tslint'
+        this.ngDevDependencies.push('"typescript" : "2.3.3"');
+        this.ngDevDependencies.push('"codelyzer" : "3.1.1"');
 
         if (this.ngModules.indexOf('animations') === -1) {
           this.ngDevDependencies.push(`"@angular/animations" : "${this.ngVersion}"`);
@@ -179,7 +181,6 @@ module.exports = class extends Generator {
         let allDependencies = this.ngDependencies.concat(this.ngDevDependencies);
         let allDependenciesAsJsonText = `{${allDependencies.join(',\n')}}`;
         this.greenkeeperExclusions = _.keys(JSON.parse(allDependenciesAsJsonText)).map(p => `"${p}"`);
-        this.greenkeeperExclusions.push(`"gulp-tslint"`); // Because it depends on 'tslint', which is also excluded
       }
     };
 
@@ -256,7 +257,7 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath('karma.conf.js'), this.destinationPath('karma.conf.js'));
     this.fs.copyTpl(this.templatePath('_tsconfig-aot.json'), this.destinationPath('tsconfig-aot.json'), this);
     this.fs.copy(this.templatePath('tsconfig.json'), this.destinationPath('tsconfig.json'));
-    this.fs.copy(this.templatePath('tslint.json'), this.destinationPath('tslint.json'));
+    this.fs.copyTpl(this.templatePath('_tslint.json'), this.destinationPath('tslint.json'), this);
     this.fs.copy(this.templatePath('webpack.config.js'), this.destinationPath('webpack.config.js'));
 
     // Create Source files

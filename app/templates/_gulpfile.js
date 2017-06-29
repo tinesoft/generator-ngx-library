@@ -5,7 +5,8 @@ const gulp = require('gulp');
 const gulpUtil = require('gulp-util');
 
 
-/** TSLint checker */
+/** TSLint checker */<% if(ngVersion === '4.0.0'){ %>
+const tslint = require('tslint');<% } %>
 const gulpTslint = require('gulp-tslint');
 
 /** External command runner */
@@ -141,11 +142,15 @@ gulp.task('clean:doc', ()=>{
 
 gulp.task('clean', ['clean:dist', 'clean:coverage']);
 
-// TsLint the source files
 gulp.task('lint', (cb) => {
   pump([
     gulp.src(config.allTs),
-    gulpTslint({ formatter: "verbose" }),
+    gulpTslint(
+      {
+        <% if(ngVersion === '4.0.0'){%>program: tslint.Linter.createProgram('./tsconfig.json'),<% } %>
+        formatter: 'verbose',
+        configuration: 'tslint.json'
+      }),
     gulpTslint.report()
   ], cb);
 });
