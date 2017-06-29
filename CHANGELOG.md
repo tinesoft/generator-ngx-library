@@ -1,5 +1,15 @@
+<a name="2.5.2"></a>
+## [2.5.2](https://github.com/tinesoft/generator-ngx-library/compare/v2.5.1...v2.5.2) (2017-06-29)
+
+
+### Features
+
+* **templates/package.json:** update linting-related dependencies and configuration when targeting angular v4 ([60f8cfd](https://github.com/tinesoft/generator-ngx-library/commit/60f8cfd)), closes [#26](https://github.com/tinesoft/generator-ngx-library/issues/26)
+
+
+
 <a name="2.5.1"></a>
-## [2.5.1](https://github.com/tinesoft/generator-ngx-library/compare/v2.5.0...v2.5.1) (2017-06-28)
+## [2.5.1](https://github.com/tinesoft/generator-ngx-library/compare/2.4.1...v2.5.1) (2017-06-28)
 
 
 ### Bug Fixes
