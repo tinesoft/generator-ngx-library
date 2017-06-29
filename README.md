@@ -25,7 +25,7 @@ These are some that [i know of](https://github.com/search?q=generator-ngx-librar
 
 These are the main features of the generator:
 
-* **Aheat Of Time**(AOT) compatibility
+* **Ahead Of Time**(AOT) compatibility
 * **Code Linting** based on [codelyzer](https://github.com/mgechev/codelyzer) rules 
 * **Styles** and **Templates Inlining** in components
 * **SASS/SCSS** to **CSS** compilation
