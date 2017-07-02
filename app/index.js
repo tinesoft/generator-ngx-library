@@ -255,14 +255,29 @@ module.exports = class extends Generator {
 
     this.fs.copy(this.templatePath('CHANGELOG.md'), this.destinationPath('CHANGELOG.md'));
     this.fs.copy(this.templatePath('karma.conf.js'), this.destinationPath('karma.conf.js'));
-    this.fs.copyTpl(this.templatePath('_tsconfig-aot.json'), this.destinationPath('tsconfig-aot.json'), this);
     this.fs.copy(this.templatePath('tsconfig.json'), this.destinationPath('tsconfig.json'));
     this.fs.copyTpl(this.templatePath('_tslint.json'), this.destinationPath('tslint.json'), this);
     this.fs.copy(this.templatePath('webpack.config.js'), this.destinationPath('webpack.config.js'));
 
     // Create Source files
+    if (!this.skipStyles) {
+      this.fs.copyTpl(this.templatePath('src/component/_lib.component.html'), this.destinationPath('src/component/lib.component.html'), this);
+      this.fs.copyTpl(this.templatePath('src/component/_lib.component.spec.ts'), this.destinationPath('src/component/lib.component.spec.ts'), this);
+      this.fs.copyTpl(this.templatePath('src/component/_lib.component.ts'), this.destinationPath('src/component/lib.component.ts'), this);
+      this.fs.copy(this.templatePath('src/component/lib.component.scss'), this.destinationPath('src/component/lib.component.scss'));
+    }
+    this.fs.copy(this.templatePath('src/service/lib.service.ts'), this.destinationPath('src/service/lib.service.ts'));
+    this.fs.copy(this.templatePath('src/service/lib.service.spec.ts'), this.destinationPath('src/service/lib.service.spec.ts'));
+
+
     this.fs.copyTpl(this.templatePath('src/_index.ts'), this.destinationPath('src/index.ts'), this);
     this.fs.copyTpl(this.templatePath('src/_moduleName.module.ts'), this.destinationPath(`src/${this.moduleName}.module.ts`), this);
+    this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.json'), this.destinationPath(`src/tsconfig.lib.json`), this);
+    if (this.ngVersion === '4.0.0') {
+      this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.es5.json'), this.destinationPath(`src/tsconfig.lib.es5.json`), this);
+    }
+    this.fs.copyTpl(this.templatePath('src/_tsconfig.spec.json'), this.destinationPath(`src/tsconfig.spec.json`), this);
+
 
     if (!this.skipDemo) {
       // Create Demo files
@@ -337,11 +352,11 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath('github/ISSUE_TEMPLATE.md'), this.destinationPath('.github/ISSUE_TEMPLATE.md'));
 
     // Create config files
+    this.fs.copy(this.templatePath('config/gulp-tasks/README.md'), this.destinationPath('config/gulp-tasks/README.md'));
+    this.fs.copyTpl(this.templatePath('config/_webpack.test.js'), this.destinationPath('config/webpack.test.js'), this);
     this.fs.copy(this.templatePath('config/helpers.js'), this.destinationPath('config/helpers.js'));
     this.fs.copy(this.templatePath('config/karma-test-shim.js'), this.destinationPath('config/karma-test-shim.js'));
     this.fs.copy(this.templatePath('config/karma.conf.js'), this.destinationPath('config/karma.conf.js'));
-    this.fs.copy(this.templatePath('config/webpack.test.js'), this.destinationPath('config/webpack.test.js'));
-    this.fs.copy(this.templatePath('config/gulp-tasks/README.md'), this.destinationPath('config/gulp-tasks/README.md'));
 
     // Empty folders are not created by 'mem-fs-editor' by default
     mkdirp('.git/objects/info');
@@ -352,8 +367,8 @@ module.exports = class extends Generator {
 
   install() {
     let installationDone = () => {
-      this.log(`\nAlmost done (2/3). Running ${chalk.green('gulp package')} to prepare your library package in dist/...`);
-      this.spawnCommand('gulp', ['package'])
+      this.log(`\nAlmost done (2/3). Running ${chalk.green('gulp npm-package')} to prepare your library package in dist/...`);
+      this.spawnCommand('gulp', ['npm-package'])
         .on('exit', code => {
           if (code === 0) {
             this.log(`\nAlmost done (3/3). Running ${chalk.green('gulp link')} to npm-link to locally built package in dist/...`);
@@ -366,7 +381,7 @@ module.exports = class extends Generator {
                 }
               });
           } else {
-            this.error(`[gulp package] Failed to package the library...`);
+            this.error(`[gulp npm-package] Failed to package the library...`);
           }
         });
     };

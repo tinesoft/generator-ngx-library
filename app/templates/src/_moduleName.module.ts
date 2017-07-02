@@ -1,26 +1,25 @@
-
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+<% if(!skipStyles){ %>
+import { LibComponent } from './component/lib.component';<% } %>
+import { LibService } from './service/lib.service';
 
-
-// add your angular components here (directives, components, filters, pipes ...)
-export const MY_NG_COMPONENTS = [];
-
-// add your services here
-const MY_SERVICES = [];
+// Export module's public API<% if(!skipStyles){ %>
+export { LibComponent } from './component/lib.component';<% } %>
+export { LibService } from './service/lib.service';
 
 @NgModule({
   imports: [
     CommonModule
-  ],
-  exports: [MY_NG_COMPONENTS],
-  declarations: [MY_NG_COMPONENTS]
+  ]<% if(!skipStyles){ %>,
+  exports: [LibComponent],
+  declarations: [LibComponent]<% } %>
 })
 export class <%= moduleClass%> {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: <%= moduleClass%>,
-      providers: [MY_SERVICES]
+      providers: [LibService]
     };
   }
 }
