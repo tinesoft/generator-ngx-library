@@ -1,1 +1,1 @@
-export * from './<%= moduleName%>.module';
+export * from './<%= moduleName %>.module';
