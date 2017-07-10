@@ -10,7 +10,7 @@ import { HeaderComponent } from './header.component';
 import { HomeComponent } from './../../home/home.component';
 import { GettingStartedComponent } from './../../getting-started/getting-started.component';
 import { AppRoutingModule } from './../../app-routing';
-import { <%= moduleClass %> } from '<%= projectName %>';
+
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;

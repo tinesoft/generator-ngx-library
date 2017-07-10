@@ -15,10 +15,10 @@ export { LibService } from './service/lib.service';
   exports: [LibComponent],
   declarations: [LibComponent]<% } %>
 })
-export class <%= moduleClass%> {
+export class LibModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: <%= moduleClass%>,
+      ngModule: LibModule,
       providers: [LibService]
     };
   }

@@ -125,7 +125,6 @@ module.exports = class extends Generator {
 
     let done = this.async();
     let init = () => {
-      this.moduleClass = `${_.upperFirst(_.camelCase(this.moduleName))}Module`;
       this.demoProjectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}DemoPage`;
       this.today = new Date();
 
@@ -192,7 +191,6 @@ module.exports = class extends Generator {
     this.projectDescription = this.config.get('projectDescription');
     this.projectKeywords = this.config.get('projectKeywords');
     this.ngPrefix = this.config.get('ngPrefix');
-    this.moduleName = this.config.get('moduleName');
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
     this.useGreenkeeper = this.config.get('useGreenkeeper');
@@ -212,7 +210,6 @@ module.exports = class extends Generator {
         this.projectDescription = props.projectDescription;
         this.projectKeywords = props.projectKeywords ? props.projectKeywords.split(',') : [];
         this.ngPrefix = props.ngPrefix;
-        this.moduleName = props.moduleName;
         this.ngVersion = props.ngVersion;
         this.ngModules = props.ngModules;
         this.useGreenkeeper = props.useGreenkeeper;
@@ -235,7 +232,6 @@ module.exports = class extends Generator {
         this.config.set('projectDescription', this.projectDescription);
         this.config.set('projectKeywords', this.projectKeywords);
         this.config.set('ngPrefix', this.ngPrefix);
-        this.config.set('moduleName', this.moduleName);
         this.config.set('ngVersion', this.ngVersion);
         this.config.set('ngModules', this.ngModules);
         this.config.set('useGreenkeeper', this.useGreenkeeper);
@@ -273,13 +269,13 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath('src/service/lib.service.spec.ts'), this.destinationPath('src/service/lib.service.spec.ts'));
 
 
-    this.fs.copyTpl(this.templatePath('src/_index.ts'), this.destinationPath('src/index.ts'), this);
-    this.fs.copyTpl(this.templatePath('src/_moduleName.module.ts'), this.destinationPath(`src/${this.moduleName}.module.ts`), this);
-    this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.json'), this.destinationPath(`src/tsconfig.lib.json`), this);
+    this.fs.copyTpl(this.templatePath('src/_lib.module.ts'), this.destinationPath(`src/lib.module.ts`), this);
     if (this.ngVersion === '4.0.0') {
       this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.es5.json'), this.destinationPath(`src/tsconfig.lib.es5.json`), this);
     }
+    this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.json'), this.destinationPath(`src/tsconfig.lib.json`), this);
     this.fs.copyTpl(this.templatePath('src/_tsconfig.spec.json'), this.destinationPath(`src/tsconfig.spec.json`), this);
+    this.fs.copyTpl(this.templatePath('src/index.ts'), this.destinationPath('src/index.ts'), this);
 
 
     if (!this.skipDemo) {
