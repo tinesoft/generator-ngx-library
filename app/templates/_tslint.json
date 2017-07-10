@@ -234,13 +234,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "<%= ngPrefix %>",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "<%= ngPrefix %>",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

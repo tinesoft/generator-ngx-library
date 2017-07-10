@@ -191,6 +191,7 @@ module.exports = class extends Generator {
     this.projectVersion = this.config.get('projectVersion');
     this.projectDescription = this.config.get('projectDescription');
     this.projectKeywords = this.config.get('projectKeywords');
+    this.ngPrefix = this.config.get('ngPrefix');
     this.moduleName = this.config.get('moduleName');
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
@@ -210,6 +211,7 @@ module.exports = class extends Generator {
         this.projectVersion = props.projectVersion;
         this.projectDescription = props.projectDescription;
         this.projectKeywords = props.projectKeywords ? props.projectKeywords.split(',') : [];
+        this.ngPrefix = props.ngPrefix;
         this.moduleName = props.moduleName;
         this.ngVersion = props.ngVersion;
         this.ngModules = props.ngModules;
@@ -232,6 +234,7 @@ module.exports = class extends Generator {
         this.config.set('projectVersion', this.projectVersion);
         this.config.set('projectDescription', this.projectDescription);
         this.config.set('projectKeywords', this.projectKeywords);
+        this.config.set('ngPrefix', this.ngPrefix);
         this.config.set('moduleName', this.moduleName);
         this.config.set('ngVersion', this.ngVersion);
         this.config.set('ngModules', this.ngModules);

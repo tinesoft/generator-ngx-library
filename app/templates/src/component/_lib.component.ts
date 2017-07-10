@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'my-lib',
+  selector: '<%= ngPrefix %>-component',
   templateUrl: './lib.component.html',
   styleUrls: ['./lib.component.scss']
 })
