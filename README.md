@@ -1,7 +1,9 @@
+<p align="center">
+  <img height="300px" width="300px" style="text-align: center;" src="https://cdn.rawgit.com/tinesoft/generator-ngx-library/master/assets/logo.png">
+ </p>
+ 
 # generator-ngx-library - [Yeoman](http://yeoman.io/) generator to bootstrap your [Angular](https://angular.io) library creation and publication
 
-
-[![Join the chat at https://gitter.im/generator-ngx-library/Lobby](https://badges.gitter.im/generator-ngx-library/Lobby.svg)](https://gitter.im/generator-ngx-library/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![npm version](https://badge.fury.io/js/generator-ngx-library.svg)](https://badge.fury.io/js/generator-ngx-library)
 [![Build Status](https://travis-ci.org/tinesoft/generator-ngx-library.svg?branch=master)](https://travis-ci.org/tinesoft/generator-ngx-library)
@@ -9,8 +11,8 @@
 [![dependencies Status](https://david-dm.org/tinesoft/generator-ngx-library/status.svg)](https://david-dm.org/tinesoft/generator-ngx-library)
 [![devDependency Status](https://david-dm.org/tinesoft/generator-ngx-library/dev-status.svg?branch=master)](https://david-dm.org/tinesoft/generator-ngx-library#info=devDependencies)
 [![Greenkeeper Badge](https://badges.greenkeeper.io/tinesoft/generator-ngx-library.svg)](https://greenkeeper.io/)
+[![Join the chat at https://gitter.im/generator-ngx-library/Lobby](https://badges.gitter.im/generator-ngx-library/Lobby.svg)](https://gitter.im/generator-ngx-library/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ===========================================================================================================================================
-
 
 # Demo
 
