@@ -27,19 +27,13 @@ const getConfig = (hasCoverage, isTddMode) => {
     }
 
     return {
-
         devtool: 'inline-source-map',
-
         resolve: {
             extensions: ['.ts', '.js'],
             modules: [helpers.root('src'), 'node_modules']
-
         },
-
         module: {
-
             rules: [
-
                 {
                     enforce: 'pre',
                     test: /\.js$/,
@@ -50,13 +44,13 @@ const getConfig = (hasCoverage, isTddMode) => {
                         helpers.root('node_modules/@angular')
                     ]
                 },
-
                 {
                     test: /\.ts$/,
                     use: [
                         {
                             loader: 'awesome-typescript-loader',
-                            query: {
+                            options: {
+                                configFileName: helpers.root('src','tsconfig.spec.json'),
                                 // use inline sourcemaps for "karma-remap-coverage" reporter (if coverage is activated)
                                 sourceMap: !hasCoverage,
                                 inlineSourceMap: hasCoverage,
@@ -65,16 +59,13 @@ const getConfig = (hasCoverage, isTddMode) => {
                                     // Remove TypeScript helpers to be injected
                                     // below by DefinePlugin
                                     removeComments: true
-
                                 }
                             },
                         },
                         'angular2-template-loader'
                     ],
                     exclude: [/\.e2e\.ts$/]
-                },
-
-
+                }<% if(!skipStyles) { %>,
                 {
                     test: /\.css$/,
                     loader: ['to-string-loader', 'css-loader']
@@ -83,7 +74,7 @@ const getConfig = (hasCoverage, isTddMode) => {
                   test: /\.(scss|sass)$/,
                   use: ['to-string-loader', 'css-loader', 'sass-loader'],
                   exclude: [helpers.root('src', 'scss')]
-                },
+                }<% } %>,
                 {
                     test: /\.html$/,
                     loader: 'raw-loader'
@@ -102,7 +93,7 @@ const getConfig = (hasCoverage, isTddMode) => {
             // Fixes linker warnings (see https://github.com/angular/angular/issues/11580)
             new ContextReplacementPlugin(
               // The (\\|\/) piece accounts for path separators in *nix and Windows
-              /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+              <% if(ngVersion === '2.0.0') { %>/angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/<% } else { %>/angular(\\|\/)core(\\|\/)@angular/<% } %>,
               helpers.root('src'), // location of your src
               {} // a map of your routes
             ),
@@ -111,7 +102,6 @@ const getConfig = (hasCoverage, isTddMode) => {
         performance: {
             hints: false
         },
-
         node: {
             global: true,
             process: false,
