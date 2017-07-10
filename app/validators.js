@@ -40,6 +40,9 @@ module.exports = {
   validateProjectVersion: input => {
     return semver.valid(input) ? true : 'Your project version does not follow semantic versioning convention (eg: X.Y.Z)';
   },
+  validateNgPrefix: input => {
+    return /^[a-zA-Z0-9-_]+$/.test(input) ? true : 'Your Angular prefix name cannot contain special characters or a blank space';
+  },
 
   validateModuleName: input => {
     return /^[a-zA-Z0-9-_]+$/.test(input) ? true : 'Your Angular module name cannot contain special characters or a blank space';
