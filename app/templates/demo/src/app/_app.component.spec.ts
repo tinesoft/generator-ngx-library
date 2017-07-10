@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
 import { AppSharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing';
-import { <%= moduleClass %> } from '<%= projectName %>';
+import {  LibModule  } from '<%= projectName %>';
 
 describe('App: <%= projectName %>', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('App: <%= projectName %>', () => {
       imports: [
         AppSharedModule,
         AppRoutingModule,
-        <%= moduleClass %>.forRoot()],
+        LibModule.forRoot()],
       declarations: [
         AppComponent,
         GettingStartedComponent,

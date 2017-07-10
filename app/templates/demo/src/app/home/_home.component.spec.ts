@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { HomeComponent } from './home.component';
-import { <%= moduleClass %> } from '<%= projectName %>';
+import {  LibModule  } from '<%= projectName %>';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [<%= moduleClass %>.forRoot()],
+      imports: [LibModule.forRoot()],
       declarations: [HomeComponent]
     })
       .compileComponents();
