@@ -61,7 +61,7 @@ const readyToRelease = () => {
 };
 
 gulp.task('static', () => {
-  return gulp.src(['app/*.js', 'test/**/*.js'])
+  return gulp.src(['app/*.js', 'tests/**/*.js'])
     .pipe(gulpPlumber())
     .pipe(gulpEslint())
     .pipe(gulpEslint.format())
@@ -86,7 +86,7 @@ gulp.task('pre-test', () => {
 gulp.task('test', ['pre-test'], cb => {
   let mochaErr;
 
-  gulp.src('test/**/*.js')
+  gulp.src('tests/**/*.js')
     .pipe(gulpPlumber())
     .pipe(gulpMocha({ reporter: 'spec', timeout: 10000 }))
     .on('error', err => {
@@ -100,7 +100,7 @@ gulp.task('test', ['pre-test'], cb => {
 
 // Watch changes on *.ts files and Compile
 gulp.task('watch', () => {
-  gulp.watch(['app/index.js', 'test/**/*.js'], ['test']);
+  gulp.watch(['app/index.js', 'tests/**/*.js'], ['test']);
 });
 
 gulp.task('coveralls', ['test'], () => {
