@@ -42,7 +42,7 @@ describe('ngx-library:validators', () => {
   it('should validate "ngPrefix"', () => {
     assert.strictEqual(!validators.validateNgPrefix(''), false, 'empty string should fail validation');
     assert.strictEqual(!validators.validateNgPrefix(), false, 'not passing a value should fail validation');
-    assert.strictEqual(!validators.validateNgPrefix('My_/_ModuleName'), false, 'not passing a valid value should fail validation');
+    assert.strictEqual(!validators.validateNgPrefix('My_/_NgPrefix'), false, 'not passing a valid value should fail validation');
     assert.strictEqual(validators.validateNgPrefix('my-lib'), true, 'passing a valid value passes validation');
   });
 
