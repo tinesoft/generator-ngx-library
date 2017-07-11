@@ -4,7 +4,7 @@ const gulp = require('gulp');
 const gulpUtil = require('gulp-util');
 const helpers = require('./config/helpers');
 
-/** TSLint checker */<% if(ngVersion === '4.0.0'){ %>
+/** TSLint checker */<% if(ngVersionMin >= 4){ %>
 const tslint = require('tslint');<% } %>
 const gulpTslint = require('gulp-tslint');
 
@@ -27,7 +27,7 @@ const gulpCoveralls = require('gulp-coveralls');
 /** To order tasks */
 const runSequence = require('run-sequence');
 
-/** To compile & bundle the library with Angular & Rollup */<% if(ngVersion === '4.0.0') { %>
+/** To compile & bundle the library with Angular & Rollup */<% if(ngVersionMin >= 4) { %>
 const ngc = require('@angular/compiler-cli/src/main').main;<% } else { %>
 const ngc = (args) => {// Promesify version of the ngc compiler
   const project = args.p || args.project || '.';
@@ -189,7 +189,7 @@ gulp.task('lint', (cb) => {
     gulp.src(config.allTs),
     gulpTslint(
       {
-        <% if(ngVersion === '4.0.0'){%>program: tslint.Linter.createProgram('./tsconfig.json'),<% } %>
+        <% if(ngVersionMin >= 4){%>program: tslint.Linter.createProgram('./tsconfig.json'),<% } %>
         formatter: 'verbose',
         configuration: 'tslint.json'
       }),
@@ -227,7 +227,7 @@ gulp.task('ng-compile',()=>{
     .then(() => ngc({ project: `${buildFolder}/<%= ngVersion === '2.0.0' ? 'tsconfig.lib.json' : 'tsconfig.lib.es5.json' %>` })
       .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
       .then(() => gulpUtil.log('ES5 compilation succeeded.'))
-    )<% if(ngVersion === '4.0.0'){ %>
+    )<% if(ngVersionMin >= 4){ %>
     // Compile to ES2015.
     .then(() => ngc({ project: `${buildFolder}/tsconfig.lib.json` })
       .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
@@ -285,15 +285,15 @@ gulp.task('npm-package', (cb) => {
   // copy the needed additional files in the 'dist' folder
   pump(
     [
-      gulp.src(['README.md', 'LICENSE', 'CHANGELOG.md', 
-      `${config.buildDir}/lib-es5/**/*.d.ts`, 
+      gulp.src(['README.md', 'LICENSE', 'CHANGELOG.md',
+      `${config.buildDir}/lib-es5/**/*.d.ts`,
       `${config.buildDir}/lib-es5/**/*.metadata.json`]),
       gulpFile('package.json', JSON.stringify(targetPkgJson, null, 2)),
       gulp.dest(config.outputDir)
     ], cb);
 });
 
-// Bundles the library as UMD<% if(ngVersion === '4.0.0'){ %>/FESM<% } %> bundles using RollupJS
+// Bundles the library as UMD<% if(ngVersionMin >= 4){ %>/FESM<% } %> bundles using RollupJS
 gulp.task('rollup-bundle', (cb) => {
   return Promise.resolve()
   // Bundle lib.
@@ -352,7 +352,7 @@ gulp.task('rollup-bundle', (cb) => {
       dest: path.join(distFolder, `bundles`, `${config.libraryName}.umd.min.js`),
       format: 'umd',
       plugins: rollupBaseConfig.plugins.concat([rollupUglify({})])
-    });<% if(ngVersion === '4.0.0'){ %>
+    });<% if(ngVersionMin >= 4){ %>
 
     // ESM+ES5 flat module bundle.
     const fesm5config = Object.assign({}, rollupBaseConfig, {
@@ -370,7 +370,7 @@ gulp.task('rollup-bundle', (cb) => {
 
     const allBundles = [
       umdConfig,
-      minifiedUmdConfig<% if(ngVersion === '4.0.0'){ %>,
+      minifiedUmdConfig<% if(ngVersionMin >= 4){ %>,
       fesm5config,
       fesm2015config<% } %>
     ].map(cfg => rollup.rollup(cfg).then(bundle => bundle.write(cfg)));
