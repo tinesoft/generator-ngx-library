@@ -1,0 +1,19 @@
+{
+  "generator-ngx-library": {
+    "authorName": "Tine Kondo",
+    "authorEmail": "kondotine@gmail.com",
+    "githubUsername": "tinesoft",
+    "projectName": "my-ngx-library",
+    "projectVersion": "0.0.1",
+    "projectDescription": "Angular library built with ❤ using ngx-library yeoman generator.",
+    "projectKeywords": [],
+    "ngPrefix": "my-lib",
+    "moduleName": "my-ng-module",
+    "ngVersion": "2.0.0",
+    "ngModules": [
+      "core",
+      "common"
+    ]
+  }
+}
+

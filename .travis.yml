@@ -1,13 +1,31 @@
-sudo: false
+sudo: required
+dist: trusty
+
+#install google chrome, using addons
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 language: node_js
 node_js:
   - "6"
 
+env:
+  - TEST_SUITE=units
+  - TEST_SUITE=integrations:ng2
+  - TEST_SUITE=integrations:ng4
+
+before_install:
+  - npm install -g --quiet  gulp-cli yo @angular/cli
+  - npm link
+
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - npm install --quiet -g gulp-cli
+  - chmod +x integrations/build.sh
 
-script: gulp coveralls
+script: ./integrations/build.sh
 
