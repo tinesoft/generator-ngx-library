@@ -125,6 +125,7 @@ module.exports = class extends Generator {
 
     let done = this.async();
     let init = () => {
+      this.ngVersionMin = +(this.ngVersion.split('.')[0]);
       this.demoProjectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}DemoPage`;
       this.today = new Date();
 
@@ -270,7 +271,7 @@ module.exports = class extends Generator {
 
 
     this.fs.copyTpl(this.templatePath('src/_lib.module.ts'), this.destinationPath(`src/lib.module.ts`), this);
-    if (this.ngVersion === '4.0.0') {
+    if (this.ngVersionMin >= 4) {
       this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.es5.json'), this.destinationPath(`src/tsconfig.lib.es5.json`), this);
     }
     this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.json'), this.destinationPath(`src/tsconfig.lib.json`), this);
