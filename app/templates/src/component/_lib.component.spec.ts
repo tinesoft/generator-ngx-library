@@ -19,14 +19,14 @@ describe('LibComponent', function () {
   beforeEach(() => {
     fixture = TestBed.createComponent(LibComponent);
     comp = fixture.componentInstance;
-    de = fixture.debugElement.query(By.css('h2'));
+    de = fixture.debugElement.query(By.css('p.description'));
   });
 
   it('should create component', () => expect(comp).toBeDefined());
 
-  it('should have expected <h2> text', () => {
+  it('should have expected <p> text', () => {
     fixture.detectChanges();
-    const h2 = de.nativeElement;
-    expect(h2.innerText).toEqual('<%= projectDescription %>');
+    const p = de.nativeElement;
+    expect(p.innerText).toEqual('<%= projectDescription %>');
   });
 });
