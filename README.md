@@ -27,7 +27,7 @@ These are some that [i know of](https://github.com/search?q=generator-ngx-librar
 
 These are the main features of the generator:
 
-* **Ahead Of Time**(AOT), **Flattened ES Modules**(FESM), **[Minified] UMD Bundles**, **Closure Compiler** support (follows [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview))
+* **Ahead Of Time**(AOT) Compilation, **Flattened ES Modules**(FESM), **[Minified] UMD Bundles**, **Closure Compiler** support (follows [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview))
 * **Code Linting** based on [codelyzer](https://github.com/mgechev/codelyzer) rules 
 * **Styles** and **Templates Inlining** in components
 * **SASS/SCSS** to **CSS** compilation
