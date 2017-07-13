@@ -67,20 +67,20 @@ module.exports = info => {
       message: '(7/12) What keywords best describe your project (comma-separated)?'
     },
     {
-      type: 'input',
-      name: 'ngPrefix',
-      validate: validators.validateNgPrefix,
-      message: '(8/12) What prefix would you like to use to name your components, directives,...?',
-      default: 'my-lib'
-    },
-    {
       type: 'list',
       name: 'ngVersion',
-      message: '(9/12) What minimal version of Angular do you want to base your library upon?',
+      message: '(8/12) What minimal version of Angular do you want to base your library upon?',
       choices: [
         {name: '2.X.X', value: '2.0.0'},
         {name: '4.X.X', value: '4.0.0'}],
       default: 0
+    },
+    {
+      type: 'input',
+      name: 'ngPrefix',
+      validate: validators.validateNgPrefix,
+      message: '(9/12) What prefix would you like to use to name your components, directives,...?',
+      default: 'my-lib'
     },
     {
       type: 'checkbox',
