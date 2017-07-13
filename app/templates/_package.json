@@ -14,10 +14,7 @@
   },
   "license": "MIT",
   "keywords": [
-    "ng",
-    "angular",
-    "library" <% for (keyword of projectKeywords) { %> ,
-	  "<%= keyword %>"<% } %>
+    "<%- projectKeywords.join('",\n    "') %>"
   ],
   "bugs": {
     "url": "http://github.com/<%= githubUsername %>/<%= projectName %>/issues"
