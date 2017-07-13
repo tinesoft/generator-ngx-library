@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
 
+import { LibModule } from '<%= projectName %>';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { GettingStartedComponent } from './getting-started/getting-started.compo
         FormsModule,
         HttpModule,
         AppRoutingModule,
-        AppSharedModule
+        AppSharedModule,
+        LibModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]
