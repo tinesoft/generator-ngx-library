@@ -52,11 +52,11 @@ describe('ngx-library:app', () => {
 
         // Create Source files
         'src/index.ts',
-        'src/lib.module.ts',
+        'src/module/lib.module.ts',
+        'src/module/service/lib.service.ts',
+        'src/module/service/lib.service.spec.ts',
         'src/tsconfig.lib.json',
         'src/tsconfig.spec.json',
-        'src/service/lib.service.ts',
-        'src/service/lib.service.spec.ts',
 
         // Create Demo files
         'demo/e2e/app.e2e-spec.ts',
