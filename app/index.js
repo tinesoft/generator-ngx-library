@@ -307,11 +307,11 @@ module.exports = class extends Generator {
       this.fs.copy(this.templatePath('demo/src/app/shared/index.ts'), this.destinationPath('demo/src/app/shared/index.ts'));
       this.fs.copy(this.templatePath('demo/src/app/shared/shared.module.ts'), this.destinationPath('demo/src/app/shared/shared.module.ts'));
       this.fs.copyTpl(this.templatePath('demo/src/app/_app.component.spec.ts'), this.destinationPath('demo/src/app/app.component.spec.ts'), this);
+      this.fs.copyTpl(this.templatePath('demo/src/app/_app.module.ts'), this.destinationPath('demo/src/app/app.module.ts'), this);
       this.fs.copy(this.templatePath('demo/src/app/app-routing.ts'), this.destinationPath('demo/src/app/app-routing.ts'));
       this.fs.copy(this.templatePath('demo/src/app/app.component.html'), this.destinationPath('demo/src/app/app.component.html'));
       this.fs.copy(this.templatePath('demo/src/app/app.component.scss'), this.destinationPath('demo/src/app/app.component.scss'));
       this.fs.copy(this.templatePath('demo/src/app/app.component.ts'), this.destinationPath('demo/src/app/app.component.ts'));
-      this.fs.copy(this.templatePath('demo/src/app/app.module.ts'), this.destinationPath('demo/src/app/app.module.ts'));
       this.fs.copy(this.templatePath('demo/src/assets/gitkeep'), this.destinationPath('demo/src/assets/.gitkeep'));
       this.fs.copy(this.templatePath('demo/src/assets/npmignore'), this.destinationPath('demo/src/assets/.npmignore'));
       this.fs.copy(this.templatePath('demo/src/assets/logo.svg'), this.destinationPath('demo/src/assets/logo.svg'));
