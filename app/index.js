@@ -261,16 +261,16 @@ module.exports = class extends Generator {
 
     // Create Source files
     if (!this.skipStyles) {
-      this.fs.copyTpl(this.templatePath('src/component/_lib.component.html'), this.destinationPath('src/component/lib.component.html'), this);
-      this.fs.copyTpl(this.templatePath('src/component/_lib.component.spec.ts'), this.destinationPath('src/component/lib.component.spec.ts'), this);
-      this.fs.copyTpl(this.templatePath('src/component/_lib.component.ts'), this.destinationPath('src/component/lib.component.ts'), this);
-      this.fs.copy(this.templatePath('src/component/lib.component.scss'), this.destinationPath('src/component/lib.component.scss'));
+      this.fs.copyTpl(this.templatePath('src/module/component/_lib.component.html'), this.destinationPath('src/module/component/lib.component.html'), this);
+      this.fs.copyTpl(this.templatePath('src/module/component/_lib.component.spec.ts'), this.destinationPath('src/module/component/lib.component.spec.ts'), this);
+      this.fs.copyTpl(this.templatePath('src/module/component/_lib.component.ts'), this.destinationPath('src/module/component/lib.component.ts'), this);
+      this.fs.copy(this.templatePath('src/module/component/lib.component.scss'), this.destinationPath('src/module/component/lib.component.scss'));
     }
-    this.fs.copy(this.templatePath('src/service/lib.service.ts'), this.destinationPath('src/service/lib.service.ts'));
-    this.fs.copy(this.templatePath('src/service/lib.service.spec.ts'), this.destinationPath('src/service/lib.service.spec.ts'));
+    this.fs.copy(this.templatePath('src/module/service/lib.service.ts'), this.destinationPath('src/module/service/lib.service.ts'));
+    this.fs.copy(this.templatePath('src/module/service/lib.service.spec.ts'), this.destinationPath('src/module/service/lib.service.spec.ts'));
 
 
-    this.fs.copyTpl(this.templatePath('src/_lib.module.ts'), this.destinationPath(`src/lib.module.ts`), this);
+    this.fs.copyTpl(this.templatePath('src/module/_lib.module.ts'), this.destinationPath(`src/module/lib.module.ts`), this);
     if (this.ngVersionMin >= 4) {
       this.fs.copyTpl(this.templatePath('src/_tsconfig.lib.es5.json'), this.destinationPath(`src/tsconfig.lib.es5.json`), this);
     }

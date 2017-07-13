@@ -219,10 +219,11 @@ dist/
 	|  |- my-ngx-library.umd.js.map       # UMD bundle sourcemap
 	|  |- my-ngx-library.umd.min.js       # Minified UMD bundle
 	|  |- my-ngx-library.umd.min.js.map   # Minified UMD bundle sourcemap
-	|- component/                         #
-	|  |- lib.component.d.ts              # Type definitions
-	|- service/                           # 
-	|  |- lib.service.d.ts                # Type definitions
+	|- module/                            # 
+	|  |- component/                      #
+	|  |  |- lib.component.d.ts           # Type definitions
+	|  |- service/                        #
+	|  |  |- lib.service.d.ts             # Type definitions
 	|- CHANGELOG.md                       #
 	|- my-ngx-library.d.ts                # Type definitions
 	|- my-ngx-library.es5.js              # ESM+ES5 flat module (FESM5)
@@ -248,12 +249,13 @@ dist/
 	|  |- my-ngx-library.umd.js.map       # UMD bundle sourcemap
 	|  |- my-ngx-library.umd.min.js       # Minified UMD bundle
 	|  |- my-ngx-library.umd.min.js.map   # Minified UMD bundle sourcemap
-	|- component/                         #
-	|  |- lib.component.d.ts              # Type definitions
-	|  |- lib.component.metadata.json     # Metadata used by AOT compiler
-	|- service/                           #
-	|  |- lib.service.d.ts                # Type definitions
-	|  |- lib.service.metadata.json       # Metadata used by AOT compiler
+	|- module/                            # 
+	|  |- component/                      #
+	|  |  |- lib.component.d.ts           # Type definitions
+	|  |  |- lib.component.metadata.json  # Metadata used by AOT compiler
+	|  |- service/                        #
+	|  |  |- lib.service.d.ts             # Type definitions
+	|  |  |- lib.service.metadata.json    # Metadata used by AOT compiler
 	|- CHANGELOG.md                       #
 	|- index.d.ts                         #
 	|- index.metadata.json                #
