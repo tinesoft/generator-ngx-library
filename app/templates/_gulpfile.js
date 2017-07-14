@@ -384,7 +384,7 @@ gulp.task('rollup-bundle', (cb) => {
 
 <% if(useCompodoc){ %>
 /////////////////////////////////////////////////////////////////////////////
-// Documenation Tasks
+// Documentation Tasks
 /////////////////////////////////////////////////////////////////////////////
 gulp.task('build:doc', gulpShell.task(`compodoc -p tsconfig.json --hideGenerator --disableCoverage -d  <%= skipDemo ? "${config.outputDir}/doc/": "${config.demoDir}/dist/doc/"%>`));
 
