@@ -88,8 +88,8 @@ const config = {
 const rootFolder = path.join(__dirname);
 const buildFolder = path.join(rootFolder, `${config.buildDir}`);
 const distFolder = path.join(rootFolder, `${config.outputDir}`);
-const es5OutputFolder = path.join(buildFolder, 'lib-es5');
-const es2015OutputFolder = path.join(buildFolder, 'lib-es2015');
+const es5OutputFolder = path.join(buildFolder, 'lib-es5');<% if(ngVersionMin >= 4) { %>
+const es2015OutputFolder = path.join(buildFolder, 'lib-es2015');<% } %>
 
 //Helper functions
 const startKarmaServer = (isTddMode, hasCoverage, cb) => {
@@ -299,8 +299,8 @@ gulp.task('rollup-bundle', (cb) => {
   // Bundle lib.
   .then(() => {
     // Base configuration.
-    const es5Entry = path.join(es5OutputFolder, `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.libraryName}.js' %>`);
-    const es2015Entry = path.join(es2015OutputFolder, `${config.libraryName}.js`);
+    const es5Entry = path.join(es5OutputFolder, `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.libraryName}.js' %>`);<% if(ngVersionMin >= 4) { %>
+    const es2015Entry = path.join(es2015OutputFolder, `${config.libraryName}.js`);<% } %>
     const globals = {
       // Angular dependencies <% for (ngModule of ngModules) { %>
       '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
