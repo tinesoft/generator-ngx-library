@@ -31,11 +31,8 @@ const runSequence = require('run-sequence');
 const ngc = require('@angular/compiler-cli/src/main').main;<% } else { %>
 const ngc = (args) => {// Promesify version of the ngc compiler
   const project = args.p || args.project || '.';
-  const cmd = helpers.platformPath(helpers.root('/node_modules/.bin/ngc'));
-  return helpers.execp(`${cmd} -p ${project}`, {
-    stdout: process.stdout,
-    stderr: process.stderr
-  });
+  const cmd = helpers.root(helpers.binPath('ngc'));
+  return helpers.execp(`${cmd} -p ${project}`);
 };<% } %>
 const rollup = require('rollup');
 const rollupUglify = require('rollup-plugin-uglify');

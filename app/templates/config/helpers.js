@@ -4,13 +4,12 @@ const exec = require('child_process').exec;
 
 const _root = path.resolve(__dirname, '..');
 
-var exports = module.exports = {};
 
 /**
  * Plaform independant path to an executable cmd
  * @param {string} path 
  */
-exports.platformPath = function (path) {
+platformPath = (path) => {
     return /^win/.test(os.platform()) ? `${path}.cmd` : path;
 };
 
@@ -18,9 +17,17 @@ exports.platformPath = function (path) {
  * 
  * @param {string[]} args 
  */
-exports.root = function (args) {
+rootDir = function (args) {
     args = Array.prototype.slice.call(arguments, 0);
     return path.join.apply(path, [_root].concat(args));
+};
+
+/**
+ * 
+ * @param {string} cmd 
+ */
+binPath = (cmd) => {
+    return platformPath(`/node_modules/.bin/${cmd}`);
 };
 
 /**
@@ -30,8 +37,11 @@ exports.root = function (args) {
  * @param opts See child_process.exec node docs
  * @returns {Promise<number>}
  */
-exports.execp = function (cmd, opts) {
-    opts || (opts = {});
+execp = (cmd, opts) => {
+    opts = Object.assign(opts || {},{    
+        stdout: process.stdout,
+        stderr: process.stderr
+    });
     return new Promise((resolve, reject) => {
         const child = exec(cmd, opts,
 			(err, stdout, stderr) => err ? reject(err.code) : resolve(0));
@@ -43,4 +53,11 @@ exports.execp = function (cmd, opts) {
             child.stderr.pipe(opts.stderr);
         }
     });
+};
+
+var exports = module.exports = {
+    root: rootDir,
+    execp: execp,
+    binPath: binPath,
+    platformPath: platformPath
 };
