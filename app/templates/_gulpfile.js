@@ -396,13 +396,49 @@ gulp.task('push:doc', gulpShell.task(`ngh --dir ${config.outputDir}/doc/ --messa
 /////////////////////////////////////////////////////////////////////////////
 // Demo Tasks
 /////////////////////////////////////////////////////////////////////////////
-gulp.task('test:demo', gulpShell.task('ng test', { cwd: `${config.demoDir}` }));
+const ng = helpers.root(config.demoDir, helpers.binPath(`ng`));
+const errorHandler = (e) => {
+  gulpUtil.log(gulpUtil.colors.red('ng command failed. See below for errors.\n'));
+  gulpUtil.log(gulpUtil.colors.red(e));
+  process.exit(1);
+};
+const execDemoCmd = (cmd,opts) => {
+  if(fs.existsSync(`${config.demoDir}/node_modules`)){
+    return helpers.execp(`${ng} ${cmd}`, opts)
+      .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+      .catch(errorHandler);
+  }
+  else{
+    gulpUtil.log(gulpUtil.colors.yellow(`No 'node_modules' found in '${config.demoDir}'. Installing dependencies for you..`));
+    return helpers.installDependencies({ cwd: `${config.demoDir}` })
+      .then(exitCode => exitCode === 0 ? 
+        helpers.execp(`${ng} ${cmd}`, opts)
+          .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+          .catch(errorHandler)
+        : Promise.reject()
+      )
+      .catch(errorHandler);
+  }
+};
 
-gulp.task('serve:demo', gulpShell.task('ng serve<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` }));
+gulp.task('test:demo', ()=>{
+  return execDemoCmd('test', { cwd: `${config.demoDir}`});
+});
 
-gulp.task('build:demo', gulpShell.task(`ng build --prod --aot --base-href https://<%= githubUsername %>.github.io/${config.libraryName}/`, { cwd: `${config.demoDir}` }));
+gulp.task('serve:demo', ()=>{
+  return execDemoCmd('serve<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}`});
+});
 
-gulp.task('push:demo', gulpShell.task(`ngh --dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`));
+gulp.task('build:demo', ()=>{
+  return execDemoCmd(`build --prod --aot --base-href https://<%= githubUsername %>.github.io/${config.libraryName}/`, { cwd: `${config.demoDir}`});
+});
+
+gulp.task('push:demo', ()=>{
+  const ngh = helpers.root(helpers.binPath(`ngh`));
+  return execp(`${ngh} --dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`)
+    .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+    .catch(e=>process.exit(1));
+});
 
 gulp.task('deploy:demo', (cb) => {
   runSequence('build:demo'<%- (useCompodoc) ? ", 'build:doc'": ""%>, 'push:demo', cb);

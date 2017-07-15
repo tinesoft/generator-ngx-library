@@ -55,9 +55,23 @@ execp = (cmd, opts) => {
     });
 };
 
+/**
+ * Install dependencies using yarn, if present, or npm otherwise.
+ * @param opts See child_process.exec node docs
+ * @returns {Promise<number>}
+ */
+installDependencies = (opts) => {
+    return execp('yarn -v') // first try to install deps using yarn
+        .then(exitCode=>
+            (exitCode === 0 ? execp('yarn install',opts) : execp('npm install',opts))
+            .then(exitCode => Promise.resolve(exitCode))
+        );
+};
+
 var exports = module.exports = {
     root: rootDir,
     execp: execp,
     binPath: binPath,
-    platformPath: platformPath
+    platformPath: platformPath,
+    installDependencies: installDependencies
 };
