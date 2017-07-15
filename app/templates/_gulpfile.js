@@ -10,7 +10,6 @@ const gulpTslint = require('gulp-tslint');
 
 /** External command runner */
 const process = require('process');
-const gulpShell = require('gulp-shell');
 const execSync = require('child_process').execSync;
 
 /** File Access */
@@ -129,6 +128,28 @@ const readyToRelease = () => {
 
   return isTravisPassing && onMasterBranch && canBump && canGhRelease && canNpmPublish;
 };
+
+const execCmd = (name, args, opts, ...subFolders) => {
+  const cmd = helpers.root(subFolders, helpers.binPath(`${name}`));
+  return helpers.execp(`${cmd} ${args}`, opts)
+    .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+    .catch(e => {
+      gulpUtil.log(gulpUtil.colors.red(`${name} command failed. See below for errors.\n`));
+      gulpUtil.log(gulpUtil.colors.red(e));
+      process.exit(1);
+    });
+};
+
+const execExternalCmd = (name, args, opts) => {
+  return helpers.execp(`${name} ${args}`, opts)
+    .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+    .catch(e => {
+      gulpUtil.log(gulpUtil.colors.red(`${name} command failed. See below for errors.\n`));
+      gulpUtil.log(gulpUtil.colors.red(e));
+      process.exit(1);
+    });
+};
+
 <% if(!skipStyles) { %>
 // Compile Sass to css
 const styleProcessor = (stylePath, ext, styleFile, callback) => {
@@ -386,38 +407,36 @@ gulp.task('rollup-bundle', (cb) => {
 /////////////////////////////////////////////////////////////////////////////
 // Documentation Tasks
 /////////////////////////////////////////////////////////////////////////////
-gulp.task('build:doc', gulpShell.task(`compodoc -p tsconfig.json --hideGenerator --disableCoverage -d  <%= skipDemo ? "${config.outputDir}/doc/": "${config.demoDir}/dist/doc/"%>`));
+gulp.task('build:doc', ()=>{
+  return execCmd('compodoc',`-p tsconfig.json --hideGenerator --disableCoverage -d  <%= skipDemo ? "${config.outputDir}/doc/": "${config.demoDir}/dist/doc/"%>`);
+});
 
-gulp.task('serve:doc', ['clean:doc'], gulpShell.task(`compodoc -p tsconfig.json -s -d  ${config.outputDir}/doc/`));<% } if(skipDemo) { %>
+gulp.task('serve:doc', ['clean:doc'], ()=>{
+  return execCmd('compodoc',`-p tsconfig.json -s -d  ${config.outputDir}/doc/`);
+});<% } if(skipDemo) { %>
 
-gulp.task('push:doc', gulpShell.task(`ngh --dir ${config.outputDir}/doc/ --message="chore(doc): :rocket: deploy new version"`));<% } %>
+gulp.task('push:doc', ()=>{
+  return execCmd('ngh',`--dir ${config.outputDir}/doc/ --message="chore(doc): :rocket: deploy new version"`);
+});<% } %>
+
 
 <% if(!skipDemo) { %>
 /////////////////////////////////////////////////////////////////////////////
 // Demo Tasks
 /////////////////////////////////////////////////////////////////////////////
-const ng = helpers.root(config.demoDir, helpers.binPath(`ng`));
-const errorHandler = (e) => {
-  gulpUtil.log(gulpUtil.colors.red('ng command failed. See below for errors.\n'));
-  gulpUtil.log(gulpUtil.colors.red(e));
-  process.exit(1);
-};
-const execDemoCmd = (cmd,opts) => {
+const execDemoCmd = (args,opts) => {
   if(fs.existsSync(`${config.demoDir}/node_modules`)){
-    return helpers.execp(`${ng} ${cmd}`, opts)
-      .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
-      .catch(errorHandler);
+    return execCmd('ng', args, opts, `/${config.demoDir}`);
   }
   else{
     gulpUtil.log(gulpUtil.colors.yellow(`No 'node_modules' found in '${config.demoDir}'. Installing dependencies for you..`));
     return helpers.installDependencies({ cwd: `${config.demoDir}` })
-      .then(exitCode => exitCode === 0 ? 
-        helpers.execp(`${ng} ${cmd}`, opts)
-          .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
-          .catch(errorHandler)
-        : Promise.reject()
-      )
-      .catch(errorHandler);
+      .then(exitCode => exitCode === 0 ? execCmd('ng', args, opts, `/${config.demoDir}`) : Promise.reject())
+      .catch(e => {
+        gulpUtil.log(gulpUtil.colors.red(`ng command failed. See below for errors.\n`));
+        gulpUtil.log(gulpUtil.colors.red(e));
+        process.exit(1);
+      });
   }
 };
 
@@ -434,10 +453,7 @@ gulp.task('build:demo', ()=>{
 });
 
 gulp.task('push:demo', ()=>{
-  const ngh = helpers.root(helpers.binPath(`ngh`));
-  return execp(`${ngh} --dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`)
-    .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
-    .catch(e=>process.exit(1));
+  return execCmd('ngh',`--dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`);
 });
 
 gulp.task('deploy:demo', (cb) => {
@@ -534,7 +550,9 @@ gulp.task('create-new-tag', (cb) => {
 });
 
 // Build and then Publish 'dist' folder to NPM
-gulp.task('npm-publish', ['build'], gulpShell.task(`npm publish ${config.outputDir}`));
+gulp.task('npm-publish', ['build'], ()=>{
+  return execExternalCmd('npm',`publish ${config.outputDir}`)
+});
 
 // Perfom pre-release checks (no actual release)
 gulp.task('pre-release', cb => {
@@ -579,9 +597,13 @@ gulp.task('release', (cb) => {
 // This way, we can have the demo project declare a dependency on 'ng-scrollreveal' (as it should)
 // and, thanks to 'npm link ng-scrollreveal' on demo project, be sure to always use the latest built
 // version of the library ( which is in 'dist/' folder)
-gulp.task('link', gulpShell.task('npm link', { cwd: `${config.outputDir}` }));
+gulp.task('link', ()=>{
+  return execExternalCmd('npm', 'link', { cwd: `${config.outputDir}` });
+});
 
-gulp.task('unlink', gulpShell.task('npm unlink', { cwd: `${config.outputDir}` }));
+gulp.task('unlink', ()=>{
+  return execExternalCmd('npm', 'unlink', { cwd: `${config.outputDir}` });
+});
 
 // Upload code coverage report to coveralls.io (will be triggered by Travis CI on successful build)
 gulp.task('coveralls', (cb) => {
