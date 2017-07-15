@@ -40,10 +40,10 @@ module.exports = {
   validateProjectVersion: input => {
     return semver.valid(input) ? true : 'Your project version does not follow semantic versioning convention (eg: X.Y.Z)';
   },
-
-  validateModuleName: input => {
-    return /^[a-zA-Z0-9-_]+$/.test(input) ? true : 'Your Angular module name cannot contain special characters or a blank space';
+  validateNgPrefix: input => {
+    return /^[a-zA-Z0-9-_]+$/.test(input) ? true : 'Your Angular prefix name cannot contain special characters or a blank space';
   },
+
   validateNgModules: selectedModules => {
     if (!selectedModules || selectedModules.indexOf('core') === -1) {
       return 'Your library must at least include Angular\'s "core" module';

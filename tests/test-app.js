@@ -15,7 +15,7 @@ const createNgLibraryApp = (options, prompts) => {
       projectVersion: '1.0.0',
       projectDescription: 'Angular library for ...',
       projectkeywords: 'ng, angular,library',
-      moduleName: 'my-module',
+      ngPrefix: 'my-lib',
       ngVersion: '2.0.0',
       ngModules: ['core', 'common'],
       useGreenkeeper: true,
@@ -46,14 +46,17 @@ describe('ngx-library:app', () => {
         // 'deploy.sh',
         'CHANGELOG.md',
         'karma.conf.js',
-        'tsconfig-aot.json',
         'tsconfig.json',
         'tslint.json',
         'webpack.config.js',
 
         // Create Source files
         'src/index.ts',
-        'src/my-module.module.ts',
+        'src/module/lib.module.ts',
+        'src/module/service/lib.service.ts',
+        'src/module/service/lib.service.spec.ts',
+        'src/tsconfig.lib.json',
+        'src/tsconfig.spec.json',
 
         // Create Demo files
         'demo/e2e/app.e2e-spec.ts',
@@ -148,7 +151,7 @@ describe('ngx-library:app', () => {
           projectVersion: '1.0.0',
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
-          moduleName: 'my-module',
+          ngPrefix: 'my-lib',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common', 'animations'],
           useGreenkeeper: true,
@@ -168,6 +171,8 @@ describe('ngx-library:app', () => {
             '"gulp-tslint" : "6.1.1"',
             '"typescript" : "2.0.3"',
             '"codelyzer" : "1.0.0-beta.0"']);
+        assert.noFile([
+          'src/tsconfig.lib.es5.json']);
       });
     });
   });
@@ -187,7 +192,7 @@ describe('ngx-library:app', () => {
           projectVersion: '1.0.0',
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
-          moduleName: 'my-module',
+          ngPrefix: 'my-lib',
           ngVersion: '4.0.0',
           ngModules: ['core', 'common', 'animations'],
           useGreenkeeper: true,
@@ -207,6 +212,8 @@ describe('ngx-library:app', () => {
             '"gulp-tslint" : "8.1.1"',
             '"typescript" : "2.3.3"',
             '"codelyzer" : "3.1.1"']);
+        assert.file([
+          'src/tsconfig.lib.es5.json']);
       });
     });
   });
@@ -262,7 +269,7 @@ describe('ngx-library:app', () => {
           projectVersion: '1.0.0',
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
-          moduleName: 'my-module',
+          ngPrefix: 'my-lib',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: true,
@@ -291,7 +298,7 @@ describe('ngx-library:app', () => {
           projectVersion: '1.0.0',
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
-          moduleName: 'my-module',
+          ngPrefix: 'my-lib',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -322,7 +329,7 @@ describe('ngx-library:app', () => {
           projectVersion: '1.0.0',
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
-          moduleName: 'my-module',
+          ngPrefix: 'my-lib',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -350,7 +357,7 @@ describe('ngx-library:app', () => {
           projectVersion: '1.0.0',
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
-          moduleName: 'my-module',
+          ngPrefix: 'my-lib',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -376,12 +383,14 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.skipStyles, true);
 
+        assert.noFileContent('package.json', '    "css-loader":');
+        assert.noFileContent('package.json', '    "node-sass":');
+        assert.noFileContent('package.json', '    "sass-loader":');
+        assert.noFileContent('package.json', '    "to-string-loader":');
         assert.noFileContent('package.json', '    "autoprefixer":');
         assert.noFileContent('package.json', '    "cssnano":');
-        assert.noFileContent('package.json', '    "gulp-inline-ng2-template":');
         assert.noFileContent('package.json', '    "postcss":');
         assert.noFileContent('package.json', '    "postcss-strip-inline-comments":');
-        assert.noFileContent('gulpfile.js', `gulp.task('inline-templates'`);
       });
     });
 
@@ -395,12 +404,14 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.skipStyles, false);
 
+        assert.fileContent('package.json', '    "css-loader":');
+        assert.fileContent('package.json', '    "node-sass":');
+        assert.fileContent('package.json', '    "sass-loader":');
+        assert.fileContent('package.json', '    "to-string-loader":');
         assert.fileContent('package.json', '    "autoprefixer":');
         assert.fileContent('package.json', '    "cssnano":');
-        assert.fileContent('package.json', '    "gulp-inline-ng2-template":');
         assert.fileContent('package.json', '    "postcss":');
         assert.fileContent('package.json', '    "postcss-strip-inline-comments":');
-        assert.fileContent('gulpfile.js', `gulp.task('inline-templates'`);
       });
     });
   });

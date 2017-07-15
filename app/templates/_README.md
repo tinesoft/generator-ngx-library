@@ -35,30 +35,30 @@ map: {
 
 Once installed you need to import the main module:
 ```js
-import {<%= moduleClass %>} from '<%= projectName %>';
+import { LibModule } from '<%= projectName %>';
 ```
 The only remaining part is to list the imported module in your application module. The exact method will be slightly
-different for the root (top-level) module for which you should end up with the code similar to (notice `<%= moduleClass %>.forRoot()`):
+different for the root (top-level) module for which you should end up with the code similar to (notice ` LibModule .forRoot()`):
 ```js
-import {<%= moduleClass %>} from '<%= projectName %>';
+import { LibModule } from '<%= projectName %>';
 
 @NgModule({
   declarations: [AppComponent, ...],
-  imports: [<%= moduleClass %>.forRoot(), ...],  
+  imports: [LibModule.forRoot(), ...],  
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
 ```
 
-Other modules in your application can simply import `<%= moduleClass %>`:
+Other modules in your application can simply import ` LibModule `:
 
 ```js
-import {<%= moduleClass %>} from '<%= projectName %>';
+import { LibModule } from '<%= projectName %>';
 
 @NgModule({
   declarations: [OtherComponent, ...],
-  imports: [<%= moduleClass %>, ...], 
+  imports: [LibModule, ...], 
 })
 export class OtherModule {
 }

@@ -1,7 +1,9 @@
+<p align="center">
+  <img height="300px" width="300px" style="text-align: center;" src="https://cdn.rawgit.com/tinesoft/generator-ngx-library/master/assets/logo.png">
+ </p>
+ 
 # generator-ngx-library - [Yeoman](http://yeoman.io/) generator to bootstrap your [Angular](https://angular.io) library creation and publication
 
-
-[![Join the chat at https://gitter.im/generator-ngx-library/Lobby](https://badges.gitter.im/generator-ngx-library/Lobby.svg)](https://gitter.im/generator-ngx-library/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![npm version](https://badge.fury.io/js/generator-ngx-library.svg)](https://badge.fury.io/js/generator-ngx-library)
 [![Build Status](https://travis-ci.org/tinesoft/generator-ngx-library.svg?branch=master)](https://travis-ci.org/tinesoft/generator-ngx-library)
@@ -9,8 +11,8 @@
 [![dependencies Status](https://david-dm.org/tinesoft/generator-ngx-library/status.svg)](https://david-dm.org/tinesoft/generator-ngx-library)
 [![devDependency Status](https://david-dm.org/tinesoft/generator-ngx-library/dev-status.svg?branch=master)](https://david-dm.org/tinesoft/generator-ngx-library#info=devDependencies)
 [![Greenkeeper Badge](https://badges.greenkeeper.io/tinesoft/generator-ngx-library.svg)](https://greenkeeper.io/)
+[![Join the chat at https://gitter.im/generator-ngx-library/Lobby](https://badges.gitter.im/generator-ngx-library/Lobby.svg)](https://gitter.im/generator-ngx-library/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ===========================================================================================================================================
-
 
 # Demo
 
@@ -25,18 +27,18 @@ These are some that [i know of](https://github.com/search?q=generator-ngx-librar
 
 These are the main features of the generator:
 
-* **Ahead Of Time**(AOT) compatibility
+* **Ahead Of Time**(AOT) Compilation, **Flattened ES Modules**(FESM), **[Minified] UMD Bundles**, **Closure Compiler** support (follows [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview))
 * **Code Linting** based on [codelyzer](https://github.com/mgechev/codelyzer) rules 
 * **Styles** and **Templates Inlining** in components
 * **SASS/SCSS** to **CSS** compilation
 * **Integrated demo app** built with [angular-cli](https://cli.angular.io) and [ng-bootstrap](https://ng-bootstrap.github.io) 
 * **Project Documentation** built with [compodoc](https://compodoc.github.io/website/) and published along with demo app :books:
 * **Continuous Integration** with [Travis CI](https://travis-ci.org)
+* **Testing Environment** with [Karma](https://karma-runner.github.io/) and [Webpack](https://webpack.github.io/)
 * **Code Coverage** with [Coveralls.io](https://coveralls.io/)
 * **Real-time Monitoring** and **Automatic Updates** of npm dependencies with [Greenkeeper](https://greenkeeper.io) :palm_tree:
-* **Minification and UMD Bundling** with [RollupJS](https://rollupjs.org) 
 * **Publication** to [npm registry](https://npmjs.org)
-* **Github Releasing** :octocat:
+* **Releasing** to [Github](https://help.github.com/articles/about-releases/) :octocat:
 * and so much more out-of-the-box :package:!
 
 
@@ -97,8 +99,19 @@ At a high level, the generated structure looks exactly like this:
 my-ngx-library/
   |- .git/
   |- src/
+  |  |	|- component/
+  |  |	|  |- lib.component.html
+  |  |	|  |- lib.component.scss
+  |  |	|  |- lib.component.spec.ts
+  |  |	|  |- lib.component.ts
+  |  |	|- component/
+  |  |	|  |- lib.service.spec.ts
+  |  |	|  |- lib.service.ts
   |  |	|- index.ts
-  |  |	|- my-ng-module.module.ts
+  |  |	|- lib.module.ts
+  |  |	|- tsconfig.lib.es5.ts #if targeting Angular v4.x.x
+  |  |	|- tsconfig.lib.json
+  |  |	|- tsconfig.spec.json
   |- config/
   |  |	|- helpers.js
   |  |	|- karma-test-shim.js
@@ -174,9 +187,11 @@ Here are the main files and folders:
 File / Folder       | Purpose
 :-------------------|:---------------------------------------------------------------------------------------------------------
 `gulpfile.js`       | The gulp configuration file to manage the whole project build lifecycle (from testing to releasing)
-`tsconfig.json`     | The typescript configuration file used for testing your library
-`tsconfig-aot.json` | The typescript configuration file used to compile your library in a AoT compatible way
 `tslint.json`       | This file contains rules to lint your library based on [codelyzer](https://github.com/mgechev/codelyzer)
+`tsconfig.json`     | The typescript configuration file used for editors (VSCode, ...)
+`src/tsconfig.lib.es5.json` | The typescript configuration file used to compile your library in an AoT compatible way, as ESM/ES5 module (only available when targeting Angular v4.x.x)
+`src/tsconfig.lib.json` | The typescript configuration file used to compile your library in an AoT compatible way, either as ESM/ES2015 module (when targeting Angular v4.x.x) or as ESM/ES5 module (when targeting Angular v2.x.x)
+`src/tsconfig.spec.json` | The typescript configuration file used for tests
 `src/`              | This folder will contain all the files of your library
 `config/`           | This folder contains the configuration files for tools used to test your lib (`Webpack` & `Karma`)
 `demo/`             | This folder contains an integrated demo application, to showcase your library. The demo app is built with [angular-cli](https://github.com/angular/angular-cli) (v1.0.0), so everything you know about the CLI is applicable inside this folder.
@@ -188,6 +203,68 @@ File / Folder       | Purpose
 > Besides, any changes to the files in the `dist/` folder will immediately affect the global `<YOUR_PACKAGE_NAME>` package, allowing you to quickly test any changes you make to your library.
 >
 > `npm link` is very similar to npm install -g except that instead of downloading the package from the repo, the just cloned `dist/` folder becomes the global package. 
+
+# Overall Distributed Package Structure
+
+Depending on the minimal version of Angular your library targets (2.x.x or 4.x.x), the distributed package files are different:
+
+### For Angular >=v4.x.x
+
+The published package follows the official [Angular Package Format v4.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview)
+
+```
+dist/
+	|- bundles/                           # Directory that contains all bundles (UMD/ES5)
+	|  |- my-ngx-library.umd.js           # UMD bundle
+	|  |- my-ngx-library.umd.js.map       # UMD bundle sourcemap
+	|  |- my-ngx-library.umd.min.js       # Minified UMD bundle
+	|  |- my-ngx-library.umd.min.js.map   # Minified UMD bundle sourcemap
+	|- module/                            # 
+	|  |- component/                      #
+	|  |  |- lib.component.d.ts           # Type definitions
+	|  |- service/                        #
+	|  |  |- lib.service.d.ts             # Type definitions
+	|- CHANGELOG.md                       #
+	|- my-ngx-library.d.ts                # Type definitions
+	|- my-ngx-library.es5.js              # ESM+ES5 flat module (FESM5)
+	|- my-ngx-library.es5.js.map          # ESM+ES5 flat module (FESM5) sourcemap
+	|- my-ngx-library.metadata.json       # Metadata used by AOT compiler
+	|- my-ngx-library.js                  # ESM+ES2015 flat module (FESM15)
+	|- my-ngx-library.js.map              # ESM+ES2015 flat module (FESM15) sourcemap
+	|- my-ngx-library.metadata.json       # Metadata used by AOT compiler
+	|- LICENSE                            #
+	|- lib.module.d.ts                    # Type definitions
+	|- package.json                       # Package.json, with just the right dependencies & peerDependencies
+	|- README.md                          #
+```
+
+### For Angular v2.x.x
+
+The published package also follows the format of Angular core packages (prior to v4.0.0), but contrary to v4, there is no official(or publicly available) documentation about that format.
+
+```
+dist/
+	|- bundles/                           # Directory that contains all bundles (UMD/ES5)
+	|  |- my-ngx-library.umd.js           # UMD bundle
+	|  |- my-ngx-library.umd.js.map       # UMD bundle sourcemap
+	|  |- my-ngx-library.umd.min.js       # Minified UMD bundle
+	|  |- my-ngx-library.umd.min.js.map   # Minified UMD bundle sourcemap
+	|- module/                            # 
+	|  |- component/                      #
+	|  |  |- lib.component.d.ts           # Type definitions
+	|  |  |- lib.component.metadata.json  # Metadata used by AOT compiler
+	|  |- service/                        #
+	|  |  |- lib.service.d.ts             # Type definitions
+	|  |  |- lib.service.metadata.json    # Metadata used by AOT compiler
+	|- CHANGELOG.md                       #
+	|- index.d.ts                         #
+	|- index.metadata.json                #
+	|- LICENSE                            #
+	|- lib.module.d.ts                    # Type definitions
+	|- lib.module.metadata.json           # Metadata used by AOT compiler
+	|- package.json                       # Package.json, with just the right dependencies & peerDependencies
+	|- README.md                          #
+```
 
 # Development
 
@@ -228,6 +305,17 @@ Task                    | Purpose
 ### Recipes
 
 Some useful recipes to help you during the development process can be found [here](recipes/)
+
+### Updating
+
+When a new version of the generator is available, you can take advantage of the new features/bug fixes it brings by updating your globally installed version and by re-running it again (from your project root folder).
+
+```
+$ npm install -g generator-ngx-library
+$ yo ngx-library
+```
+
+Please make sure to read [CHANGELOG](CHANGELOG.md) first, to take all necessary actions for a seamless upgrade.
 
 # Versioning
 

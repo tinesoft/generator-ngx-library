@@ -39,11 +39,11 @@ describe('ngx-library:validators', () => {
     assert.strictEqual(validators.validateProjectVersion('1.2.0'), true, 'passing a valid value passes validation');
   });
 
-  it('should validate "moduleName"', () => {
-    assert.strictEqual(!validators.validateModuleName(''), false, 'empty string should fail validation');
-    assert.strictEqual(!validators.validateModuleName(), false, 'not passing a value should fail validation');
-    assert.strictEqual(!validators.validateModuleName('My_/_ModuleName'), false, 'not passing a valid value should fail validation');
-    assert.strictEqual(validators.validateModuleName('my-ng-module'), true, 'passing a valid value passes validation');
+  it('should validate "ngPrefix"', () => {
+    assert.strictEqual(!validators.validateNgPrefix(''), false, 'empty string should fail validation');
+    assert.strictEqual(!validators.validateNgPrefix(), false, 'not passing a value should fail validation');
+    assert.strictEqual(!validators.validateNgPrefix('My_/_NgPrefix'), false, 'not passing a valid value should fail validation');
+    assert.strictEqual(validators.validateNgPrefix('my-lib'), true, 'passing a valid value passes validation');
   });
 
   it('should validate "ngModules"', () => {
