@@ -1,3 +1,19 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.5.2...v3.0.0) (2017-07-16)
+
+
+### Features
+
+* **demo:** automatically install dependencies if missing when first running a demo related task ([bfbabba](https://github.com/tinesoft/generator-ngx-library/commit/bfbabba))
+* **demo:** update demo app with example of how to consume the library ([cfc4951](https://github.com/tinesoft/generator-ngx-library/commit/cfc4951))
+* **generator:** add `ngPrefix` option for naming components, directives,... and enforce it in `tslint.json` ([fbd35f5](https://github.com/tinesoft/generator-ngx-library/commit/fbd35f5)), closes [#33](https://github.com/tinesoft/generator-ngx-library/issues/33)
+* **packageFormat:** add support for [Angular Package Format v4.0](https://goo.gl/AMOU5G) ([c484636](https://github.com/tinesoft/generator-ngx-library/commit/c484636)), closes [#32](https://github.com/tinesoft/generator-ngx-library/issues/32)
+* **prompts:** add default keywords to `projectKeywords` option ([54376f3](https://github.com/tinesoft/generator-ngx-library/commit/54376f3))
+* **template/travis:** remove custom installation of yarn (0.21.3) in favor of latest ([5884e4c](https://github.com/tinesoft/generator-ngx-library/commit/5884e4c))
+* **templates/package.json:** update dev dependencies and `zone.js` (for Angular v4) ([e23b66b](https://github.com/tinesoft/generator-ngx-library/commit/e23b66b))
+
+
+
 <a name="2.5.2"></a>
 ## [2.5.2](https://github.com/tinesoft/generator-ngx-library/compare/v2.5.1...v2.5.2) (2017-06-29)
 
@@ -9,7 +25,7 @@
 
 
 <a name="2.5.1"></a>
-## [2.5.1](https://github.com/tinesoft/generator-ngx-library/compare/2.4.1...v2.5.1) (2017-06-28)
+## [2.5.1](https://github.com/tinesoft/generator-ngx-library/compare/v2.5.0...v2.5.1) (2017-06-28)
 
 
 ### Bug Fixes
@@ -20,7 +36,7 @@
 
 
 <a name="2.5.0"></a>
-# [2.5.0](https://github.com/tinesoft/generator-ngx-library/compare/1.1.2...v2.5.0) (2017-06-19)
+# [2.5.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.4.1...v2.5.0) (2017-06-19)
 
 
 ### Bug Fixes
