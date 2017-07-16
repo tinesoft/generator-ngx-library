@@ -163,7 +163,7 @@ module.exports = class extends Generator {
         this.ngDevDependencies.push('"codelyzer" : "1.0.0-beta.0"');
       } else {
         this.ngDevDependencies.push('"@angular/compiler-cli" : "4.0.0"');
-        this.ngDevDependencies.push('"zone.js" : "0.8.4"');
+        this.ngDevDependencies.push('"zone.js" : "0.8.13"');
         this.ngDevDependencies.push('"rxjs" : "5.0.1"');
         this.ngDevDependencies.push('"tslint" : "5.4.3"');
         this.ngDevDependencies.push('"gulp-tslint" : "8.1.1"'); // Because it depends on 'tslint'
