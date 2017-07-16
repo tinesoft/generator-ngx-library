@@ -206,7 +206,7 @@ describe('ngx-library:app', () => {
             '"@angular/platform-browser" : "4.0.0"',
             '"@angular/platform-browser-dynamic" : "4.0.0"',
             '"@angular/compiler-cli" : "4.0.0"',
-            '"zone.js" : "0.8.4"',
+            '"zone.js" : "0.8.13"',
             '"rxjs" : "5.0.1"',
             '"tslint" : "5.4.3"',
             '"gulp-tslint" : "8.1.1"',
