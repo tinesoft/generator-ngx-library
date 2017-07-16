@@ -18,7 +18,7 @@ platformPath = (path) => {
  * @param {string[]} args 
  */
 rootDir = (...args) => { 
-    return [_root].concat(...args).join('');
+    return path.join.apply(path, [_root].concat(...args));
 };
 
 /**
