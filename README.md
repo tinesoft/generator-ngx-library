@@ -280,8 +280,8 @@ Task                    | Purpose
 `gulp test`             | Launches the tests (`*.spec.ts`) you wrote in `src/` and run code coverage on them. The coverage report can be found in `coverage/` folder
 `gulp test:watch`       | Launches tests in watch mode. Every changes in `*.spec.ts` 
 `gulp test:watch-no-cc` | Same as `gulp test:watch` but files do not get instrumented for code coverage (useful for debugging)
-`gulp test:demo`<sup>1</sup>       | Launches demo application tests(same as running `ng test` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
-`gulp serve:demo`<sup>1</sup>      | Launches demo application (same as running `ng serve` from `demo/`). **Be sure you installed demo dependencies before** by running `yarn &#124; npm install` inside `demo/`
+`gulp test:demo`<sup>1</sup>       | Launches demo application tests(same as running `ng test` from `demo/`).
+`gulp serve:demo`<sup>1</sup>      | Launches demo application (same as running `ng serve` from `demo/`). 
 `gulp serve:doc`<sup>2</sup>       | Serves the generated compodoc documentation (from `dist/doc` folder) at https://localhost:8080. 
 
 
