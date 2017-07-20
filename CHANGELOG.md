@@ -1,3 +1,13 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/tinesoft/generator-ngx-library/compare/v3.0.0...v3.0.1) (2017-07-20)
+
+
+### Bug Fixes
+
+* **npm-package:** fix installation failure on Node v>=8 during `gulp npm-package` phase ([c0a464f](https://github.com/tinesoft/generator-ngx-library/commit/c0a464f)), closes [#52](https://github.com/tinesoft/generator-ngx-library/issues/52)
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v2.5.2...v3.0.0) (2017-07-16)
 
