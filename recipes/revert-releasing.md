@@ -1,6 +1,6 @@
 # How to revert a package releasing that's gone wrong?
 
-Despite all efforts put in to provide a simple and error-less releasing process (thanks pre-release checks, among others),
+Despite all efforts, put in to provide a simple and error-less releasing process (thanks to pre-release checks, among others),
 it is still possible that something goes wrong during the process, and that you might want to revert the changes introduced.
 
 Depending on which [release step](https://github.com/tinesoft/generator-ngx-library#releasing) caused the failure, you can rollback some of
