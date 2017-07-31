@@ -113,7 +113,7 @@ module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
-      `Welcome to the wondrous ${chalk.green('ngx-library')} generator!`
+      `Welcome to the wondrous ${chalk.green(`ngx-library@${this.pkg.version}`)} generator!`
     ));
 
     let info = {
