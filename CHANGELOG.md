@@ -1,3 +1,18 @@
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/tinesoft/generator-ngx-library/compare/v3.0.1...v3.0.2) (2017-07-31)
+
+
+### Bug Fixes
+
+* **tests:** fix `tsconfig.spec.json` when targetting Angular 2.x.x (decorator metadat not emitted) ([706440e](https://github.com/tinesoft/generator-ngx-library/commit/706440e))
+
+
+### Features
+
+* **version:** show generator version at launch, to ease troubleshootings ([e533ca9](https://github.com/tinesoft/generator-ngx-library/commit/e533ca9))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/tinesoft/generator-ngx-library/compare/v3.0.0...v3.0.1) (2017-07-20)
 
