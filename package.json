@@ -43,7 +43,7 @@
   "devDependencies": {
     "@types/yeoman-generator": "1.0.2",
     "conventional-github-releaser": "1.1.12",
-    "eslint": "4.1.1",
+    "eslint": "4.4.0",
     "eslint-config-xo-space": "0.16.0",
     "greenkeeper-lockfile": "1.7.2",
     "gulp": "3.9.1",
