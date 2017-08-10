@@ -10,6 +10,7 @@ import { HeaderComponent } from './header.component';
 import { HomeComponent } from './../../home/home.component';
 import { GettingStartedComponent } from './../../getting-started/getting-started.component';
 import { AppRoutingModule } from './../../app-routing';
+import { LibModule } from '<%= projectName %>';
 
 
 describe('HeaderComponent', () => {
@@ -20,6 +21,7 @@ describe('HeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         AppRoutingModule,
+        LibModule.forRoot(),
         NgbCollapseModule.forRoot()],
       declarations: [
         HeaderComponent,
