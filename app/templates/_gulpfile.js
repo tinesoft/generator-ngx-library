@@ -449,7 +449,7 @@ gulp.task('serve:demo', ()=>{
 });
 
 gulp.task('build:demo', ()=>{
-  return execDemoCmd(`build --prod --aot --base-href https://<%= githubUsername %>.github.io/${config.libraryName}/`, { cwd: `${config.demoDir}`});
+  return execDemoCmd(`build --prod --aot --build-optimizer --base-href https://<%= githubUsername %>.github.io/${config.libraryName}/`, { cwd: `${config.demoDir}`});
 });
 
 gulp.task('push:demo', ()=>{
