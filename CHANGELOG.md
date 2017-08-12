@@ -1,3 +1,22 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.0.2...v3.1.0) (2017-08-12)
+
+
+### Bug Fixes
+
+* **demo:** fix `base-href` used by deployed demo app ([ef8a159](https://github.com/tinesoft/generator-ngx-library/commit/ef8a159))
+* **demo:** import 'LibModule' for HeaderComponent tests ([7a2bfde](https://github.com/tinesoft/generator-ngx-library/commit/7a2bfde)), closes [#60](https://github.com/tinesoft/generator-ngx-library/issues/60)
+* **demo:** update dependencies in template ([9dc0c0a](https://github.com/tinesoft/generator-ngx-library/commit/9dc0c0a)), closes [#62](https://github.com/tinesoft/generator-ngx-library/issues/62)
+* **packaging:** fix wrong bundle(es6 instead of es5) referenced in distributed files's `package.json` when targetting angular >= 4 ([fd0d366](https://github.com/tinesoft/generator-ngx-library/commit/fd0d366)), closes [#65](https://github.com/tinesoft/generator-ngx-library/issues/65)
+
+
+### Features
+
+* **demo:** update demo application files to `angular/cli[@1](https://github.com/1).3.0` ([da0687f](https://github.com/tinesoft/generator-ngx-library/commit/da0687f))
+* **perf:** add `--build-optimizer` when building demo application (sample app shrinked from `808.55kB` to `587.35kB` ! ) ([894c3e8](https://github.com/tinesoft/generator-ngx-library/commit/894c3e8))
+
+
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/tinesoft/generator-ngx-library/compare/v3.0.1...v3.0.2) (2017-07-31)
 
