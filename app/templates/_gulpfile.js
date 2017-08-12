@@ -289,7 +289,7 @@ gulp.task('npm-package', (cb) => {
   fieldsToCopy.forEach((field) => { targetPkgJson[field] = pkgJson[field]; });
 
   targetPkgJson['main'] = `bundles/${config.libraryName}.umd.js`;
-  targetPkgJson['module'] = `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.libraryName}.js' %>`;
+  targetPkgJson['module'] = `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.libraryName}.es5.js' %>`;
   targetPkgJson['es2015'] = `${config.libraryName}.js`;
   targetPkgJson['typings'] = `${config.libraryName}.d.ts`;
 
