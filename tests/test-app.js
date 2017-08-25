@@ -338,7 +338,7 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.useCompodoc, true);
         assert.file('demo/proxy.conf.json');
-        assert.fileContent('package.json', '    "@compodoc/compodoc":');
+        assert.fileContent('package.json', '    "@compodoc/gulp-compodoc":');
         assert.fileContent('gulpfile.js', /gulp\.task\('(serve|build|clean):doc'/);
       });
     });
@@ -366,7 +366,7 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.useCompodoc, false);
         assert.noFile('demo/proxy.conf.json');
-        assert.noFileContent('package.json', '    "@compodoc/compodoc":');
+        assert.noFileContent('package.json', '    "@compodoc/gulp-compodoc":');
         assert.noFileContent('gulpfile.js', `gulp.task('build:doc'`);
         assert.noFileContent('gulpfile.js', /gulp\.task\('(serve|build|clean):doc'/);
       });

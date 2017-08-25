@@ -54,7 +54,10 @@ const gulpConventionalChangelog = require('gulp-conventional-changelog');
 const conventionalGithubReleaser = require('conventional-github-releaser');
 
 /** To load gulp tasks from multiple files */
-const gulpHub = require('gulp-hub');
+const gulpHub = require('gulp-hub');<% if(useCompodoc){ %>
+
+/** Documentation generation tools **/
+const gulpCompodoc = require('@compodoc/gulp-compodoc');<% } %>
 
 const yargs = require('yargs');
 const argv = yargs
@@ -407,12 +410,27 @@ gulp.task('rollup-bundle', (cb) => {
 /////////////////////////////////////////////////////////////////////////////
 // Documentation Tasks
 /////////////////////////////////////////////////////////////////////////////
-gulp.task('build:doc', ()=>{
-  return execCmd('compodoc',`-p tsconfig.json --hideGenerator --disableCoverage -d  <%= skipDemo ? "${config.outputDir}/doc/": "${config.demoDir}/dist/doc/"%>`);
+gulp.task('build:doc', (cb)=>{
+  pump([
+    gulp.src('src/**/*.ts'),
+    gulpCompodoc({
+      tsconfig: 'src/tsconfig.lib.json',
+      hideGenerator:true,
+      disableCoverage: true,
+      output: `<%= skipDemo ? "${config.outputDir}/doc/": "${config.demoDir}/dist/doc/"%>`
+    })
+  ], cb);
 });
 
-gulp.task('serve:doc', ['clean:doc'], ()=>{
-  return execCmd('compodoc',`-p tsconfig.json -s -d  ${config.outputDir}/doc/`);
+gulp.task('serve:doc', ['clean:doc'], (cb)=>{
+  pump([
+    gulp.src('src/**/*.ts'),
+    gulpCompodoc({
+      tsconfig: 'src/tsconfig.lib.json',
+      serve: true,
+      output: `${config.outputDir}/doc/`
+    })
+  ], cb);
 });<% } if(skipDemo) { %>
 
 gulp.task('push:doc', ()=>{

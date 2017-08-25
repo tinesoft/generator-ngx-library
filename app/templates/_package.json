@@ -38,7 +38,7 @@
     "angular-cli-ghpages": "0.5.1",
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "3.0.5",<% if(useCompodoc){%>
-    "@compodoc/compodoc": "1.0.0-beta.13",<% } %>
+    "@compodoc/gulp-compodoc": "0.0.7",<% } %>
     "conventional-github-releaser": "1.1.12",
     "core-js": "2.4.1",
     "del": "2.2.2",<% if(useYarn) { %>
