@@ -285,6 +285,11 @@ Task                    | Purpose
 `gulp serve:doc`<sup>2</sup>       | Serves the generated compodoc documentation (from `dist/doc` folder) at https://localhost:8080. 
 
 
+> **Note About consuming locally linked library** :
+>
+> In case you encounter the following : **'Error: Unexpected value '[object Object]' imported by the module 'AppModule'. Please add a @NgModule annotation'**, try adding `--preserve-symlinks` to your launch command (eg: `ng serve --preserve-symlinks`, for Angular CLI projects). In fact, this flag is needed to consume locally built/linked libraries (via `npm link`) with `peerDependencies`. See this [post](http://codetunnel.io/you-can-finally-npm-link-packages-that-contain-peer-dependencies/) for more information.
+
+
 > **Note About compodoc and demo application** :
 >
 > compodoc documentation is only available if you chose to use compodoc during generator setup.

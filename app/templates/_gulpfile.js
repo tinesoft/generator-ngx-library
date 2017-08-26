@@ -463,11 +463,11 @@ gulp.task('test:demo', ()=>{
 });
 
 gulp.task('serve:demo', ()=>{
-  return execDemoCmd('serve<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}`});
+  return execDemoCmd('serve --preserve-symlinks<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}`});
 });
 
 gulp.task('build:demo', ()=>{
-  return execDemoCmd(`build --prod --aot --build-optimizer --base-href <%= projectName %>`, { cwd: `${config.demoDir}`});
+  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --base-href <%= projectName %>`, { cwd: `${config.demoDir}`});
 });
 
 gulp.task('push:demo', ()=>{
