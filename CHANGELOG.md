@@ -1,3 +1,14 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/tinesoft/generator-ngx-library/compare/v3.1.0...v3.1.1) (2017-08-26)
+
+
+### Bug Fixes
+
+* **compodoc:** use `tsconfig.json` file from library source folder (not the one from root folder) ([6801256](https://github.com/tinesoft/generator-ngx-library/commit/6801256))
+* **demo:** fix error when consuming the linked library in demo app ([01d58f2](https://github.com/tinesoft/generator-ngx-library/commit/01d58f2)), closes [#70](https://github.com/tinesoft/generator-ngx-library/issues/70)
+
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.0.2...v3.1.0) (2017-08-12)
 
