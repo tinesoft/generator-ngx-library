@@ -4,19 +4,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppRoutingModule } from './app-routing';
+import { AppRoutingModule } from './app-routing.module';
 import { AppSharedModule } from './shared/shared.module';
+import { HomeModule } from './home/home.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { GettingStartedComponent } from './getting-started/getting-started.component';
 
 import { LibModule } from '<%= projectName %>';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        GettingStartedComponent,
-        HomeComponent
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -24,6 +21,7 @@ import { LibModule } from '<%= projectName %>';
         HttpModule,
         AppRoutingModule,
         AppSharedModule,
+        HomeModule,
         LibModule.forRoot()
     ],
     providers: [],

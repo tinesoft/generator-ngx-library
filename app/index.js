@@ -285,12 +285,16 @@ module.exports = class extends Generator {
       this.fs.copyTpl(this.templatePath('demo/e2e/_app.po.ts'), this.destinationPath('demo/e2e/app.po.ts'), this);
       this.fs.copy(this.templatePath('demo/e2e/tsconfig.e2e.json'), this.destinationPath('demo/e2e/tsconfig.e2e.json'));
       this.fs.copyTpl(this.templatePath('demo/src/app/getting-started/_getting-started.component.ts'), this.destinationPath('demo/src/app/getting-started/getting-started.component.ts'), this);
+      this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started-routing.module.ts'), this.destinationPath('demo/src/app/getting-started/getting-started-routing.module.ts'));
       this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.html'), this.destinationPath('demo/src/app/getting-started/getting-started.component.html'));
       this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.scss'), this.destinationPath('demo/src/app/getting-started/getting-started.component.scss'));
+      this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.module.ts'), this.destinationPath('demo/src/app/getting-started/getting-started.module.ts'));
       this.fs.copy(this.templatePath('demo/src/app/getting-started/getting-started.component.spec.ts'), this.destinationPath('demo/src/app/getting-started/getting-started.component.spec.ts'));
       this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.html'), this.destinationPath('demo/src/app/home/home.component.html'), this);
       this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.ts'), this.destinationPath('demo/src/app/home/home.component.ts'), this);
       this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.component.spec.ts'), this.destinationPath('demo/src/app/home/home.component.spec.ts'), this);
+      this.fs.copyTpl(this.templatePath('demo/src/app/home/_home.module.ts'), this.destinationPath('demo/src/app/home/home.module.ts'), this);
+      this.fs.copy(this.templatePath('demo/src/app/home/home-routing.module.ts'), this.destinationPath('demo/src/app/home/home-routing.module.ts'));
       this.fs.copy(this.templatePath('demo/src/app/home/home.component.scss'), this.destinationPath('demo/src/app/home/home.component.scss'));
       this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.ts'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.ts'));
       this.fs.copy(this.templatePath('demo/src/app/shared/content-wrapper/content-wrapper.component.html'), this.destinationPath('demo/src/app/shared/content-wrapper/content-wrapper.component.html'));
@@ -308,7 +312,7 @@ module.exports = class extends Generator {
       this.fs.copy(this.templatePath('demo/src/app/shared/shared.module.ts'), this.destinationPath('demo/src/app/shared/shared.module.ts'));
       this.fs.copyTpl(this.templatePath('demo/src/app/_app.component.spec.ts'), this.destinationPath('demo/src/app/app.component.spec.ts'), this);
       this.fs.copyTpl(this.templatePath('demo/src/app/_app.module.ts'), this.destinationPath('demo/src/app/app.module.ts'), this);
-      this.fs.copy(this.templatePath('demo/src/app/app-routing.ts'), this.destinationPath('demo/src/app/app-routing.ts'));
+      this.fs.copy(this.templatePath('demo/src/app/app-routing.module.ts'), this.destinationPath('demo/src/app/app-routing.module.ts'));
       this.fs.copy(this.templatePath('demo/src/app/app.component.html'), this.destinationPath('demo/src/app/app.component.html'));
       this.fs.copy(this.templatePath('demo/src/app/app.component.scss'), this.destinationPath('demo/src/app/app.component.scss'));
       this.fs.copy(this.templatePath('demo/src/app/app.component.ts'), this.destinationPath('demo/src/app/app.component.ts'));
