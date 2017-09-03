@@ -36,6 +36,8 @@ const ngc = (args) => {// Promesify version of the ngc compiler
 const rollup = require('rollup');
 const rollupUglify = require('rollup-plugin-uglify');
 const rollupSourcemaps = require('rollup-plugin-sourcemaps');
+const rollupNodeResolve = require('rollup-plugin-node-resolve');
+const rollupCommonjs = require('rollup-plugin-commonjs');
 
 /** To load templates and styles in Angular components */
 const gulpInlineNgTemplate = require('gulp-inline-ng2-template');<% if(!skipStyles) { %>
@@ -328,28 +330,8 @@ gulp.task('rollup-bundle', (cb) => {
       // Angular dependencies <% for (ngModule of ngModules) { %>
       '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
 
-      // Rxjs dependencies
-      'rxjs/Subject': 'Rx',
-      'rxjs/add/observable/fromEvent': 'Rx.Observable',
-      'rxjs/add/observable/forkJoin': 'Rx.Observable',
-      'rxjs/add/observable/of': 'Rx.Observable',
-      'rxjs/add/observable/merge': 'Rx.Observable',
-      'rxjs/add/observable/throw': 'Rx.Observable',
-      'rxjs/add/operator/auditTime': 'Rx.Observable.prototype',
-      'rxjs/add/operator/toPromise': 'Rx.Observable.prototype',
-      'rxjs/add/operator/map': 'Rx.Observable.prototype',
-      'rxjs/add/operator/filter': 'Rx.Observable.prototype',
-      'rxjs/add/operator/do': 'Rx.Observable.prototype',
-      'rxjs/add/operator/share': 'Rx.Observable.prototype',
-      'rxjs/add/operator/finally': 'Rx.Observable.prototype',
-      'rxjs/add/operator/catch': 'Rx.Observable.prototype',
-      'rxjs/add/observable/empty': 'Rx.Observable.prototype',
-      'rxjs/add/operator/first': 'Rx.Observable.prototype',
-      'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
-      'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
-      'rxjs/Observable': 'Rx'
       // ATTENTION:
-      // Add any other dependency or peer dependency your library here.
+      // Add any other dependency or peer dependency of your library here
       // This is required for UMD bundle users.
     };
     const rollupBaseConfig = {
@@ -358,7 +340,11 @@ gulp.task('rollup-bundle', (cb) => {
       globals: globals,
       external: Object.keys(globals),
       plugins: [
-        rollupSourcemaps()
+        rollupCommonjs({
+          include: ['node_modules/rxjs/**']
+        }),
+        rollupSourcemaps(),
+        rollupNodeResolve({ jsnext: true, module: true })
       ]
     };
 
