@@ -306,7 +306,9 @@ gulp.task('npm-package', (cb) => {
   // copy the needed additional files in the 'dist' folder
   pump(
     [
-      gulp.src(['README.md', 'LICENSE', 'CHANGELOG.md',
+      gulp.src(['README.md', 'LICENSE', 'CHANGELOG.md',<% if(ngVersion === '2.0.0'){ %>
+      `${config.buildDir}/lib-es5/**/*.js`,
+      `${config.buildDir}/lib-es5/**/*.js.map`,<% } %>
       `${config.buildDir}/lib-es5/**/*.d.ts`,
       `${config.buildDir}/lib-es5/**/*.metadata.json`]),
       gulpFile('package.json', JSON.stringify(targetPkgJson, null, 2)),
