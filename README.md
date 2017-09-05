@@ -202,11 +202,11 @@ File / Folder       | Purpose
 >
 > Besides, any changes to the files in the `dist/` folder will immediately affect the global `<YOUR_PACKAGE_NAME>` package, allowing you to quickly test any changes you make to your library.
 >
-> `npm link` is very similar to npm install -g except that instead of downloading the package from the repo, the just cloned `dist/` folder becomes the global package. 
+> `npm link` is very similar to npm install -g except that instead of downloading the package from the repo, the just built `dist/` folder becomes the global package. 
 
 # Overall Distributed Package Structure
 
-Depending on the minimal version of Angular your library targets (2.x.x or 4.x.x), the distributed package files are different:
+Depending on the minimal version of Angular your library targets (2.x.x or 4.x.x), the distributed package files are different, but both are AOT compatible:
 
 ### For Angular >=v4.x.x
 
@@ -252,12 +252,18 @@ dist/
 	|- module/                            # 
 	|  |- component/                      #
 	|  |  |- lib.component.d.ts           # Type definitions
+	|  |  |- lib.component.js             # ES5 file
+	|  |  |- lib.component.js.map         # ES5 sourcemap
 	|  |  |- lib.component.metadata.json  # Metadata used by AOT compiler
 	|  |- service/                        #
 	|  |  |- lib.service.d.ts             # Type definitions
+	|  |  |- lib.service.js               # ES5 file
+	|  |  |- lib.service.js.map           # ES5 sourcemap
 	|  |  |- lib.service.metadata.json    # Metadata used by AOT compiler
 	|- CHANGELOG.md                       #
-	|- index.d.ts                         #
+	|- index.d.ts                         # Type definitions
+	|- index.js                           # ES5 entrypoint
+	|- index.js.map                       # ES5 sourcemap
 	|- index.metadata.json                #
 	|- LICENSE                            #
 	|- lib.module.d.ts                    # Type definitions
@@ -268,7 +274,7 @@ dist/
 
 # Development
 
-It's now up to you to write your kick-ass Angular library by adding your components, directives, pipes, services... and test specification files in `src/`.
+It's now up to you to write your kick-ass Angular library by adding your components, directives, pipes, services... and tests in `src/`.
 
 It doesn't matter how you organize files inside the folder, but it is important to **keep the** `index.ts` **at the root**, and to **export every file that must be publicly** available in your package.
 
@@ -276,7 +282,7 @@ Here are the most important `gulp` tasks to use during your development workflow
 
 Task                    | Purpose
 :-----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------
-`gulp build`            | Builds everything into the `dist/` folder.
+`gulp build`            | Builds and packages your library under the `dist/` folder.
 `gulp test`             | Launches the tests (`*.spec.ts`) you wrote in `src/` and run code coverage on them. The coverage report can be found in `coverage/` folder
 `gulp test:watch`       | Launches tests in watch mode. Every changes in `*.spec.ts` 
 `gulp test:watch-no-cc` | Same as `gulp test:watch` but files do not get instrumented for code coverage (useful for debugging)
