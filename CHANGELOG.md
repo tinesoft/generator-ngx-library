@@ -1,3 +1,21 @@
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.1.1...v3.2.0) (2017-09-05)
+
+
+### Bug Fixes
+
+* **demo:** add js and associated sourcemap files when targeting angular 2.x.x ([4bb70ab](https://github.com/tinesoft/generator-ngx-library/commit/4bb70ab)), closes [#72](https://github.com/tinesoft/generator-ngx-library/issues/72)
+* **demo:** fix navigation header of demo app ([457e7a4](https://github.com/tinesoft/generator-ngx-library/commit/457e7a4))
+
+
+### Features
+
+* **build:** support for node based resolution and fix rxjs errors related to not exposed modules ([4b66654](https://github.com/tinesoft/generator-ngx-library/commit/4b66654))
+* **demo:** add feature modules and setup lazy loading ([c4f88c1](https://github.com/tinesoft/generator-ngx-library/commit/c4f88c1))
+* **demo:** update demo app to Angular CLI `1.3.2` ([08a2d59](https://github.com/tinesoft/generator-ngx-library/commit/08a2d59))
+
+
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/tinesoft/generator-ngx-library/compare/v3.1.0...v3.1.1) (2017-08-26)
 
