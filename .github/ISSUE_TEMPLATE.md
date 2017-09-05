@@ -12,12 +12,11 @@ IF YOU DON'T FILL OUT THE FOLLOWING INFORMATION YOUR ISSUE MIGHT BE CLOSED WITHO
 > Windows 7, 8 or 10. Linux (which distribution).macOS(Yosemite ? El Capitan? Sierra ?)
 -->
 
-### Node / Npm or Yarn Version
+### Tools Version
 <!--
-Output from: `node --version`, 
 Output from: `yo --version`, 
-Output from: `npm -v`, or 
-Output from: `yarn --version` , if you are using Yarn instead
+Output from: `node --version`, 
+Output from: `npm -v` or `yarn --version`
 -->
 
 ### Targeted Angular version
