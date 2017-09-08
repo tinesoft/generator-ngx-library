@@ -1,4 +1,8 @@
-# <%= projectName %> - <%= projectDescription %>
+<% if(!skipDemo) {%><p align="center">
+  <img height="256px" width="256px" style="text-align: center;" src="https://cdn.rawgit.com/<%= githubUsername %>/<%= projectName %>/master/demo/src/assets/logo.svg">
+</p>
+
+<% } %># <%= projectName %> - <%= projectDescription %>
 
 [![npm version](https://badge.fury.io/js/<%= projectName %>.svg)](https://badge.fury.io/js/<%= projectName %>)
 [![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>)
