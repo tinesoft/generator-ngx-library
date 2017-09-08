@@ -1,3 +1,20 @@
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.2.0...v3.3.0) (2017-09-08)
+
+
+### Bug Fixes
+
+* **demo:** fix base href for deployed demo app ([f7b1335](https://github.com/tinesoft/generator-ngx-library/commit/f7b1335))
+* **doc:** fix path to documentation files generated output ([b0b2eff](https://github.com/tinesoft/generator-ngx-library/commit/b0b2eff))
+
+
+### Features
+
+* **demo:** add link to library's logo in `README.md`and update style ([2babc46](https://github.com/tinesoft/generator-ngx-library/commit/2babc46))
+* **node:** add minimum required node version in `package.json` ([d62f334](https://github.com/tinesoft/generator-ngx-library/commit/d62f334))
+
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.1.1...v3.2.0) (2017-09-05)
 
