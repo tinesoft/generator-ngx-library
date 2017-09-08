@@ -405,7 +405,7 @@ gulp.task('build:doc', (cb)=>{
       tsconfig: 'src/tsconfig.lib.json',
       hideGenerator:true,
       disableCoverage: true,
-      output: `<%= skipDemo ? "${config.outputDir}/doc/": "${config.demoDir}/dist/doc/"%>`
+      output: <%= skipDemo ? "`${config.outputDir}/doc/`": "`${config.demoDir}/dist/doc/`"%>
     })
   ], cb);
 });
