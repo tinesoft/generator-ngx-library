@@ -18,8 +18,9 @@
 
 Here are live examples of some Angular libraries developed with the generator:
 
-* [ng-scrollreveal](http://tinesoft.github.io/ng-scrollreveal) (by yours truly :innocent:)
-* [ngx-store](https://github.com/bohoffi/ngx-score)
+* [ng-scrollreveal](http://github.com/tinesoft/ng-scrollreveal) (by yours truly :innocent:)
+* [ngx-cookieconsent](https://github.com/tinesoft/ngx-cookieconsent) (:innocent:)
+* [ngx-disqus](https://github.com/murhafsousli/ngx-disqus/)
 
 These are some that [i know of](https://github.com/search?q=generator-ngx-library+filename%3A.yo-rc.json+path%3A%2F&type=Code&utf8=%E2%9C%93). Want your project listed here ? Drop me a line.
 
