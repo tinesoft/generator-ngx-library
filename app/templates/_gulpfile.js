@@ -455,7 +455,7 @@ gulp.task('serve:demo', ()=>{
 });
 
 gulp.task('build:demo', ()=>{
-  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --base-href <%= projectName %>`, { cwd: `${config.demoDir}`});
+  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer`, { cwd: `${config.demoDir}`});
 });
 
 gulp.task('push:demo', ()=>{
