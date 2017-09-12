@@ -379,7 +379,7 @@ module.exports = class extends Generator {
             this.spawnCommand('gulp', ['link'])
               .on('exit', code => {
                 if (code === 0) {
-                  this.log(yosay('All done, happy ng-hacking :)!'));
+                  this.log(yosay('All done ✌(-‿-)✌,\nHappy ng-hacking!'));
                 } else {
                   this.error(`[gulp link] Failed to link the library...`);
                 }
@@ -397,16 +397,15 @@ module.exports = class extends Generator {
         `  1. ${chalk.green.bold('gulp build')} (requires every time you want to update your package in dist/ folder)\n` +
         `  2. ${chalk.green.bold('gulp link')}  (requires only once for demo app, to link to your local package in dist/\n`);
 
-      this.log(yosay('All done, happy ng-hacking :)!'));
+      this.log(yosay('All done ✌(-‿-)✌,\nHappy ng-hacking!'));
     } else {
       this.log(`\n\nAlmost done (1/3). Running ${this.useYarn ? chalk.green('yarn install') : chalk.green('npm install')} to install the required dependencies.`);
       this.installDependencies({
         bower: false,
         npm: !this.useYarn,
         yarn: this.useYarn,
-        skipMessage: true,
-        callback: installationDone
-      });
+        skipMessage: true
+      }).then(installationDone);
     }
   }
 };
