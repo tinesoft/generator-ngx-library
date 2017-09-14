@@ -337,7 +337,7 @@ describe('ngx-library:app', () => {
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
-          useCompodoc: true,
+          useCompodoc: true
         });
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.useCompodoc, true);
@@ -365,7 +365,7 @@ describe('ngx-library:app', () => {
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
-          useCompodoc: false,
+          useCompodoc: false
         });
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.useCompodoc, false);
@@ -439,7 +439,7 @@ describe('ngx-library:app', () => {
           'demo/src/app/getting-started/getting-started.component.scss',
           'demo/src/app/getting-started/getting-started.component.spec.ts',
           'demo/src/app/getting-started/getting-started.module.ts',
-          
+
           'demo/src/app/home/home-routing.module.ts',
           'demo/src/app/home/home.component.ts',
           'demo/src/app/home/home.component.html',

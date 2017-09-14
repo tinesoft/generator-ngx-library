@@ -65,7 +65,7 @@ module.exports = info => {
       type: 'input',
       name: 'projectKeywords',
       message: '(7/12) What keywords best describe your project (comma-separated)?',
-      default: "ng,angular,library"
+      default: 'ng,angular,library'
     },
     {
       type: 'list',
