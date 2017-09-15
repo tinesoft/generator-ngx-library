@@ -467,6 +467,7 @@ describe('ngx-library:app', () => {
           'demo/src/app/app.component.scss',
           'demo/src/app/app.component.ts',
           'demo/src/app/app.module.ts',
+          'demo/src/app/app.server.module.ts',
           'demo/src/assets/.gitkeep',
           'demo/src/assets/.npmignore',
           'demo/src/assets/logo.svg',
@@ -476,11 +477,13 @@ describe('ngx-library:app', () => {
           'demo/src/_variables.scss',
           'demo/src/favicon.ico',
           'demo/src/favicon.ico',
+          'demo/src/main.server.ts',
           'demo/src/main.ts',
           'demo/src/polyfills.ts',
           'demo/src/styles.scss',
           'demo/src/test.ts',
           'demo/src/tsconfig.app.json',
+          'demo/src/tsconfig.server.json',
           'demo/src/tsconfig.spec.json',
           'demo/src/typings.d.ts',
           'demo/package.json',
@@ -491,9 +494,9 @@ describe('ngx-library:app', () => {
           'demo/protractor.conf.js',
           'demo/README.md',
           'demo/tsconfig.json',
-          'demo/tslint.json'
+          'demo/tslint.json',
         ]);
-        assert.noFileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo'/);
+        assert.noFileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo(-ssr)?'/);
       });
     });
 
@@ -542,6 +545,7 @@ describe('ngx-library:app', () => {
           'demo/src/app/app.component.scss',
           'demo/src/app/app.component.ts',
           'demo/src/app/app.module.ts',
+          'demo/src/app/app.server.module.ts',
           'demo/src/assets/.gitkeep',
           'demo/src/assets/.npmignore',
           'demo/src/assets/logo.svg',
@@ -551,11 +555,13 @@ describe('ngx-library:app', () => {
           'demo/src/_variables.scss',
           'demo/src/favicon.ico',
           'demo/src/favicon.ico',
+          'demo/src/main.server.ts',
           'demo/src/main.ts',
           'demo/src/polyfills.ts',
           'demo/src/styles.scss',
           'demo/src/test.ts',
           'demo/src/tsconfig.app.json',
+          'demo/src/tsconfig.server.json',
           'demo/src/tsconfig.spec.json',
           'demo/src/typings.d.ts',
           'demo/package.json',
@@ -566,9 +572,9 @@ describe('ngx-library:app', () => {
           'demo/protractor.conf.js',
           'demo/README.md',
           'demo/tsconfig.json',
-          'demo/tslint.json'
+          'demo/tslint.json',
         ]);
-        assert.fileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo'/);
+        assert.fileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo(-ssr)?'/);
       });
     });
   });

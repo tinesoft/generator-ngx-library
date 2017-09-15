@@ -232,6 +232,7 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/app/app.component.html');
         this.exclusions.push('demo/src/app/app.component.scss');
         this.exclusions.push('demo/src/app/app.component.ts');
+        this.exclusions.push('demo/src/app/app.server.module.ts');
         this.exclusions.push('demo/src/assets/.gitkeep');
         this.exclusions.push('demo/src/assets/.npmignore');
         this.exclusions.push('demo/src/assets/logo.svg');
@@ -241,11 +242,13 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/_variables.scss');
         this.exclusions.push('demo/src/favicon.ico');
         this.exclusions.push('demo/src/favicon.ico');
+        this.exclusions.push('demo/src/main.server.ts');
         this.exclusions.push('demo/src/main.ts');
         this.exclusions.push('demo/src/polyfills.ts');
         this.exclusions.push('demo/src/styles.scss');
         this.exclusions.push('demo/src/test.ts');
         this.exclusions.push('demo/src/tsconfig.app.json');
+        this.exclusions.push('demo/src/tsconfig.server.json');
         this.exclusions.push('demo/src/tsconfig.spec.json');
         this.exclusions.push('demo/src/typings.d.ts');
         this.exclusions.push('demo/.angular-cli.json');
@@ -254,10 +257,13 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/.editorconfig');
         this.exclusions.push('demo/.gitignore');
         this.exclusions.push('demo/karma.conf.js');
+        this.exclusions.push('demo/prerender.ts');
         this.exclusions.push('demo/protractor.conf.js');
         this.exclusions.push('demo/proxy.conf.json');
+        this.exclusions.push('demo/server.ts');
         this.exclusions.push('demo/tsconfig.json');
         this.exclusions.push('demo/tslint.json');
+        this.exclusions.push('demo/webpack.server.config.js');
       }
 
       if (!this.useCompodoc) {
