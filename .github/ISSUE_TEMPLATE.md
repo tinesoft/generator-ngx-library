@@ -12,6 +12,11 @@ IF YOU DON'T FILL OUT THE FOLLOWING INFORMATION YOUR ISSUE MIGHT BE CLOSED WITHO
 > Windows 7, 8 or 10. Linux (which distribution).macOS(Yosemite ? El Capitan? Sierra ?)
 -->
 
+### Generator Version
+<!--
+See "version" field in `.yo-rc.json` file
+-->
+
 ### Tools Version
 <!--
 Output from: `yo --version`, 

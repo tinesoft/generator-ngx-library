@@ -307,6 +307,7 @@ module.exports = class extends Generator {
         init();
 
         // Save config
+        this.config.set('version', this.pkg.version);
         this.config.set('authorName', this.authorName);
         this.config.set('authorEmail', this.authorEmail);
         this.config.set('githubUsername', this.githubUsername);
