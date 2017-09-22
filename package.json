@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/yeoman-generator": "1.0.3",
+    "commitplease": "2.7.10",
     "conventional-github-releaser": "1.1.12",
     "eslint": "4.7.2",
     "eslint-config-xo-space": "0.16.0",
@@ -71,6 +72,22 @@
     "ignore": [
       "gulp-mocha"
     ]
+  },
+  "commitplease": {
+    "style": "angular",
+    "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore",
+      "revert",
+      "demo"
+    ],
+    "scope": "\\S+.*"
   },
   "engines": {
     "node": ">=6.0.0"

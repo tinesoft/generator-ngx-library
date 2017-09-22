@@ -38,7 +38,8 @@
     "angular-cli-ghpages": "0.5.1",
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "3.0.5",<% if(useCompodoc){%>
-    "@compodoc/gulp-compodoc": "0.0.7",<% } %>
+    "@compodoc/gulp-compodoc": "0.0.7",<% } %><% if(enforceNgGitCommitMsg){%>
+    "commitplease": "2.7.10",<% } %>
     "conventional-github-releaser": "1.1.12",
     "core-js": "2.4.1",
     "del": "2.2.2",<% if(useYarn) { %>
@@ -94,5 +95,21 @@
     "ignore": [
       <%- greenkeeperExclusions.join(',\n      ') %>
     ]
-  }<% } %>
+  }<% } %><% if(enforceNgGitCommitMsg){%>,
+  "commitplease": {
+    "style": "angular",
+    "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore",
+      "revert",
+      "demo"
+    ],
+    "scope": "\\S+.*"
+  }<% }%>
 }

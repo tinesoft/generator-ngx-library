@@ -39,6 +39,7 @@ These are the main features of the generator:
 * **Testing Environment** with [Karma](https://karma-runner.github.io/) and [Webpack](https://webpack.github.io/)
 * **Code Coverage** with [Coveralls.io](https://coveralls.io/)
 * **Real-time Monitoring** and **Automatic Updates** of npm dependencies with [Greenkeeper](https://greenkeeper.io) :palm_tree:
+* **Enforcing of Angular Git Commit Message Guideline** with [Commitplease](https://github.com/jzaefferer/commitplease) :speech_balloon:
 * **Publication** to [npm registry](https://npmjs.org)
 * **Releasing** to [Github](https://help.github.com/articles/about-releases/) :octocat:
 * and so much more out-of-the-box :package:!
@@ -334,9 +335,18 @@ $ yo ngx-library
 
 Please make sure to read [CHANGELOG](CHANGELOG.md) first, to take all necessary actions for a seamless upgrade.
 
-# Versioning
+# Enforcing Angular Git  Commit Message Convention
 
-To take full advantage of the generator, use [Angular's commit message convention](https://github.com/conventional-changelog-archived-repos/conventional-changelog-angular/blob/master/convention.md). This way, the gulp's `changelog` task can be used to generate/update the project's `CHANGELOG.md` file from Git metadata. Only relevant commit messages are considered (commits about new features, fixes, performance, and breaking changes).
+The generator can enforce (via [Commitplease](https://github.com/jzaefferer/commitplease)) that all your commit messages follow [Angular guidelines](https://docs.google.com/document/d/1rk04jEuGfk9kYzfqCuOlPTSJw3hEDZJTBN5E5f1SALo).
+
+![validating commit messages!](assets/validating-commit-msg.png)
+
+This convention helps making your git mesages more readable and meaningful, in addtion of keeping each commit simple and well focused on a certain scope.
+
+The generator also takes full advantage of the convention to autogenerate project's `CHANGELOG.md` and Github release notes from Git metadata. Only relevant commit messages are considered (commits about new features, fixes, performance, and breaking changes).
+
+You can tweek or deactivate (:scream:) the convention by editing the `"commitplease"` section in `package.json`. See [here](https://github.com/jzaefferer/commitplease#angularjs.).
+
 
 # Pre-Releasing :checkered_flag:
 
