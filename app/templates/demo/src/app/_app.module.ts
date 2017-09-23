@@ -16,7 +16,10 @@ import { LibModule } from '<%= projectName %>';
         AppComponent
     ],
     imports: [
-        BrowserModule,
+        // Add .withServerTransition() to support Universal rendering.
+        // The application ID can be any identifier which is unique on
+        // the page.
+        BrowserModule.withServerTransition({appId: '<%= projectName %>-demo'}),
         FormsModule,
         HttpModule,
         AppRoutingModule,

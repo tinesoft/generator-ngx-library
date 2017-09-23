@@ -137,7 +137,6 @@ const readyToRelease = () => {
 const execCmd = (name, args, opts, ...subFolders) => {
   const cmd = helpers.root(subFolders, helpers.binPath(`${name}`));
   return helpers.execp(`${cmd} ${args}`, opts)
-    .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
     .catch(e => {
       gulpUtil.log(gulpUtil.colors.red(`${name} command failed. See below for errors.\n`));
       gulpUtil.log(gulpUtil.colors.red(e));
@@ -147,7 +146,6 @@ const execCmd = (name, args, opts, ...subFolders) => {
 
 const execExternalCmd = (name, args, opts) => {
   return helpers.execp(`${name} ${args}`, opts)
-    .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
     .catch(e => {
       gulpUtil.log(gulpUtil.colors.red(`${name} command failed. See below for errors.\n`));
       gulpUtil.log(gulpUtil.colors.red(e));
@@ -197,7 +195,7 @@ gulp.task('clean:coverage', () => {
   return del(config.coverageDir);
 });<% if(useCompodoc){ %>
 
-gulp.task('clean:doc', ()=>{
+gulp.task('clean:doc', () => {
   return del(`${config.outputDir}/doc`);
 });<% } %>
 
@@ -237,14 +235,14 @@ gulp.task('inline-templates', (cb) => {
 });
 
 // Prepare files for compilation
-gulp.task('pre-compile', (cb)=>{
+gulp.task('pre-compile', (cb) => {
    pump([
     gulp.src([config.allSrc]),
     gulp.dest(config.buildDir)
     ], cb);
 });
 
-gulp.task('ng-compile',()=>{
+gulp.task('ng-compile',() => {
   return Promise.resolve()
     // Compile to ES5.
     .then(() => ngc({ project: `${buildFolder}/<%= ngVersion === '2.0.0' ? 'tsconfig.lib.json' : 'tsconfig.lib.es5.json' %>` })
@@ -398,7 +396,7 @@ gulp.task('rollup-bundle', (cb) => {
 /////////////////////////////////////////////////////////////////////////////
 // Documentation Tasks
 /////////////////////////////////////////////////////////////////////////////
-gulp.task('build:doc', (cb)=>{
+gulp.task('build:doc', (cb) => {
   pump([
     gulp.src('src/**/*.ts'),
     gulpCompodoc({
@@ -410,7 +408,7 @@ gulp.task('build:doc', (cb)=>{
   ], cb);
 });
 
-gulp.task('serve:doc', ['clean:doc'], (cb)=>{
+gulp.task('serve:doc', ['clean:doc'], (cb) => {
   pump([
     gulp.src('src/**/*.ts'),
     gulpCompodoc({
@@ -421,7 +419,7 @@ gulp.task('serve:doc', ['clean:doc'], (cb)=>{
   ], cb);
 });<% } if(skipDemo) { %>
 
-gulp.task('push:doc', ()=>{
+gulp.task('push:doc', () => {
   return execCmd('ngh',`--dir ${config.outputDir}/doc/ --message="chore(doc): :rocket: deploy new version"`);
 });<% } %>
 
@@ -446,19 +444,65 @@ const execDemoCmd = (args,opts) => {
   }
 };
 
-gulp.task('test:demo', ()=>{
+gulp.task('test:demo', () => {
   return execDemoCmd('test', { cwd: `${config.demoDir}`});
 });
 
-gulp.task('serve:demo', ()=>{
-  return execDemoCmd('serve --preserve-symlinks<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}`});
+gulp.task('test:demo-ssr', () => {
+  // Load zone.js for the server.
+  require('./demo/node_modules/zone.js/dist/zone-node');
+
+  // Import renderModuleFactory from @angular/platform-server.
+  var renderModuleFactory = require('./demo/node_modules/@angular/platform-server').renderModuleFactory;
+
+  // Import the AOT compiled factory for your AppServerModule.
+  // This import will change with the hash of your built server bundle.
+  var AppServerModuleNgFactory = require('./demo/dist-server/main.bundle').AppServerModuleNgFactory;
+
+  // Load the index.html file.
+  var index = require('fs').readFileSync('./demo/src/index.html', 'utf8');
+
+  // Render to HTML and log it to the console.
+  return renderModuleFactory(AppServerModuleNgFactory, { document: index, url: '/' }).then(html => {
+    console.log(html);
+  });
 });
 
-gulp.task('build:demo', ()=>{
+gulp.task('serve:demo', () => {
+  return execDemoCmd('serve --preserve-symlinks<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` });
+});
+
+gulp.task('build:demo', () => {
   return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer`, { cwd: `${config.demoDir}`});
 });
 
-gulp.task('push:demo', ()=>{
+gulp.task('serve:demo-ssr',['build:demo'], () => {
+  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --app ssr --output-hashing=none`, { cwd: `${config.demoDir}` })
+  .then(exitCode => {
+      if(exitCode === 0){
+        execCmd('webpack', '--config webpack.server.config.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
+        .then(exitCode => exitCode === 0 ? execExternalCmd('node', 'dist/server.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`): Promise.reject(1));
+      } else{
+        Promise.reject(1);
+      }
+    }
+  );
+});
+
+gulp.task('build:demo-ssr',['build:demo'], () => {
+  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --app ssr --output-hashing=none`, { cwd: `${config.demoDir}` })
+  .then(exitCode => {
+      if(exitCode === 0){
+        execCmd('webpack', '--config webpack.server.config.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
+        .then(exitCode => exitCode === 0 ? execExternalCmd('node', 'dist/prerender.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`): Promise.reject(1));
+      } else{
+        Promise.reject(1);
+      }
+    }
+  );
+});
+
+gulp.task('push:demo', () => {
   return execCmd('ngh',`--dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`);
 });
 
@@ -556,7 +600,7 @@ gulp.task('create-new-tag', (cb) => {
 });
 
 // Build and then Publish 'dist' folder to NPM
-gulp.task('npm-publish', ['build'], ()=>{
+gulp.task('npm-publish', ['build'], () => {
   return execExternalCmd('npm',`publish ${config.outputDir}`)
 });
 
@@ -603,11 +647,11 @@ gulp.task('release', (cb) => {
 // This way, we can have the demo project declare a dependency on 'ng-scrollreveal' (as it should)
 // and, thanks to 'npm link ng-scrollreveal' on demo project, be sure to always use the latest built
 // version of the library ( which is in 'dist/' folder)
-gulp.task('link', ()=>{
+gulp.task('link', () => {
   return execExternalCmd('npm', 'link', { cwd: `${config.outputDir}` });
 });
 
-gulp.task('unlink', ()=>{
+gulp.task('unlink', () => {
   return execExternalCmd('npm', 'unlink', { cwd: `${config.outputDir}` });
 });
 

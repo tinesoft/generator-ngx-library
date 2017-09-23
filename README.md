@@ -29,6 +29,7 @@ These are some that [i know of](https://github.com/search?q=generator-ngx-librar
 These are the main features of the generator:
 
 * **Ahead Of Time**(AOT) Compilation, **Flattened ES Modules**(FESM), **[Minified] UMD Bundles**, **Closure Compiler** support (follows [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview))
+* **Universal (Server Side Rendering)** support
 * **Code Linting** based on [codelyzer](https://github.com/mgechev/codelyzer) rules 
 * **Styles** and **Templates Inlining** in components
 * **SASS/SCSS** to **CSS** compilation
@@ -288,7 +289,10 @@ Task                    | Purpose
 `gulp test:watch`       | Launches tests in watch mode. Every changes in `*.spec.ts` 
 `gulp test:watch-no-cc` | Same as `gulp test:watch` but files do not get instrumented for code coverage (useful for debugging)
 `gulp test:demo`<sup>1</sup>       | Launches demo application tests(same as running `ng test` from `demo/`).
-`gulp serve:demo`<sup>1</sup>      | Launches demo application (same as running `ng serve` from `demo/`). 
+`gulp build:demo`<sup>1</sup>      | Builds demo application for production. 
+`gulp build:demo-ssr`<sup>1</sup>  | Builds demo application for universal (server side rendering) testing. 
+`gulp serve:demo`<sup>1</sup>      | Serves demo application (same as running `ng serve` from `demo/`). 
+`gulp serve:demo-ssr`<sup>1</sup>  | Serves demo application for universal (server side rendering) testing. 
 `gulp serve:doc`<sup>2</sup>       | Serves the generated compodoc documentation (from `dist/doc` folder) at https://localhost:8080. 
 
 
