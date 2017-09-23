@@ -19,7 +19,7 @@ import { LibModule } from '<%= projectName %>';
         // Add .withServerTransition() to support Universal rendering.
         // The application ID can be any identifier which is unique on
         // the page.
-        BrowserModule.withServerTransition({appId: '<%= projectName %>-demo'}),
+        BrowserModule.withServerTransition({appId: '<%= projectName %>-demo-id'}),
         FormsModule,
         HttpModule,
         AppRoutingModule,
