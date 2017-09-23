@@ -491,10 +491,13 @@ describe('ngx-library:app', () => {
           'demo/.editorconfig',
           'demo/.gitignore',
           'demo/karma.conf.js',
+          'demo/prerender.ts',
           'demo/protractor.conf.js',
           'demo/README.md',
+          'demo/server.ts',
           'demo/tsconfig.json',
           'demo/tslint.json',
+          'demo/webpack.server.config.js'
         ]);
         assert.noFileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo(-ssr)?'/);
       });
@@ -569,10 +572,13 @@ describe('ngx-library:app', () => {
           'demo/.editorconfig',
           'demo/.gitignore',
           'demo/karma.conf.js',
+          'demo/prerender.ts',
           'demo/protractor.conf.js',
           'demo/README.md',
+          'demo/server.ts',
           'demo/tsconfig.json',
           'demo/tslint.json',
+          'demo/webpack.server.config.js'
         ]);
         assert.fileContent('gulpfile.js', /gulp\.task\('(test|serve|build|push|deploy):demo(-ssr)?'/);
       });
