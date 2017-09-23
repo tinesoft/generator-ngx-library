@@ -36,14 +36,14 @@ app.engine('html', ngExpressEngine({
 }));
 
 app.set('view engine', 'html');
-app.set('views', 'src');
+app.set('views', DIST_FOLDER);
 
 /* - Example Express Rest API endpoints -
   app.get('/api/**', (req, res) => { });
 */
 
 // Server static files from 'dist/'
-app.get('*.*', express.static(join(DIST_FOLDER), {
+app.get('*.*', express.static(DIST_FOLDER, {
   maxAge: '1y'
 }));
 
