@@ -445,7 +445,7 @@ const execDemoCmd = (args,opts) => {
 };
 
 gulp.task('test:demo', () => {
-  return execDemoCmd('test', { cwd: `${config.demoDir}`});
+  return execDemoCmd('test --preserve-symlinks', { cwd: `${config.demoDir}`});
 });
 
 gulp.task('test:demo-ssr', () => {
