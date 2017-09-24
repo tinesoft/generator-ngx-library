@@ -254,6 +254,8 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/assets/logo.svg');
         this.exclusions.push('demo/src/environments/environment.prod.ts');
         this.exclusions.push('demo/src/environments/environment.ts');
+        this.exclusions.push('demo/src/testing/index.ts');
+        this.exclusions.push('demo/src/testing/router-stubs.ts');
         this.exclusions.push('demo/src/index.html');
         this.exclusions.push('demo/src/_variables.scss');
         this.exclusions.push('demo/src/favicon.ico');
