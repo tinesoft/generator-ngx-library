@@ -26,7 +26,7 @@ module.exports = [
   {name: 'src/_tsconfig.lib.es5.json', path: 'src/tsconfig.lib.es5.json', isTpl: true},
   {name: 'src/_tsconfig.lib.json', path: 'src/tsconfig.lib.json', isTpl: true},
   {name: 'src/_tsconfig.spec.json', path: 'src/tsconfig.spec.json', isTpl: true},
-  {name: 'src/index.ts', path: 'src/index.ts', isTpl: true},
+  {name: 'src/_index.ts', path: 'src/index.ts', isTpl: true},
 
   // Create Demo files
   {name: 'demo/e2e/_app.e2e-spec.ts', path: 'demo/e2e/app.e2e-spec.ts', isTpl: true},

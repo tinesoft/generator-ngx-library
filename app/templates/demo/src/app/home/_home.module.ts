@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LibModule } from '<%= projectName %>';
-
+import { CommonModule } from '@angular/common';<% if(!skipStyles && !skipSample){%>
+import {  LibModule  } from '<%= projectName %>';<% } %>
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
-
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule,<% if(!skipStyles && !skipSample){%>
+        LibModule.forRoot(),<% } %>
         HomeRoutingModule,
-        LibModule.forRoot()
     ],
     declarations: [HomeComponent],
 })

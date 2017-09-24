@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 
-import { HomeComponent } from './home.component';
-import { LibModule } from '<%= projectName %>';
+import { HomeComponent } from './home.component';<% if(!skipStyles && !skipSample){%>
+import {  LibModule  } from '<%= projectName %>';<% } %>
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -10,7 +10,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [LibModule],
+      imports: [<% if(!skipStyles && !skipSample){%>
+        LibModule.forRoot(),<% } %>],
       declarations: [HomeComponent]
     })
       .compileComponents()

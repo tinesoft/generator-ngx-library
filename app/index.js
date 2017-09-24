@@ -37,6 +37,13 @@ module.exports = class extends Generator {
       defaults: false
     });
 
+    // This adds support for a `--skip-sample` flag
+    this.option('skip-sample', {
+      description: 'Skip generation of sample library',
+      type: Boolean,
+      defaults: false
+    });
+
     // This adds support for a `--npm` flag
     this.option('npm', {
       description: 'Use npm instead of yarn',
@@ -47,6 +54,8 @@ module.exports = class extends Generator {
     this.skipChecks = this.options.skipChecks;
     this.skipInstall = this.options.skipInstall;
     this.skipStyles = this.options.skipStyles;
+    this.skipSample = this.options.skipSample;
+    
     this.skipDemo = this.options.skipDemo;
     this.skipCache = this.options.skipCache;
     this.useYarn = !this.options.npm;
@@ -186,17 +195,24 @@ module.exports = class extends Generator {
       }
 
       // Generator's excluded files
-      if (this.skipStyles) {
+      if (this.skipStyles || this.skipSample) {
         this.exclusions.push('src/module/component/lib.component.html');
         this.exclusions.push('src/module/component/lib.component.spec.ts');
         this.exclusions.push('src/module/component/lib.component.ts');
         this.exclusions.push('src/module/component/lib.component.scss');
       }
+
+      if(this.skipSample){
+        this.exclusions.push('src/module/service/lib.service.ts');
+        this.exclusions.push('src/module/service/lib.service.spec.ts');
+        this.exclusions.push('src/module/lib.module.ts');
+      }
+
       if (this.ngVersionMin < 4) {
         this.exclusions.push('src/tsconfig.lib.es5.json');
       }
+
       if (this.skipDemo) {
-        // Create Demo files
         this.exclusions.push('demo/e2e/app.e2e-spec.ts');
         this.exclusions.push('demo/e2e/app.po.ts');
         this.exclusions.push('demo/e2e/tsconfig.e2e.json');
@@ -334,6 +350,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
+
     // Initializes files that will be excluded
     let excluder = new ExcludeParser(this.exclusions, process.cwd());
 

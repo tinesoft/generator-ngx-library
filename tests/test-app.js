@@ -7,7 +7,7 @@ const helpers = require('yeoman-test');
 const createNgLibraryApp = (options, prompts) => {
   return helpers.run(path.join(__dirname, '../app'))
     .withOptions(options)
-    .withPrompts(prompts || {
+    .withPrompts(Object.assign({
       authorName: 'Awesome Developer',
       authorEmail: 'awesome.developer@github.com',
       githubUsername: 'awesomedeveloper',
@@ -20,7 +20,7 @@ const createNgLibraryApp = (options, prompts) => {
       ngModules: ['core', 'common'],
       useGreenkeeper: true,
       useCompodoc: false
-    });
+    }, prompts || {}));
 };
 
 describe('ngx-library:app', () => {
@@ -52,9 +52,13 @@ describe('ngx-library:app', () => {
 
         // Create Source files
         'src/index.ts',
-        'src/module/lib.module.ts',
+        'src/module/component/lib.component.html',
+        'src/module/component/lib.component.spec.ts',
+        'src/module/component/lib.component.ts',
+        'src/module/component/lib.component.scss',
         'src/module/service/lib.service.ts',
         'src/module/service/lib.service.spec.ts',
+        'src/module/lib.module.ts',
         'src/tsconfig.lib.json',
         'src/tsconfig.spec.json',
 
@@ -584,4 +588,49 @@ describe('ngx-library:app', () => {
       });
     });
   });
+
+  describe('check "skipSample" option', () => {
+    it('should not generate sample lib related code when "skipSample" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipSample: true
+      });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipSample, true);
+        assert.noFile([
+          'src/module/component/lib.component.html',
+          'src/module/component/lib.component.spec.ts',
+          'src/module/component/lib.component.ts',
+          'src/module/component/lib.component.scss',
+          'src/module/service/lib.service.ts',
+          'src/module/service/lib.service.spec.ts',
+          'src/module/lib.module.ts'
+        ]);
+      });
+    });
+
+    it('should generate sample lib related code when "skipSample" is set to false', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipSample: false
+      });
+
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipSample, false);
+
+        assert.file([
+          'src/module/component/lib.component.html',
+          'src/module/component/lib.component.spec.ts',
+          'src/module/component/lib.component.ts',
+          'src/module/component/lib.component.scss',
+          'src/module/service/lib.service.ts',
+          'src/module/service/lib.service.spec.ts',
+          'src/module/lib.module.ts'
+        ]);
+      });
+    });
+  });
+
 });
