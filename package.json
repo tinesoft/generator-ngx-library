@@ -63,7 +63,7 @@
     "run-sequence": "2.2.0",
     "semver": "5.3.0",
     "travis-status": "2.0.0",
-    "yargs": "8.0.1",
+    "yargs": "9.0.1",
     "yeoman-assert": "3.0.0",
     "yeoman-test": "1.7.0"
   },
