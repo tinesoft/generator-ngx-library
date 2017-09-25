@@ -188,7 +188,7 @@ gulp.task('release', (cb) => {
   else {
     gulpUtil.log(gulpUtil.colors.green('# Pre-Release Checks have succeeded. Continuing...'));
     runSequence(
-      'build',
+      'static',
       'bump-version',
       'changelog',
       'commit-changes',
