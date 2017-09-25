@@ -55,7 +55,7 @@ module.exports = class extends Generator {
     this.skipInstall = this.options.skipInstall;
     this.skipStyles = this.options.skipStyles;
     this.skipSample = this.options.skipSample;
-    
+
     this.skipDemo = this.options.skipDemo;
     this.skipCache = this.options.skipCache;
     this.useYarn = !this.options.npm;
@@ -202,7 +202,7 @@ module.exports = class extends Generator {
         this.exclusions.push('src/module/component/lib.component.scss');
       }
 
-      if(this.skipSample){
+      if (this.skipSample) {
         this.exclusions.push('src/module/service/lib.service.ts');
         this.exclusions.push('src/module/service/lib.service.spec.ts');
         this.exclusions.push('src/module/lib.module.ts');
@@ -352,7 +352,6 @@ module.exports = class extends Generator {
   }
 
   writing() {
-
     // Initializes files that will be excluded
     let excluder = new ExcludeParser(this.exclusions, process.cwd());
 

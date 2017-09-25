@@ -638,5 +638,4 @@ describe('ngx-library:app', () => {
       });
     });
   });
-
 });
