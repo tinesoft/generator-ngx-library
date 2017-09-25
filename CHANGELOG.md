@@ -1,3 +1,22 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.3.0...v4.0.0) (2017-09-25)
+
+
+### Features
+
+* **all:** add `yarn-error.log` to `.gitignore` files ([fbde76b](https://github.com/tinesoft/generator-ngx-library/commit/fbde76b))
+* **core:** add generator version in `.yo-rc.json` file ([09cd3e3](https://github.com/tinesoft/generator-ngx-library/commit/09cd3e3))
+* **core:** update generator to `yeoman-generator 2.0.0` ([1cc4e21](https://github.com/tinesoft/generator-ngx-library/commit/1cc4e21))
+* **demo:** update demo app  to `Angular CLI 1.4.3` ([c00a229](https://github.com/tinesoft/generator-ngx-library/commit/c00a229))
+* **demo:** update demo app to `Angular CLI 1.4.1` ([48695f6](https://github.com/tinesoft/generator-ngx-library/commit/48695f6))
+* **demo:** update demo app's favicon ([542208f](https://github.com/tinesoft/generator-ngx-library/commit/542208f))
+* **generator:** add ability to skip some files/folders when re-running the generator ([98d5185](https://github.com/tinesoft/generator-ngx-library/commit/98d5185))
+* **recipe:** add recipe about how to skip certain files/folders when re-launching the generator ([a1ed87d](https://github.com/tinesoft/generator-ngx-library/commit/a1ed87d))
+* **recipe:** add recipe about testing universal (server side rendering) ([1165b82](https://github.com/tinesoft/generator-ngx-library/commit/1165b82))
+* **skipSample:** add `--skip-sample`option to skip genration of the sample library ([565c1ff](https://github.com/tinesoft/generator-ngx-library/commit/565c1ff))
+
+
+
 <a name="3.3.0"></a>
 # [3.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.2.0...v3.3.0) (2017-09-08)
 
@@ -58,7 +77,7 @@
 
 ### Features
 
-* **demo:** update demo application files to `angular/cli[@1](https://github.com/1).3.0` ([da0687f](https://github.com/tinesoft/generator-ngx-library/commit/da0687f))
+* **demo:** update demo application files to `angular/cli@1.3.0` ([da0687f](https://github.com/tinesoft/generator-ngx-library/commit/da0687f))
 * **perf:** add `--build-optimizer` when building demo application (sample app shrinked from `808.55kB` to `587.35kB` ! ) ([894c3e8](https://github.com/tinesoft/generator-ngx-library/commit/894c3e8))
 
 
