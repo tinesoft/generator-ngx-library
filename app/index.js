@@ -301,6 +301,7 @@ module.exports = class extends Generator {
     this.ngModules = this.config.get('ngModules');
     this.useGreenkeeper = this.config.get('useGreenkeeper');
     this.useCompodoc = this.config.get('useCompodoc');
+    this.enforceNgGitCommitMsg = this.config.get('enforceNgGitCommitMsg');
     this.exclusions = this.config.get('exclusions') || [];
 
     if (this.fs.exists('.yo-rc.json') && !this.skipCache) {
@@ -321,6 +322,7 @@ module.exports = class extends Generator {
         this.ngModules = props.ngModules;
         this.useGreenkeeper = props.useGreenkeeper;
         this.useCompodoc = props.useCompodoc;
+        this.enforceNgGitCommitMsg = props.enforceNgGitCommitMsg;
 
         // Filter ngModules
         if (this.ngVersion === '2.0.0' && this.ngModules.indexOf('animations') !== -1) {
@@ -344,6 +346,7 @@ module.exports = class extends Generator {
         this.config.set('ngModules', this.ngModules);
         this.config.set('useGreenkeeper', this.useGreenkeeper);
         this.config.set('useCompodoc', this.useCompodoc);
+        this.config.set('enforceNgGitCommitMsg', this.enforceNgGitCommitMsg);
         this.config.set('exclusions', this.exclusions);
 
         done();

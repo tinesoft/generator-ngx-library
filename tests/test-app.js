@@ -19,7 +19,8 @@ const createNgLibraryApp = (options, prompts) => {
       ngVersion: '2.0.0',
       ngModules: ['core', 'common'],
       useGreenkeeper: true,
-      useCompodoc: false
+      useCompodoc: false,
+      enforceNgGitCommitMsg: true
     }, prompts || {}));
 };
 
@@ -383,6 +384,62 @@ describe('ngx-library:app', () => {
     });
   });
 
+  describe('check enforceNgGitCommitMsg', () => {
+    it('should add enforceNgGitCommitMsg-related code if "enforceNgGitCommitMsg" is set to true ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          ngPrefix: 'my-lib',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: false,
+          useCompodoc: true,
+          enforceNgGitCommitMsg: true
+        });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.enforceNgGitCommitMsg, true);
+        assert.fileContent('package.json', '    "commitplease":');
+      });
+    });
+
+    it('should not add enforceNgGitCommitMsg-related code if "enforceNgGitCommitMsg" is set to false ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          ngPrefix: 'my-lib',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: false,
+          useCompodoc: false,
+          enforceNgGitCommitMsg: false
+        });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.enforceNgGitCommitMsg, false);
+        assert.noFileContent('package.json', '    "commitplease":');
+      });
+    });
+  });
+  
   describe('check "skipStyles" option', () => {
     it('should not generate styles-related code when "skipStyles" is set to true', () => {
       let ngLibraryApp = createNgLibraryApp({
