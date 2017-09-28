@@ -80,7 +80,7 @@ The following options can be passed to customize the generator.
 The syntax is:
 
 ```
-$ yo ngx-library --option-name
+$ yo ngx-library --<option-name>
 ```
 
 Name         | Purpose
@@ -113,7 +113,7 @@ my-ngx-library/
   |  |	|  |- lib.service.ts
   |  |	|- index.ts
   |  |	|- lib.module.ts
-  |  |	|- tsconfig.lib.es5.ts #if targeting Angular v4.x.x
+  |  |	|- tsconfig.lib.es5.ts      # if targeting Angular v4.x.x
   |  |	|- tsconfig.lib.json
   |  |	|- tsconfig.spec.json
   |- config/
@@ -122,56 +122,31 @@ my-ngx-library/
   |  |	|- karma.conf.js
   |  |	|- webpack.test.js
   |- demo/
-  |  |- e2e/
-  |  |	|- app.e2e-spec.ts
-  |  |	|- app.po.ts
-  |  |	|- tsconfig.e2e.json
+  |  |- # <angular-cli files> + <following additional files>:
   |  |- src/
   |  |	|- app/
   |  |	|  |- getting-started/
+  |  |	|  |  |- getting-started-routing.module.ts
   |  |	|  |  |- getting-started.component.html
   |  |	|  |  |- getting-started.component.scss
   |  |	|  |  |- getting-started.component.ts
   |  |	|  |  |- getting-started.component.spec.ts
+  |  |	|  |  |- getting-started.module.ts
   |  |	|  |- home/
+  |  |	|  |  |- home-routing.module.ts
   |  |	|  |  |- home.component.html
   |  |	|  |  |- home.component.scss
   |  |	|  |  |- home.component.ts
   |  |	|  |  |- home.component.spec.ts
+  |  |	|  |  |- home.module.ts
   |  |	|  |- shared/
-  |  |	|  |- app-rooting.ts
-  |  |	|  |- app.component.html
-  |  |	|  |- app.component.scss
-  |  |	|  |- app.component.spec.ts
-  |  |	|  |- app.component.ts
-  |  |	|  |- app.module.ts
-  |  |	|  |- index.ts
+  |  |	|  |- app-rooting.module.ts
   |  |	|- assets/
-  |  |	|  |- .gitkeep
   |  |	|  |- logo.svg
-  |  |	|- environments/
-  |  |	|  |- environment.prod.ts
-  |  |	|  |- environment.ts
-  |  |	|- _variabbles.scss
-  |  |	|- index.html
-  |  |	|- favicon.ico
-  |  |	|- main.ts
-  |  |	|- polyfills.ts
-  |  |	|- styles.scss
-  |  |	|- test.ts
-  |  |	|- tsconfig.app.json
-  |  |	|- tsconfig.spec.json
-  |  |	|- typings.d.ts
-  |  |- .angular-cli.json
-  |  |- .editorconfig
-  |  |- .gitignore
-  |  |- karma.config.js
-  |  |- package.json
-  |  |- protractor.conf.js
-  |  |- README.md
-  |  |- tsconfig.json
-  |  |- tslint.json
-  |  |- yarn.lock
+  |  |	|- tsconfig.server.json           # for universal (server side rendering)
+  |  |- prerender.ts                      # for universal (server side rendering)
+  |  |- server.ts                         # for universal (server side rendering)
+  |  |- webpack.server.config.js          # for universal (server side rendering)
   |- .editorconfig
   |- .gitignore
   |- .travis.yml
@@ -345,7 +320,7 @@ This convention helps making your git mesages more readable and meaningful, in a
 
 The generator also takes full advantage of the convention to autogenerate project's `CHANGELOG.md` and Github release notes from Git metadata. Only relevant commit messages are considered (commits about new features, fixes, performance, and breaking changes).
 
-You can tweek or deactivate (:scream:) the convention by editing the `"commitplease"` section in `package.json`. See [here](https://github.com/jzaefferer/commitplease#angularjs.).
+You can tweak or deactivate (:scream:) the convention by editing the `"commitplease"` section in `package.json`. See [here](https://github.com/jzaefferer/commitplease#angularjs.).
 
 
 # Pre-Releasing :checkered_flag:
