@@ -439,7 +439,7 @@ describe('ngx-library:app', () => {
       });
     });
   });
-  
+
   describe('check "skipStyles" option', () => {
     it('should not generate styles-related code when "skipStyles" is set to true', () => {
       let ngLibraryApp = createNgLibraryApp({
