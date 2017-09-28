@@ -1,3 +1,13 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.0.0...v4.1.0) (2017-09-28)
+
+
+### Features
+
+* **git:** enforce that commit messages follow angular guideline ([ecb667c](https://github.com/tinesoft/generator-ngx-library/commit/ecb667c))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v3.3.0...v4.0.0) (2017-09-25)
 
