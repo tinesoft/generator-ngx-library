@@ -35,7 +35,7 @@
     "check-travis": " travis-status --repo=tinesoft/generator-ngx-library --branch=master --fail-pending || echo 'Not yet passing'"
   },
   "dependencies": {
-    "chalk": "2.0.0",
+    "chalk": "2.1.0",
     "mkdirp": "0.5.1",
     "yeoman-generator": "2.0.0",
     "yosay": "2.0.0"
