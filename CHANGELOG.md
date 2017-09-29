@@ -1,3 +1,13 @@
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/tinesoft/generator-ngx-library/compare/v4.1.0...v4.1.1) (2017-09-29)
+
+
+### Bug Fixes
+
+* **core:** update generator  to `chalk 2.1.0` to fix issue when generating on Windows 10 ([f485e01](https://github.com/tinesoft/generator-ngx-library/commit/f485e01)), closes [#89](https://github.com/tinesoft/generator-ngx-library/issues/89)
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.0.0...v4.1.0) (2017-09-28)
 
