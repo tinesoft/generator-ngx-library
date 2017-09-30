@@ -1,0 +1,44 @@
+environment:
+  matrix:
+    - node_version: "8"
+      TEST_SUITE: units
+    
+    - node_version: "8"
+      TEST_SUITE: "integrations:ng2"
+  
+    - node_version: "8"
+      TEST_SUITE: "integrations:ng4"
+    
+    - node_version: "6"
+      TEST_SUITE: units
+    
+    - node_version: "6"
+      TEST_SUITE: "integrations:ng2"
+
+    - node_version: "6"
+      TEST_SUITE: "integrations:ng4"
+
+matrix:
+  fast_finish: true
+
+branches:
+  only:
+  - master
+  - /v[0-9]+(\.[0-9]+)*/
+
+install:
+  - ps: Install-Product node $env:node_version
+  - yarn global add gulp-cli yo @angular/cli
+  - yarn install
+  - npm link
+
+test_script:
+  - node --version
+  - yarn --version
+  - ps: Invoke-Expression "$env:APPVEYOR_BUILD_FOLDER\integrations\build.ps1"
+
+build: off
+
+cache:
+ - node_modules-> yarn.lock
+ - "%LOCALAPPDATA%/Yarn"

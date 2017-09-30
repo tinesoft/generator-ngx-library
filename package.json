@@ -32,6 +32,7 @@
   },
   "scripts": {
     "test": "mocha --reporter spec",
+    "check-appveyor": "appveyor-status --project=tinesoft/generator-ngx-library --branch=master --wait || echo 'Not yet passing'",
     "check-travis": " travis-status --repo=tinesoft/generator-ngx-library --branch=master --fail-pending || echo 'Not yet passing'"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@types/yeoman-generator": "1.0.3",
+    "appveyor-status": "2.0.1",
     "commitplease": "2.7.10",
     "conventional-github-releaser": "1.1.12",
     "eslint": "4.8.0",
