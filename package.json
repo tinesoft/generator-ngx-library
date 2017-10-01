@@ -52,7 +52,7 @@
     "greenkeeper-lockfile": "1.9.0",
     "gulp": "3.9.1",
     "gulp-bump": "2.7.0",
-    "gulp-conventional-changelog": "1.1.5",
+    "gulp-conventional-changelog": "1.1.6",
     "gulp-coveralls": "0.1.4",
     "gulp-eslint": "3.0.1",
     "gulp-git": "2.4.2",
