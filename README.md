@@ -63,7 +63,6 @@ If you find next sections way too long, here is a quick summary for you:
   * Building demo app for Prod: `gulp build:demo`
   * Building demo app for Prod with Server (Universal): `gulp build:demo-ssr`
 
-
 # Installation & Usage
 
 ## Requirements
@@ -110,8 +109,6 @@ skip-styles  | skips the generation of style inlining related code (in case you 
 skip-sample  | skips the generation of the sample library
 skip-demo    | skips the generation of the demo application
 npm          | forces usage of `npm` to install dependencies
-
-
 
 # Overall Directory Structure
 
@@ -191,7 +188,7 @@ File / Folder       | Purpose
 `src/tsconfig.spec.json` | The typescript configuration file used for tests
 `src/`              | This folder will contain all the files of your library
 `config/`           | This folder contains the configuration files for tools used to test your lib (`Webpack` & `Karma`)
-`demo/`             | This folder contains an integrated demo application, to showcase your library. The demo app is built with [angular-cli](https://github.com/angular/angular-cli) (v1.0.0), so everything you know about the CLI is applicable inside this folder.
+`demo/`             | This folder contains an integrated demo application, to showcase your library. The demo app is built with [angular-cli](https://github.com/angular/angular-cli), so everything you know about the CLI is applicable inside this folder.
 `dist/` (generated) | This generated folder contains everything that will be published as part of your package to [npm registry](https://npmjs.org).  It contains only necessary files and is built via `gulp build`command
 
 > **Note** :
@@ -328,7 +325,7 @@ $ yo ngx-library
 
 Please make sure to read [CHANGELOG](CHANGELOG.md) first, to take all necessary actions for a seamless upgrade.
 
-# Enforcing Angular Git  Commit Message Convention
+# Enforcing angular-style  commit messages
 
 The generator can enforce (via [Commitplease](https://github.com/jzaefferer/commitplease)) that all your commit messages follow [Angular guidelines](https://docs.google.com/document/d/1rk04jEuGfk9kYzfqCuOlPTSJw3hEDZJTBN5E5f1SALo).
 
