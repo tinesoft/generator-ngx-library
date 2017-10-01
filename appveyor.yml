@@ -8,15 +8,6 @@ environment:
   
     - node_version: "8"
       TEST_SUITE: "integrations:ng4"
-    
-    - node_version: "6"
-      TEST_SUITE: units
-    
-    - node_version: "6"
-      TEST_SUITE: "integrations:ng2"
-
-    - node_version: "6"
-      TEST_SUITE: "integrations:ng4"
 
 matrix:
   fast_finish: true
@@ -40,5 +31,5 @@ test_script:
 build: off
 
 cache:
- - node_modules-> yarn.lock
+ - node_modules -> yarn.lock
  - "%LOCALAPPDATA%/Yarn"
