@@ -45,6 +45,23 @@ These are the main features of the generator:
 * **Releasing** to [Github](https://help.github.com/articles/about-releases/) :octocat:
 * and so much more out-of-the-box :package:!
 
+# TL; DR :)
+
+If you find next sections way too long, here is a quick summary for you:
+
+* **Setup**:
+  * Dependencies: `npm install -g yo gulp-cli @angular/cli`
+  * Installation: `npm install -g generator-ngx-library`
+  * **Usage**: `yo ngx-library`
+* **Library main tasks**:
+  * Testing Library: `gulp test`
+  * Building Library: `gulp build`
+  * **Releasing Library**: `gulp release --version=[major|minor|patch]`
+* **Demo app main tasks**:
+  * **Serving demo app**: `gulp serve:demo`
+  * Serving demo app with Server (Universal): `gulp serve:demo-ssr`
+  * Building demo app for Prod: `gulp build:demo`
+  * Building demo app for Prod with Server (Universal): `gulp build:demo-ssr`
 
 
 # Installation & Usage
