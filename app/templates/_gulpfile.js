@@ -261,20 +261,36 @@ gulp.task('ng-compile',() => {
     });
 });
 
-// Lint, Prepare Build, <% if(!skipStyles) { %>, Sass to css, Inline templates & Styles<% } %> and Compile
+// Lint, Prepare Build, <% if(!skipStyles) { %>, Sass to css, Inline templates & Styles<% } %> and Ng-Compile
 gulp.task('compile', (cb) => {
   runSequence('lint', 'pre-compile', 'inline-templates', 'ng-compile', cb);
-});
-
-// Watch changes on (*.ts, *.html<% if(!skipStyles) { %>, *.sass<% } %>) and Compile
-gulp.task('watch', () => {
-  gulp.watch([config.allTs, config.allHtml, <% if(!skipStyles) { %>config.allSass<% } %>], ['compile']);
 });
 
 // Build the 'dist' folder (without publishing it to NPM)
 gulp.task('build', ['clean'], (cb) => {
   runSequence('compile', 'test', 'npm-package', 'rollup-bundle', cb);
 });
+
+// Same as 'build' but without cleaning temp folders (to avoid breaking demo app, if currently being served)
+gulp.task('build-watch', (cb) => {
+  runSequence('compile', 'test', 'npm-package', 'rollup-bundle', cb);
+});
+
+// Same as 'build-watch' but without running tests
+gulp.task('build-watch-no-tests', (cb) => {
+  runSequence('compile', 'npm-package', 'rollup-bundle', cb);
+});
+
+// Watch changes on (*.ts, *.html<% if(!skipStyles) { %>, *.sass<% } %>) and Re-build library
+gulp.task('build:watch', () => {
+  gulp.watch([config.allTs, config.allHtml, <% if(!skipStyles) { %>config.allSass<% } %>], ['build-watch']);
+});
+
+// Watch changes on (*.ts, *.html<% if(!skipStyles) { %>, *.sass<% } %>) and Re-build library (without running tests)
+gulp.task('build:watch-fast', () => {
+  gulp.watch([config.allTs, config.allHtml, <% if(!skipStyles) { %>config.allSass<% } %>], ['build-watch-no-tests']);
+});
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Packaging Tasks
@@ -446,26 +462,6 @@ const execDemoCmd = (args,opts) => {
 
 gulp.task('test:demo', () => {
   return execDemoCmd('test --preserve-symlinks', { cwd: `${config.demoDir}`});
-});
-
-gulp.task('test:demo-ssr', () => {
-  // Load zone.js for the server.
-  require('./demo/node_modules/zone.js/dist/zone-node');
-
-  // Import renderModuleFactory from @angular/platform-server.
-  var renderModuleFactory = require('./demo/node_modules/@angular/platform-server').renderModuleFactory;
-
-  // Import the AOT compiled factory for your AppServerModule.
-  // This import will change with the hash of your built server bundle.
-  var AppServerModuleNgFactory = require('./demo/dist-server/main.bundle').AppServerModuleNgFactory;
-
-  // Load the index.html file.
-  var index = require('fs').readFileSync('./demo/src/index.html', 'utf8');
-
-  // Render to HTML and log it to the console.
-  return renderModuleFactory(AppServerModuleNgFactory, { document: index, url: '/' }).then(html => {
-    console.log(html);
-  });
 });
 
 gulp.task('serve:demo', () => {

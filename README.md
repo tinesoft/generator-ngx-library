@@ -56,6 +56,8 @@ If you find next sections way too long, here is a quick summary for you:
 * **Library main tasks**:
   * Testing Library: `gulp test`
   * Building Library: `gulp build`
+  * Watching source files and auto-rebuilding Library: `gulp build:watch`
+  * Watching source files and auto-rebuilding Library (without running tests): `gulp build:watch-fast`
   * **Releasing Library**: `gulp release --version=[major|minor|patch]`
 * **Demo app main tasks**:
   * **Serving demo app**: `gulp serve:demo`
@@ -277,6 +279,8 @@ Here are the most important `gulp` tasks to use during your development workflow
 Task                    | Purpose
 :-----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------
 `gulp build`            | Builds and packages your library under the `dist/` folder.
+`gulp build:watch`      | Watches the source files (*.ts, *.html and *.scss) and re-builds your library upon changes (useful for live refresh of demo app during development).
+`gulp build:watch-fast` | Watches the source files (*.ts, *.html and *.scss) and re-builds your library upon changes (without running tests).
 `gulp test`             | Launches the tests (`*.spec.ts`) you wrote in `src/` and run code coverage on them. The coverage report can be found in `coverage/` folder
 `gulp test:watch`       | Launches tests in watch mode. Every changes in `*.spec.ts` 
 `gulp test:watch-no-cc` | Same as `gulp test:watch` but files do not get instrumented for code coverage (useful for debugging)
