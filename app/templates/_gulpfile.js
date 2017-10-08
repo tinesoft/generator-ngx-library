@@ -283,12 +283,12 @@ gulp.task('build-watch-no-tests', (cb) => {
 });
 
 // Watch changes on (*.ts, *.html<% if(!skipStyles) { %>, *.sass<% } %>) and Re-build library
-gulp.task('build:watch', () => {
+gulp.task('build:watch', ['build-watch'], () => {
   gulp.watch([config.allTs, config.allHtml, <% if(!skipStyles) { %>config.allSass<% } %>], ['build-watch']);
 });
 
 // Watch changes on (*.ts, *.html<% if(!skipStyles) { %>, *.sass<% } %>) and Re-build library (without running tests)
-gulp.task('build:watch-fast', () => {
+gulp.task('build:watch-fast', ['build-watch-no-tests'], () => {
   gulp.watch([config.allTs, config.allHtml, <% if(!skipStyles) { %>config.allSass<% } %>], ['build-watch-no-tests']);
 });
 
