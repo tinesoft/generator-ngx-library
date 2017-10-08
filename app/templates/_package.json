@@ -3,21 +3,21 @@
   "description": "<%= projectDescription %>",
   "version": "<%= projectVersion %>",
   "filename": "./src/<%= projectName %>.js",
-  "homepage": "http://github.com/<%= githubUsername %>/<%= projectName %>",
+  "homepage": "http://github.com/<%= githubUsername %>/<%= githubRepoName %>",
   "author": {
     "name": "<%= authorName %>",
     "url": "http://github.com/<%= githubUsername %>"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/<%= githubUsername %>/<%= projectName %>.git"
+    "url": "git://github.com/<%= githubUsername %>/<%= githubRepoName %>.git"
   },
   "license": "MIT",
   "keywords": [
     "<%- projectKeywords.join('",\n    "') %>"
   ],
   "bugs": {
-    "url": "http://github.com/<%= githubUsername %>/<%= projectName %>/issues"
+    "url": "http://github.com/<%= githubUsername %>/<%= githubRepoName %>/issues"
   },
   "private": true,
   "main": "./dist",
@@ -26,7 +26,7 @@
     "start": "gulp build",
     "test": " gulp test",
     "demo": " gulp build:demo",
-    "check-travis": " travis-status --repo=<%= githubUsername %>/<%= projectName %> --branch=master --fail-pending || echo 'Not yet passing'"
+    "check-travis": " travis-status --repo=<%= githubUsername %>/<%= githubRepoName %> --branch=master --fail-pending || echo 'Not yet passing'"
   },
   "dependencies": {
     <%- ngDependencies.join(',\n    ') %>

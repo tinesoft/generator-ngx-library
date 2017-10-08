@@ -25,11 +25,19 @@ describe('ngx-library:validators', () => {
     assert.strictEqual(validators.validateGithubUsername('user007'), true, 'passing a valid value passes validation');
   });
 
+  it('should validate "githubRepoName"', () => {
+    assert.strictEqual(!validators.validateGithubRepoName(''), false, 'empty string should fail validation');
+    assert.strictEqual(!validators.validateGithubRepoName(), false, 'not passing a value should fail validation');
+    assert.strictEqual(!validators.validateGithubRepoName('My_/_PorjectName'), false, 'not passing a valid value should fail validation');
+    assert.strictEqual(validators.validateGithubRepoName('my-ngx-library'), true, 'passing a valid value passes validation');
+  });
+
   it('should validate "projectName"', () => {
     assert.strictEqual(!validators.validateProjectName(''), false, 'empty string should fail validation');
     assert.strictEqual(!validators.validateProjectName(), false, 'not passing a value should fail validation');
     assert.strictEqual(!validators.validateProjectName('My_/_PorjectName'), false, 'not passing a valid value should fail validation');
     assert.strictEqual(validators.validateProjectName('my-ngx-library'), true, 'passing a valid value passes validation');
+    assert.strictEqual(validators.validateProjectName('@my-scope/my-ngx-library'), true, 'passing a valid "scoped package" value passes validation');
   });
 
   it('should validate "projectVersion"', () => {

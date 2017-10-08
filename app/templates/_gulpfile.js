@@ -76,6 +76,7 @@ const argv = yargs
 
 const config = {
   libraryName: '<%= projectName %>',
+  unscopedLibraryName: '<%= unscopedProjectName %>',
   allSrc: 'src/**/*',
   allTs: 'src/**/!(*.spec).ts',<% if(!skipStyles) { %>
   allSass: 'src/**/*.(scss|sass)',
@@ -307,12 +308,12 @@ gulp.task('npm-package', (cb) => {
   //only copy needed properties from project's package json
   fieldsToCopy.forEach((field) => { targetPkgJson[field] = pkgJson[field]; });
 
-  targetPkgJson['main'] = `bundles/${config.libraryName}.umd.js`;<% if(ngVersion === '2.0.0'){ %>
+  targetPkgJson['main'] = `bundles/${config.unscopedLibraryName}.umd.js`;<% if(ngVersion === '2.0.0'){ %>
   targetPkgJson['module'] = `index.js`;
   targetPkgJson['typings'] = `index.d.ts`;<% } else {%>
   targetPkgJson['module'] = `${config.libraryName}.es5.js`;
   targetPkgJson['es2015'] = `${config.libraryName}.js`;
-  targetPkgJson['typings'] = `${config.libraryName}.d.ts`;<% } %>
+  targetPkgJson['typings'] = `${config.unscopedLibraryName}.d.ts`;<% } %>
 
   // defines project's dependencies as 'peerDependencies' for final users
   targetPkgJson.peerDependencies = {};
@@ -339,8 +340,8 @@ gulp.task('rollup-bundle', (cb) => {
   // Bundle lib.
   .then(() => {
     // Base configuration.
-    const es5Entry = path.join(es5OutputFolder, `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.libraryName}.js' %>`);<% if(ngVersionMin >= 4) { %>
-    const es2015Entry = path.join(es2015OutputFolder, `${config.libraryName}.js`);<% } %>
+    const es5Entry = path.join(es5OutputFolder, `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.unscopedLibraryName}.js' %>`);<% if(ngVersionMin >= 4) { %>
+    const es2015Entry = path.join(es2015OutputFolder, `${config.unscopedLibraryName}.js`);<% } %>
     const globals = {
       // Angular dependencies <% for (ngModule of ngModules) { %>
       '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
@@ -387,14 +388,14 @@ gulp.task('rollup-bundle', (cb) => {
     // UMD bundle.
     const umdConfig = Object.assign({}, rollupBaseConfig, {
       entry: es5Entry,
-      dest: path.join(distFolder, `bundles`, `${config.libraryName}.umd.js`),
+      dest: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.js`),
       format: 'umd',
     });
 
     // Minified UMD bundle.
     const minifiedUmdConfig = Object.assign({}, rollupBaseConfig, {
       entry: es5Entry,
-      dest: path.join(distFolder, `bundles`, `${config.libraryName}.umd.min.js`),
+      dest: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.min.js`),
       format: 'umd',
       plugins: rollupBaseConfig.plugins.concat([rollupUglify({})])
     });<% if(ngVersionMin >= 4){ %>
