@@ -307,11 +307,12 @@ gulp.task('npm-package', (cb) => {
   //only copy needed properties from project's package json
   fieldsToCopy.forEach((field) => { targetPkgJson[field] = pkgJson[field]; });
 
-  targetPkgJson['main'] = `bundles/${config.libraryName}.umd.js`;
-  targetPkgJson['module'] = `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.libraryName}.es5.js' %>`;
+  targetPkgJson['main'] = `bundles/${config.libraryName}.umd.js`;<% if(ngVersion === '2.0.0'){ %>
+  targetPkgJson['module'] = `index.js`;
+  targetPkgJson['typings'] = `index.d.ts`;<% } else {%>
+  targetPkgJson['module'] = `${config.libraryName}.es5.js`;
   targetPkgJson['es2015'] = `${config.libraryName}.js`;
-  targetPkgJson['typings'] = `${config.libraryName}.d.ts`;
-
+  targetPkgJson['typings'] = `${config.libraryName}.d.ts`;<% } %>
 
   // defines project's dependencies as 'peerDependencies' for final users
   targetPkgJson.peerDependencies = {};
@@ -344,27 +345,27 @@ gulp.task('rollup-bundle', (cb) => {
       // Angular dependencies <% for (ngModule of ngModules) { %>
       '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
 
-      // Rxjs dependencies		
-      'rxjs/Subject': 'Rx',		
+      // Rxjs dependencies
+      'rxjs/Subject': 'Rx',
       'rxjs/Observable': 'Rx',
-      'rxjs/add/observable/fromEvent': 'Rx.Observable',		
-      'rxjs/add/observable/forkJoin': 'Rx.Observable',		
-      'rxjs/add/observable/of': 'Rx.Observable',		
-      'rxjs/add/observable/merge': 'Rx.Observable',		
-      'rxjs/add/observable/throw': 'Rx.Observable',		
-      'rxjs/add/operator/auditTime': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/toPromise': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/map': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/filter': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/do': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/share': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/finally': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/catch': 'Rx.Observable.prototype',		
-      'rxjs/add/observable/empty': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/first': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/startWith': 'Rx.Observable.prototype',		
-      'rxjs/add/operator/switchMap': 'Rx.Observable.prototype'		
-      
+      'rxjs/add/observable/fromEvent': 'Rx.Observable',
+      'rxjs/add/observable/forkJoin': 'Rx.Observable',
+      'rxjs/add/observable/of': 'Rx.Observable',
+      'rxjs/add/observable/merge': 'Rx.Observable',
+      'rxjs/add/observable/throw': 'Rx.Observable',
+      'rxjs/add/operator/auditTime': 'Rx.Observable.prototype',
+      'rxjs/add/operator/toPromise': 'Rx.Observable.prototype',
+      'rxjs/add/operator/map': 'Rx.Observable.prototype',
+      'rxjs/add/operator/filter': 'Rx.Observable.prototype',
+      'rxjs/add/operator/do': 'Rx.Observable.prototype',
+      'rxjs/add/operator/share': 'Rx.Observable.prototype',
+      'rxjs/add/operator/finally': 'Rx.Observable.prototype',
+      'rxjs/add/operator/catch': 'Rx.Observable.prototype',
+      'rxjs/add/observable/empty': 'Rx.Observable.prototype',
+      'rxjs/add/operator/first': 'Rx.Observable.prototype',
+      'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
+      'rxjs/add/operator/switchMap': 'Rx.Observable.prototype'
+
       // ATTENTION:
       // Add any other dependency or peer dependency of your library here
       // This is required for UMD bundle users.
