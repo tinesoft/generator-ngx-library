@@ -1,19 +1,19 @@
 <% if(!skipDemo) {%><p align="center">
-  <img height="256px" width="256px" style="text-align: center;" src="https://cdn.rawgit.com/<%= githubUsername %>/<%= projectName %>/master/demo/src/assets/logo.svg">
+  <img height="256px" width="256px" style="text-align: center;" src="https://cdn.rawgit.com/<%= githubUsername %>/<%= githubRepoName %>/master/demo/src/assets/logo.svg">
 </p>
 
-<% } %># <%= projectName %> - <%= projectDescription %>
+<% } %># <%= githubRepoName %> - <%= projectDescription %>
 
-[![npm version](https://badge.fury.io/js/<%= projectName %>.svg)](https://badge.fury.io/js/<%= projectName %>)
-[![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= projectName %>)
-[![Coverage Status](https://coveralls.io/repos/github/<%= githubUsername %>/<%= projectName %>/badge.svg?branch=master)](https://coveralls.io/github/<%= githubUsername %>/<%= projectName %>?branch=master)
-[![dependency Status](https://david-dm.org/<%= githubUsername %>/<%= projectName %>/status.svg)](https://david-dm.org/<%= githubUsername %>/<%= projectName %>)
-[![devDependency Status](https://david-dm.org/<%= githubUsername %>/<%= projectName %>/dev-status.svg?branch=master)](https://david-dm.org/<%= githubUsername %>/<%= projectName %>#info=devDependencies)<% if(useGreenkeeper){%>
-[![Greenkeeper Badge](https://badges.greenkeeper.io/<%= githubUsername %>/<%= projectName %>.svg)](https://greenkeeper.io/)<% } %>
+[![npm version](https://badge.fury.io/js/<%= githubRepoName %>.svg)](https://badge.fury.io/js/<%= githubRepoName %>)
+[![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= githubRepoName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= githubRepoName %>)
+[![Coverage Status](https://coveralls.io/repos/github/<%= githubUsername %>/<%= githubRepoName %>/badge.svg?branch=master)](https://coveralls.io/github/<%= githubUsername %>/<%= githubRepoName %>?branch=master)
+[![dependency Status](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>/status.svg)](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>)
+[![devDependency Status](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>/dev-status.svg?branch=master)](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>#info=devDependencies)<% if(useGreenkeeper){%>
+[![Greenkeeper Badge](https://badges.greenkeeper.io/<%= githubUsername %>/<%= githubRepoName %>.svg)](https://greenkeeper.io/)<% } %>
 
 ## Demo
 
-View all the directives in action at https://<%= githubUsername %>.github.io/<%= projectName %>
+View all the directives in action at https://<%= githubUsername %>.github.io/<%= githubRepoName %>
 
 ## Dependencies
 * [Angular](https://angular.io) (*requires* Angular 2 or higher, tested with 2.0.0)
@@ -32,7 +32,7 @@ npm install --save <%= projectName %>
 In your systemjs config file, `map` needs to tell the System loader where to look for `<%= projectName %>`:
 ```js
 map: {
-  '<%= projectName %>': 'node_modules/<%= projectName %>/bundles/<%= projectName %>.umd.js',
+  '<%= projectName %>': 'node_modules/<%= projectName %>/bundles/<%= unscopedProjectName %>.umd.js',
 }
 ```
 ---

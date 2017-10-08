@@ -12,6 +12,8 @@ const prompts = require('./prompts');
 const folders = require('./folders');
 const files = require('./files');
 
+const scopedProjectNameRegex = /^@[a-zA-Z0-9-]+\/([a-zA-Z0-9-]+)$/;
+
 module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
@@ -139,6 +141,10 @@ module.exports = class extends Generator {
       this.ngVersionMin = Number(this.ngVersion.split('.')[0]);
       this.demoProjectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}DemoPage`;
       this.today = new Date();
+
+      // Get project's name without the scope if any (@my-scope/[my-project])
+      let match =  scopedProjectNameRegex.exec(this.projectName);
+      this.unscopedProjectName =  match == null ? this.projectName : match[1];
 
       // Set up ng dependencies
       this.ngDependencies = [];
@@ -292,6 +298,7 @@ module.exports = class extends Generator {
     this.authorName = this.config.get('authorName');
     this.authorEmail = this.config.get('authorEmail');
     this.githubUsername = this.config.get('githubUsername');
+    this.githubRepoName = this.config.get('githubRepoName') ||  this.config.get('projectName');
     this.projectName = this.config.get('projectName');
     this.projectVersion = this.config.get('projectVersion');
     this.projectDescription = this.config.get('projectDescription');
@@ -313,6 +320,7 @@ module.exports = class extends Generator {
         this.authorName = props.authorName;
         this.authorEmail = props.authorEmail;
         this.githubUsername = props.githubUsername;
+        this.githubRepoName = props.githubRepoName;
         this.projectName = props.projectName;
         this.projectVersion = props.projectVersion;
         this.projectDescription = props.projectDescription;
@@ -337,6 +345,7 @@ module.exports = class extends Generator {
         this.config.set('authorName', this.authorName);
         this.config.set('authorEmail', this.authorEmail);
         this.config.set('githubUsername', this.githubUsername);
+        this.config.set('githubRepoName', this.githubRepoName);
         this.config.set('projectName', this.projectName);
         this.config.set('projectVersion', this.projectVersion);
         this.config.set('projectDescription', this.projectDescription);

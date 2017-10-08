@@ -43,8 +43,8 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "genDir": "../tmp/lib-gen-dir/",
-    "flatModuleOutFile": "<%= projectName %>.js",
-    "flatModuleId": "<%= projectName %>",
+    "flatModuleOutFile": "<%= unscopedProjectName %>.js",
+    "flatModuleId": "<%= unscopedProjectName %>",
     "annotateForClosureCompiler": true
   }<% } %>
 }
