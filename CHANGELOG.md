@@ -1,3 +1,21 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.1.1...v4.2.0) (2017-10-08)
+
+
+### Bug Fixes
+
+* **build:** restore rxjs externals in RollupJS config ([776e907](https://github.com/tinesoft/generator-ngx-library/commit/776e907))
+* **package:** update yeoman-generator to version 2.0.1 ([c7535b8](https://github.com/tinesoft/generator-ngx-library/commit/c7535b8))
+
+
+### Features
+
+* **build:** add `build:watch` task to rebuild library on change on `*.ts`, `*.html`, `*.scss` files ([921b3db](https://github.com/tinesoft/generator-ngx-library/commit/921b3db)), closes [#98](https://github.com/tinesoft/generator-ngx-library/issues/98)
+* **core:** add support for Appveyor CI (for testing generator on Windows platforms) ([9772d5a](https://github.com/tinesoft/generator-ngx-library/commit/9772d5a))
+* **demo:** update demo app favicon ([da525f6](https://github.com/tinesoft/generator-ngx-library/commit/da525f6))
+
+
+
 <a name="4.1.1"></a>
 ## [4.1.1](https://github.com/tinesoft/generator-ngx-library/compare/v4.1.0...v4.1.1) (2017-09-29)
 
