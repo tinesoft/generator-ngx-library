@@ -1,3 +1,19 @@
+<a name="4.3.0"></a>
+# [4.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.2.0...v4.3.0) (2017-10-09)
+
+
+### Bug Fixes
+
+* **packaging:** correct wrong "typings" and "es2015" when building for ng v2 ([1824aef](https://github.com/tinesoft/generator-ngx-library/commit/1824aef))
+
+
+### Features
+
+* **build:** run initial build on `gulp build:watch` ([e3fa3fd](https://github.com/tinesoft/generator-ngx-library/commit/e3fa3fd))
+* **scopedLibraries:** add support for scoped libraries creation (i.e [@my-scope](https://github.com/my-scope)/my-lib) ([575c744](https://github.com/tinesoft/generator-ngx-library/commit/575c744)), closes [#100](https://github.com/tinesoft/generator-ngx-library/issues/100)
+
+
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.1.1...v4.2.0) (2017-10-08)
 
