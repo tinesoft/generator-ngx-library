@@ -143,8 +143,8 @@ module.exports = class extends Generator {
       this.today = new Date();
 
       // Get project's name without the scope if any (@my-scope/[my-project])
-      let match =  scopedProjectNameRegex.exec(this.projectName);
-      this.unscopedProjectName =  match == null ? this.projectName : match[1];
+      let match = scopedProjectNameRegex.exec(this.projectName);
+      this.unscopedProjectName = match === null ? this.projectName : match[1];
 
       // Set up ng dependencies
       this.ngDependencies = [];
@@ -298,7 +298,7 @@ module.exports = class extends Generator {
     this.authorName = this.config.get('authorName');
     this.authorEmail = this.config.get('authorEmail');
     this.githubUsername = this.config.get('githubUsername');
-    this.githubRepoName = this.config.get('githubRepoName') ||  this.config.get('projectName');
+    this.githubRepoName = this.config.get('githubRepoName') || this.config.get('projectName');
     this.projectName = this.config.get('projectName');
     this.projectVersion = this.config.get('projectVersion');
     this.projectDescription = this.config.get('projectDescription');
