@@ -340,8 +340,8 @@ gulp.task('rollup-bundle', (cb) => {
   // Bundle lib.
   .then(() => {
     // Base configuration.
-    const es5Entry = path.join(es5OutputFolder, `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.unscopedLibraryName}.js' %>`);<% if(ngVersionMin >= 4) { %>
-    const es2015Entry = path.join(es2015OutputFolder, `${config.unscopedLibraryName}.js`);<% } %>
+    const es5Input = path.join(es5OutputFolder, `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.unscopedLibraryName}.js' %>`);<% if(ngVersionMin >= 4) { %>
+    const es2015Input = path.join(es2015OutputFolder, `${config.unscopedLibraryName}.js`);<% } %>
     const globals = {
       // Angular dependencies <% for (ngModule of ngModules) { %>
       '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
@@ -372,8 +372,8 @@ gulp.task('rollup-bundle', (cb) => {
       // This is required for UMD bundle users.
     };
     const rollupBaseConfig = {
-      moduleName: _.camelCase(config.libraryName),
-      sourceMap: true,
+      name: _.camelCase(config.libraryName),
+      sourcemap: true,
       globals: globals,
       external: Object.keys(globals),
       plugins: [
@@ -387,30 +387,30 @@ gulp.task('rollup-bundle', (cb) => {
 
     // UMD bundle.
     const umdConfig = Object.assign({}, rollupBaseConfig, {
-      entry: es5Entry,
-      dest: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.js`),
+      input: es5Input,
+      file: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.js`),
       format: 'umd',
     });
 
     // Minified UMD bundle.
     const minifiedUmdConfig = Object.assign({}, rollupBaseConfig, {
-      entry: es5Entry,
-      dest: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.min.js`),
+      input: es5Input,
+      file: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.min.js`),
       format: 'umd',
       plugins: rollupBaseConfig.plugins.concat([rollupUglify({})])
     });<% if(ngVersionMin >= 4){ %>
 
     // ESM+ES5 flat module bundle.
     const fesm5config = Object.assign({}, rollupBaseConfig, {
-      entry: es5Entry,
-      dest: path.join(distFolder, `${config.libraryName}.es5.js`),
+      input: es5Input,
+      file: path.join(distFolder, `${config.libraryName}.es5.js`),
       format: 'es'
     });
 
     // ESM+ES2015 flat module bundle.
     const fesm2015config = Object.assign({}, rollupBaseConfig, {
-      entry: es2015Entry,
-      dest: path.join(distFolder, `${config.libraryName}.js`),
+      input: es2015Input,
+      file: path.join(distFolder, `${config.libraryName}.js`),
       format: 'es'
     });<% } %>
 
