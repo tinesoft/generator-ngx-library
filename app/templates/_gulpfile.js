@@ -79,7 +79,7 @@ const config = {
   unscopedLibraryName: '<%= unscopedProjectName %>',
   allSrc: 'src/**/*',
   allTs: 'src/**/!(*.spec).ts',<% if(!skipStyles) { %>
-  allSass: 'src/**/*.(scss|sass)',
+  allSass: 'src/**/*.+(scss|sass)',
   allHtml: 'src/**/*.html',<% } %>
   demoDir: 'demo/',
   buildDir: 'tmp/',
