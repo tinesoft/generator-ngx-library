@@ -65,6 +65,29 @@ If you find next sections way too long, here is a quick summary for you:
   * Building demo app for Prod: `gulp build:demo`
   * Building demo app for Prod with Server (Universal): `gulp build:demo-ssr`
 
+# Table of contents
+
+<!-- toc -->
+
+- [Installation & Usage](#installation--usage)
+  * [Requirements](#requirements)
+  * [Usage](#usage)
+  * [Options](#options)
+- [Overall Directory Structure](#overall-directory-structure)
+- [Overall Distributed Package Structure](#overall-distributed-package-structure)
+    + [For Angular >=v4.x.x](#for-angular-v4xx)
+    + [For Angular v2.x.x](#for-angular-v2xx)
+- [Development](#development)
+    + [Recipes](#recipes)
+    + [Updating](#updating)
+- [Enforcing angular-style commit messages](#enforcing-angular-style--commit-messages)
+- [Pre-Releasing :checkered_flag:](#pre-releasing-checkered_flag)
+- [Releasing](#releasing)
+- [Support](#support)
+- [License](#license)
+
+<!-- tocstop -->
+
 # Installation & Usage
 
 ## Requirements

@@ -20,7 +20,10 @@ const gulpConventionalChangelog = require('gulp-conventional-changelog');
 const conventionalGithubReleaser = require('conventional-github-releaser');
 
 const runSequence = require('run-sequence');
+const through = require('through2');
 const yargs = require('yargs');
+const toc = require('markdown-toc');
+
 const argv = yargs
   .option('version', {
     alias: 'v',
@@ -61,6 +64,25 @@ const readyToRelease = () => {
   return isTravisPassing && isAppveyorPassing && onMasterBranch && canBump && canGhRelease && canNpmPublish;
 };
 
+
+const tocfy = () => {
+  return through.obj((file, encoding, cb) => {
+    if (file.isNull()) {
+      return cb(null, file);
+    }
+    if (file.isStream()) {
+      return cb(new gulpUtil.PluginError('tocfy', 'Streaming not supported'));
+    }
+    if (!file.contents.length) {
+      return cb(null, file);
+    }
+    let readme = fs.readFileSync(file.path, 'utf-8');
+    file.contents = new Buffer(toc.insert(readme));
+    cb(null, file);
+
+  });
+};
+
 gulp.task('static', () => {
   return gulp.src(['app/*.js', 'tests/**/*.js'])
     .pipe(gulpPlumber())
@@ -71,6 +93,12 @@ gulp.task('static', () => {
 
 gulp.task('nsp', cb => {
   gulpNsp({ package: path.resolve('package.json') }, cb);
+});
+
+gulp.task('toc', () => {
+  return gulp.src('./README.md')
+    .pipe(tocfy())
+    .pipe(gulp.dest('./'));
 });
 
 gulp.task('pre-test', () => {
@@ -99,8 +127,8 @@ gulp.task('test', ['pre-test'], cb => {
     });
 });
 
-// Watch changes on *.ts files and Compile
-gulp.task('watch', () => {
+// Watch changes on *.js files and test
+gulp.task('test:watch', () => {
   gulp.watch(['app/index.js', 'tests/**/*.js'], ['test']);
 });
 
