@@ -183,6 +183,7 @@ describe('ngx-library:app', () => {
             '"tslint" : "3.15.1"',
             '"gulp-tslint" : "6.1.1"',
             '"typescript" : "2.0.3"',
+            '"awesome-typescript-loader" : "3.0.5"',
             '"codelyzer" : "1.0.0-beta.0"']);
         assert.noFile([
           'src/tsconfig.lib.es5.json']);
@@ -225,6 +226,7 @@ describe('ngx-library:app', () => {
             '"tslint" : "5.4.3"',
             '"gulp-tslint" : "8.1.1"',
             '"typescript" : "2.3.3"',
+            '"awesome-typescript-loader" : "3.0.5"',
             '"codelyzer" : "3.1.1"']);
         assert.file([
           'src/tsconfig.lib.es5.json']);
