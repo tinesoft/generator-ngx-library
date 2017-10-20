@@ -177,6 +177,7 @@ module.exports = class extends Generator {
         this.ngDevDependencies.push('"tslint" : "3.15.1"');
         this.ngDevDependencies.push('"gulp-tslint" : "6.1.1"'); // Because it depends on 'tslint'
         this.ngDevDependencies.push('"typescript" : "2.0.3"');
+        this.ngDevDependencies.push('"awesome-typescript-loader" : "3.0.5"'); // Because it depends on 'typescript'
         this.ngDevDependencies.push('"codelyzer" : "1.0.0-beta.0"');
       } else {
         this.ngDevDependencies.push('"@angular/compiler-cli" : "4.0.0"');
@@ -185,6 +186,7 @@ module.exports = class extends Generator {
         this.ngDevDependencies.push('"tslint" : "5.4.3"');
         this.ngDevDependencies.push('"gulp-tslint" : "8.1.1"'); // Because it depends on 'tslint'
         this.ngDevDependencies.push('"typescript" : "2.3.3"');
+        this.ngDevDependencies.push('"awesome-typescript-loader" : "3.0.5"'); // Because it depends on 'typescript'
         this.ngDevDependencies.push('"codelyzer" : "3.1.1"');
 
         if (this.ngModules.indexOf('animations') === -1) {
@@ -198,6 +200,8 @@ module.exports = class extends Generator {
         let allDependencies = this.ngDependencies.concat(this.ngDevDependencies);
         let allDependenciesAsJsonText = `{${allDependencies.join(',\n')}}`;
         this.greenkeeperExclusions = _.keys(JSON.parse(allDependenciesAsJsonText)).map(p => `"${p}"`);
+
+        this.greenkeeperExclusions.push('@types/jasmine'); // Workaround for issue with >=v2.5.41
       }
 
       // Generator's excluded files
