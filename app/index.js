@@ -199,9 +199,10 @@ module.exports = class extends Generator {
       if (this.useGreenkeeper) {
         let allDependencies = this.ngDependencies.concat(this.ngDevDependencies);
         let allDependenciesAsJsonText = `{${allDependencies.join(',\n')}}`;
-        this.greenkeeperExclusions = _.keys(JSON.parse(allDependenciesAsJsonText)).map(p => `"${p}"`);
+        let excludedPackages = [..._.keys(JSON.parse(allDependenciesAsJsonText)), ...this.otherDependencies];
+        this.greenkeeperExclusions = excludedPackages.map(p => `"${p}"`);
 
-        this.greenkeeperExclusions.push('@types/jasmine'); // Workaround for issue with >=v2.5.41
+        this.greenkeeperExclusions.push('"@types/jasmine"'); // Workaround for issue with >=v2.5.41
       }
 
       // Generator's excluded files
@@ -310,6 +311,7 @@ module.exports = class extends Generator {
     this.ngPrefix = this.config.get('ngPrefix') || 'my-lib';
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
+    this.otherDependencies = this.config.get('otherDependencies') || [];
     this.useGreenkeeper = this.config.get('useGreenkeeper');
     this.useCompodoc = this.config.get('useCompodoc');
     this.enforceNgGitCommitMsg = this.config.get('enforceNgGitCommitMsg');
@@ -329,9 +331,10 @@ module.exports = class extends Generator {
         this.projectVersion = props.projectVersion;
         this.projectDescription = props.projectDescription;
         this.projectKeywords = props.projectKeywords ? props.projectKeywords.split(',') : [];
-        this.ngPrefix = props.ngPrefix;
         this.ngVersion = props.ngVersion;
         this.ngModules = props.ngModules;
+        this.otherDependencies = props.otherDependencies ? props.otherDependencies.split(',') : [];
+        this.ngPrefix = props.ngPrefix;
         this.useGreenkeeper = props.useGreenkeeper;
         this.useCompodoc = props.useCompodoc;
         this.enforceNgGitCommitMsg = props.enforceNgGitCommitMsg;
@@ -354,9 +357,10 @@ module.exports = class extends Generator {
         this.config.set('projectVersion', this.projectVersion);
         this.config.set('projectDescription', this.projectDescription);
         this.config.set('projectKeywords', this.projectKeywords);
-        this.config.set('ngPrefix', this.ngPrefix);
         this.config.set('ngVersion', this.ngVersion);
         this.config.set('ngModules', this.ngModules);
+        this.config.set('otherDependencies', this.otherDependencies);
+        this.config.set('ngPrefix', this.ngPrefix);
         this.config.set('useGreenkeeper', this.useGreenkeeper);
         this.config.set('useCompodoc', this.useCompodoc);
         this.config.set('enforceNgGitCommitMsg', this.enforceNgGitCommitMsg);
@@ -417,12 +421,7 @@ module.exports = class extends Generator {
       this.log(yosay('All done ✌(-‿-)✌,\nHappy ng-hacking!'));
     } else {
       this.log(`\n\nAlmost done (1/3). Running ${this.useYarn ? chalk.green('yarn install') : chalk.green('npm install')} to install the required dependencies.`);
-      this.installDependencies({
-        bower: false,
-        npm: !this.useYarn,
-        yarn: this.useYarn,
-        skipMessage: true
-      }).then(installationDone);
+      this.useYarn ? this.yarnInstall(this.otherDependencies).then(installationDone) : this.npmInstall(this.otherDependencies).then(installationDone);
     }
   }
 };

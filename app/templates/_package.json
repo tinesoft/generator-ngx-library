@@ -36,8 +36,7 @@
     "@types/jasmine": "2.5.41",
     "@types/node": "8.0.44",
     "angular-cli-ghpages": "0.5.1",
-    "angular2-template-loader": "0.6.2",
-    "awesome-typescript-loader": "3.0.5",<% if(useCompodoc){%>
+    "angular2-template-loader": "0.6.2",<% if(useCompodoc){%>
     "@compodoc/gulp-compodoc": "0.0.7",<% } %><% if(enforceNgGitCommitMsg){%>
     "commitplease": "3.1.0",<% } %>
     "conventional-github-releaser": "1.1.12",
