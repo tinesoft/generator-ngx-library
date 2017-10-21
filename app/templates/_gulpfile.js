@@ -368,11 +368,12 @@ gulp.task('rollup-bundle', (cb) => {
       'rxjs/add/observable/empty': 'Rx.Observable.prototype',
       'rxjs/add/operator/first': 'Rx.Observable.prototype',
       'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
-      'rxjs/add/operator/switchMap': 'Rx.Observable.prototype'
+      'rxjs/add/operator/switchMap': 'Rx.Observable.prototype'<% if(otherDependencies) {%>,<%}%>
 
       // ATTENTION:
       // Add any other dependency or peer dependency of your library here
       // This is required for UMD bundle users.
+      <%- otherDependencies.map(d => `'${d}': '${d}'`).join(',\n      ') %>
     };
     const rollupBaseConfig = {
       name: _.camelCase(config.libraryName),
