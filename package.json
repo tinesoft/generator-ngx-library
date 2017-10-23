@@ -68,7 +68,7 @@
     "semver": "5.3.0",
     "through2": "2.0.3",
     "travis-status": "2.0.0",
-    "yargs": "8.0.1",
+    "yargs": "10.0.3",
     "yeoman-assert": "3.1.0",
     "yeoman-test": "1.7.0"
   },
