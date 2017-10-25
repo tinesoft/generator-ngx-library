@@ -30,3 +30,5 @@ before_script:
 
 script: ./integrations/build.sh
 
+cache:
+  yarn: true

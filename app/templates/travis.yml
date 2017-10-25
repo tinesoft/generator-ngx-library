@@ -21,3 +21,6 @@ before_script:
 script: gulp test:ci
 
 after_success: gulp coveralls
+
+cache:
+  yarn: true
