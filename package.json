@@ -42,7 +42,7 @@
     "yosay": "2.0.0"
   },
   "devDependencies": {
-    "@types/yeoman-generator": "1.0.3",
+    "@types/yeoman-generator": "2.0.0",
     "appveyor-status": "2.0.1",
     "commitplease": "3.1.0",
     "conventional-github-releaser": "1.1.12",
