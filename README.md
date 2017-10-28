@@ -110,9 +110,12 @@ $ npm install -g generator-ngx-library
 Once installed, simply run the following command:
 
 ```
-$ yo ngx-library
+$ yo ngx-library [my-project-folder]
 ```
+> _Notice that you can optionally provide the folder where to generate files into, otherwise current one is used._
+
 And answer the questions you are prompted to.
+
 
 ![generator-ngx-library in action!](assets/ngx-library.png)
 
@@ -122,7 +125,7 @@ The following options can be passed to customize the generator.
 The syntax is:
 
 ```
-$ yo ngx-library --<option-name>
+$ yo ngx-library [my-project-folder] --<option-name>
 ```
 
 Name         | Purpose
