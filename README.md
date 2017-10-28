@@ -52,7 +52,7 @@ If you find next sections way too long, here is a quick summary for you:
 * **Setup**:
   * Dependencies: `npm install -g yo gulp-cli @angular/cli`
   * Installation: `npm install -g generator-ngx-library`
-  * **Usage**: `yo ngx-library`
+  * **Usage**: `yo ngx-library [project-folder]`
 * **Library main tasks**:
   * Testing Library: `gulp test`
   * Building Library: `gulp build`
@@ -110,7 +110,7 @@ $ npm install -g generator-ngx-library
 Once installed, simply run the following command:
 
 ```
-$ yo ngx-library [my-project-folder]
+$ yo ngx-library [project-folder]
 ```
 > _Notice that you can optionally provide the folder where to generate files into, otherwise current one is used._
 
@@ -125,7 +125,7 @@ The following options can be passed to customize the generator.
 The syntax is:
 
 ```
-$ yo ngx-library [my-project-folder] --<option-name>
+$ yo ngx-library [project-folder] --<option-name>
 ```
 
 Name         | Purpose
