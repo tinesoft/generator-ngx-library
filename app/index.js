@@ -18,7 +18,6 @@ module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-
     // This make 'projectFolder' an argument
     this.argument('projectFolder', {
       description: 'Specify the folder to generate into',
@@ -402,11 +401,11 @@ module.exports = class extends Generator {
   install() {
     let installationDone = () => {
       this.log(`\nAlmost done (2/3). Running ${chalk.green('gulp npm-package')} to prepare your library package in dist/...`);
-      this.spawnCommand('gulp', ['npm-package'], { cwd: `${this.projectFolder}` })
+      this.spawnCommand('gulp', ['npm-package'], {cwd: `${this.projectFolder}`})
         .on('exit', code => {
           if (code === 0) {
             this.log(`\nAlmost done (3/3). Running ${chalk.green('gulp link')} to npm-link to locally built package in dist/...`);
-            this.spawnCommand('gulp', ['link'], { cwd: `${this.projectFolder}` })
+            this.spawnCommand('gulp', ['link'], {cwd: `${this.projectFolder}`})
               .on('exit', code => {
                 if (code === 0) {
                   this.log(yosay('All done ✌(-‿-)✌,\nHappy ng-hacking!'));
@@ -430,7 +429,11 @@ module.exports = class extends Generator {
       this.log(yosay('All done ✌(-‿-)✌,\nHappy ng-hacking!'));
     } else {
       this.log(`\n\nAlmost done (1/3). Running ${this.useYarn ? chalk.green('yarn install') : chalk.green('npm install')} to install the required dependencies.`);
-      this.useYarn ? this.yarnInstall(this.otherDependencies, { cwd: `${this.projectFolder}` }).then(installationDone) : this.npmInstall(this.otherDependencies, { cwd: `${this.projectFolder}` }).then(installationDone);
+      if (this.useYarn) {
+        this.yarnInstall(this.otherDependencies, {cwd: `${this.projectFolder}`}).then(installationDone);
+      } else {
+        this.npmInstall(this.otherDependencies, {cwd: `${this.projectFolder}`}).then(installationDone);
+      }
     }
   }
 };
