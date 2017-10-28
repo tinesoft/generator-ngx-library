@@ -1,3 +1,24 @@
+<a name="4.4.0"></a>
+# [4.4.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.3.0...v4.4.0) (2017-10-28)
+
+
+### Bug Fixes
+
+* **build:** remove watching of `*.html` files when `--skip-styles` was chosen ([0415dc8](https://github.com/tinesoft/generator-ngx-library/commit/0415dc8))
+* **styles:** fix issue in  pattern used to identify scss/sass files ([714f59c](https://github.com/tinesoft/generator-ngx-library/commit/714f59c))
+
+
+### Features
+
+* **build:** update dev dependencies and greenkeeper exclusions ([532fb5b](https://github.com/tinesoft/generator-ngx-library/commit/532fb5b))
+* **build:** update most dev dependencies ([ee9eeec](https://github.com/tinesoft/generator-ngx-library/commit/ee9eeec))
+* **core:** add support for additional dependencies ([631c14a](https://github.com/tinesoft/generator-ngx-library/commit/631c14a))
+* **core:** allow specifying target folder when running the generator ([3329544](https://github.com/tinesoft/generator-ngx-library/commit/3329544))
+* **demo:** update demo app to Angular CLI `1.4.7` ([6fe54b5](https://github.com/tinesoft/generator-ngx-library/commit/6fe54b5))
+* **rollup:** update rollup to latest version(`0.50.0`) ([51050c8](https://github.com/tinesoft/generator-ngx-library/commit/51050c8))
+
+
+
 <a name="4.3.0"></a>
 # [4.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.2.0...v4.3.0) (2017-10-09)
 
