@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
 const exec = require('child_process').exec;
+const path = require('path');
 const _ = require('lodash');
 
 const prompts = require('./prompts');
@@ -60,7 +61,6 @@ module.exports = class extends Generator {
       defaults: false
     });
 
-    this.projectFolder = this.options.projectFolder || '.';
     this.skipChecks = this.options.skipChecks;
     this.skipInstall = this.options.skipInstall;
     this.skipStyles = this.options.skipStyles;
@@ -69,6 +69,10 @@ module.exports = class extends Generator {
     this.skipDemo = this.options.skipDemo;
     this.skipCache = this.options.skipCache;
     this.useYarn = !this.options.npm;
+
+    if(this.options.projectFolder){
+      this.destinationRoot(path.join(this.destinationRoot(), this.options.projectFolder));
+    }
 
     /**
        * Print a error message.
@@ -388,24 +392,24 @@ module.exports = class extends Generator {
       if (excluder.isExcluded(file.path)) {
         this.log(`${chalk.yellow('Excluded')} ${file.path}`);
       } else if (file.isTpl) {
-        this.fs.copyTpl(this.templatePath(file.name), this.destinationPath(`${this.projectFolder}/${file.path}`), this);
+        this.fs.copyTpl(this.templatePath(file.name), this.destinationPath(file.path), this);
       } else {
-        this.fs.copy(this.templatePath(file.name), this.destinationPath(`${this.projectFolder}/${file.path}`));
+        this.fs.copy(this.templatePath(file.name), this.destinationPath(file.path));
       }
     });
 
     // Write folders (empty are not created by 'mem-fs-editor' by default)
-    folders.forEach(folder => mkdirp(`${this.projectFolder}/${folder}`));
+    folders.forEach(folder => mkdirp(folder));
   }
 
   install() {
     let installationDone = () => {
       this.log(`\nAlmost done (2/3). Running ${chalk.green('gulp npm-package')} to prepare your library package in dist/...`);
-      this.spawnCommand('gulp', ['npm-package'], {cwd: `${this.projectFolder}`})
+      this.spawnCommand('gulp', ['npm-package'])
         .on('exit', code => {
           if (code === 0) {
             this.log(`\nAlmost done (3/3). Running ${chalk.green('gulp link')} to npm-link to locally built package in dist/...`);
-            this.spawnCommand('gulp', ['link'], {cwd: `${this.projectFolder}`})
+            this.spawnCommand('gulp', ['link'])
               .on('exit', code => {
                 if (code === 0) {
                   this.log(yosay('All done ✌(-‿-)✌,\nHappy ng-hacking!'));
@@ -430,9 +434,9 @@ module.exports = class extends Generator {
     } else {
       this.log(`\n\nAlmost done (1/3). Running ${this.useYarn ? chalk.green('yarn install') : chalk.green('npm install')} to install the required dependencies.`);
       if (this.useYarn) {
-        this.yarnInstall(this.otherDependencies, {cwd: `${this.projectFolder}`}).then(installationDone);
+        this.yarnInstall(this.otherDependencies).then(installationDone);
       } else {
-        this.npmInstall(this.otherDependencies, {cwd: `${this.projectFolder}`}).then(installationDone);
+        this.npmInstall(this.otherDependencies).then(installationDone);
       }
     }
   }
