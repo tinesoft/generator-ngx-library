@@ -44,7 +44,7 @@ module.exports = info => {
     {
       type: 'input',
       name: 'githubRepoName',
-      validate: validators.githubRepoName,
+      validate: validators.validateGithubRepoName,
       message: '(4/15) What is your Github repository name?'
     },
     {
