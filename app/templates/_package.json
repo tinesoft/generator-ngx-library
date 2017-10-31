@@ -39,10 +39,10 @@
     "angular2-template-loader": "0.6.2",<% if(useCompodoc){%>
     "@compodoc/gulp-compodoc": "0.0.8",<% } %><% if(enforceNgGitCommitMsg){%>
     "commitplease": "3.1.0",<% } %>
-    "conventional-github-releaser": "1.1.12",
+    "conventional-github-releaser": "1.1.13",
     "core-js": "2.5.1",
     "del": "3.0.0",<% if(useYarn) { %>
-    "greenkeeper-lockfile": "1.9.0",<% } %>
+    "greenkeeper-lockfile": "1.12.0",<% } %>
     "gulp": "3.9.1",
     "gulp-bump": "2.8.0",
     "gulp-conventional-changelog": "1.1.6",
@@ -68,7 +68,7 @@
     "rollup": "0.50.0",
     "rollup-plugin-uglify": "2.0.1",
     "rollup-plugin-sourcemaps": "0.4.2",
-    "rollup-plugin-commonjs": "8.2.3",
+    "rollup-plugin-commonjs": "8.2.6",
     "rollup-plugin-node-resolve": "3.0.0",
     "run-sequence": "2.2.0",<% if(!skipStyles) { %>
     "autoprefixer": "7.1.5",
@@ -85,7 +85,7 @@
     "webpack": "3.8.1",
     "webpack-dev-middleware": "1.12.0",
     "webpack-dev-server": "2.9.2",
-    "yargs": "9.0.1"
+    "yargs": "10.0.3"
   },
   "engines": {
     "node": ">=6.0.0"
