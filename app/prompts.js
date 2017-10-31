@@ -106,7 +106,7 @@ module.exports = info => {
       type: 'confirm',
       name: 'useGreenkeeper',
       message: '(13/15) Do You want to use Greenkeepeer (to automatically keep your dependencies up-to-date)?',
-      default: true
+      default: false
     },
     {
       type: 'confirm',
