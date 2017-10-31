@@ -70,7 +70,7 @@ module.exports = class extends Generator {
     this.skipCache = this.options.skipCache;
     this.useYarn = !this.options.npm;
 
-    if(this.options.projectFolder){
+    if (this.options.projectFolder) {
       this.destinationRoot(path.join(this.destinationRoot(), this.options.projectFolder));
     }
 
