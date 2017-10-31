@@ -35,11 +35,11 @@ module.exports = {
   },
 
   validateGithubRepoName: input => {
-    return /^[a-zA-Z0-9-]+$/.test(input) ? true : 'Your github repository name cannot contain special characters or a blank space';
+    return /^[a-zA-Z0-9-_]+$/.test(input) ? true : 'Your github repository name cannot contain special characters or a blank space';
   },
 
   validateProjectName: input => {
-    return /^([a-zA-Z0-9-]+)|(@[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+)$/.test(input) ? true : 'Your project name cannot contain special characters or a blank space';
+    return /^([a-zA-Z0-9-_]+)|(@[a-zA-Z0-9-_]+\/[a-zA-Z0-9-_]+)$/.test(input) ? true : 'Your project name cannot contain special characters or a blank space';
   },
   validateProjectVersion: input => {
     return semver.valid(input) ? true : 'Your project version does not follow semantic versioning convention (eg: X.Y.Z)';
