@@ -1,3 +1,20 @@
+<a name="4.5.0"></a>
+# [4.5.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.4.0...v4.5.0) (2017-10-31)
+
+
+### Bug Fixes
+
+* **core:** fix `.yo-rc.json` being  created at wrong location when specifying target folder ([112339e](https://github.com/tinesoft/generator-ngx-library/commit/112339e))
+* **core:** fix github repo name not being validated during prompt ([9c92465](https://github.com/tinesoft/generator-ngx-library/commit/9c92465))
+
+
+### Features
+
+* **core:** allow support for underscore in repo and project names during prompt ([3dd97a7](https://github.com/tinesoft/generator-ngx-library/commit/3dd97a7))
+* **greenkeeper:** deactivate `greenkeeper` by default in generator's prompt ([b2252da](https://github.com/tinesoft/generator-ngx-library/commit/b2252da))
+
+
+
 <a name="4.4.0"></a>
 # [4.4.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.3.0...v4.4.0) (2017-10-28)
 
