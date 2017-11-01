@@ -385,7 +385,7 @@ module.exports = class extends Generator {
 
   writing() {
     // Initializes files that will be excluded
-    let excluder = new ExcludeParser(this.exclusions, process.cwd());
+    let excluder = new ExcludeParser(this.exclusions, this.destinationRoot());
 
     // Write files
     files.forEach(file => {
