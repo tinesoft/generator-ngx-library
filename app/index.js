@@ -403,6 +403,10 @@ module.exports = class extends Generator {
   }
 
   install() {
+    let pkgJson = this.fs.readJSON('package.json');
+    let hasOtherDependencies = this.otherDependencies.length > 0;
+    let dependencies = hasOtherDependencies ? [..._.keys(pkgJson.dependencies), ..._.keys(pkgJson.devDependencies), ...this.otherDependencies] : [];
+
     let installationDone = () => {
       this.log(`\nAlmost done (2/3). Running ${chalk.green('gulp npm-package')} to prepare your library package in dist/...`);
       this.spawnCommand('gulp', ['npm-package'])
@@ -434,9 +438,9 @@ module.exports = class extends Generator {
     } else {
       this.log(`\n\nAlmost done (1/3). Running ${this.useYarn ? chalk.green('yarn install') : chalk.green('npm install')} to install the required dependencies.`);
       if (this.useYarn) {
-        this.yarnInstall(this.otherDependencies).then(installationDone);
+        this.yarnInstall(dependencies).then(installationDone);
       } else {
-        this.npmInstall(this.otherDependencies).then(installationDone);
+        this.npmInstall(dependencies).then(installationDone);
       }
     }
   }
