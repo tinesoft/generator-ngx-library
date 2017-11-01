@@ -1,7 +1,6 @@
 
 'use strict';
 
-const path = require('path');
 const glob = require('glob');
 
 module.exports = class ExcludeParser {
@@ -14,18 +13,17 @@ module.exports = class ExcludeParser {
     });
   }
 
-  isExcluded(file) {
-    let fileBasename = path.basename(file);
+  isExcluded(testedFile) {
     let result = false;
 
-    for (let file of this.exclusions) {
-      if (glob.hasMagic(file) && this.globFiles.length > 0) {
+    for (let excludedFile of this.exclusions) {
+      if (glob.hasMagic(excludedFile) && this.globFiles.length > 0) {
         let resultGlobSearch = this.globFiles.findIndex(element => {
-          return path.basename(element) === fileBasename;
+          return testedFile === element;
         });
         result = resultGlobSearch !== -1;
       } else {
-        result = fileBasename === path.basename(file);
+        result = testedFile === excludedFile;
       }
       if (result) {
         break;
