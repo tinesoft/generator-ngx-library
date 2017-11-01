@@ -1,3 +1,15 @@
+<a name="4.5.1"></a>
+## [4.5.1](https://github.com/tinesoft/generator-ngx-library/compare/v4.5.0...v4.5.1) (2017-11-01)
+
+
+### Bug Fixes
+
+* **core:** fix generation issue due to only additional packages being installed ([f4c82b0](https://github.com/tinesoft/generator-ngx-library/commit/f4c82b0))
+* **demo:** fix demo app not being pushed when deploy task includes building  doc app ([d2a6589](https://github.com/tinesoft/generator-ngx-library/commit/d2a6589))
+* **skipDemo:** fix library files being wrongly excluded when providing `skip-demo` option ([0cc0b56](https://github.com/tinesoft/generator-ngx-library/commit/0cc0b56))
+
+
+
 <a name="4.5.0"></a>
 # [4.5.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.4.0...v4.5.0) (2017-10-31)
 
