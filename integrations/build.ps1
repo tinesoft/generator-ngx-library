@@ -57,6 +57,7 @@ switch ($env:TEST_SUITE)
   "units"              { runUnitTests }
   "integrations:ng2"   { runIntegrationTests "ng2" }
   "integrations:ng4"   { runIntegrationTests "ng4" }
+  "integrations:ng5"   { runIntegrationTests "ng5" }
   default              { Throw "Unknown value for 'TEST_SUITE': '$env:TEST_SUITE'. Aborting" }
 }
 

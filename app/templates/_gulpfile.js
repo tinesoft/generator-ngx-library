@@ -26,13 +26,17 @@ const gulpCoveralls = require('gulp-coveralls');
 /** To order tasks */
 const runSequence = require('run-sequence');
 
-/** To compile & bundle the library with Angular & Rollup */<% if(ngVersionMin >= 4) { %>
-const ngc = require('@angular/compiler-cli/src/main').main;<% } else { %>
-const ngc = (args) => {// Promesify version of the ngc compiler
+/** To compile & bundle the library with Angular & Rollup */<% if(ngVersionMin === 2) { %>
+const ngc = (args) => {// Promisify version of the ngc compiler
   const project = args.p || args.project || '.';
   const cmd = helpers.root(helpers.binPath('ngc'));
   return helpers.execp(`${cmd} -p ${project}`);
-};<% } %>
+};<% } else if(ngVersionMin === 4) { %>
+const ngc = require('@angular/compiler-cli/src/main').main;<% } else if(ngVersionMin >= 5) {%>
+const ngc = (args) => new Promise((resolve, reject)=>{// Promisify version of the ngc compiler
+  let exitCode = require('@angular/compiler-cli/src/main').main(args);
+  resolve(exitCode);
+});<% } %>
 const rollup = require('rollup');
 const rollupUglify = require('rollup-plugin-uglify');
 const rollupSourcemaps = require('rollup-plugin-sourcemaps');
@@ -249,12 +253,12 @@ gulp.task('pre-compile', (cb) => {
 gulp.task('ng-compile',() => {
   return Promise.resolve()
     // Compile to ES5.
-    .then(() => ngc({ project: `${buildFolder}/<%= ngVersion === '2.0.0' ? 'tsconfig.lib.json' : 'tsconfig.lib.es5.json' %>` })
+    .then(() => ngc(<% if(ngVersionMin === 2){ %>{ project: `${buildFolder}/tsconfig.lib.json` }<% } else if(ngVersionMin === 4){ %>{ project: `${buildFolder}/tsconfig.lib.es5.json` }<% } else {%>['--project',`${buildFolder}/tsconfig.lib.es5.json`]<%}%>)
       .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
       .then(() => gulpUtil.log('ES5 compilation succeeded.'))
     )<% if(ngVersionMin >= 4){ %>
     // Compile to ES2015.
-    .then(() => ngc({ project: `${buildFolder}/tsconfig.lib.json` })
+    .then(() => ngc(<% if(ngVersionMin === 4){ %>{ project: `${buildFolder}/tsconfig.lib.json` }<% } else {%>['--project',`${buildFolder}/tsconfig.lib.json`]<%}%>)
       .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
       .then(() => gulpUtil.log('ES2015 compilation succeeded.'))
     )<% } %>

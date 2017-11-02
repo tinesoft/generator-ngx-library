@@ -234,6 +234,49 @@ describe('ngx-library:app', () => {
     });
   });
 
+  describe('check generation for ng5', () => {
+    it('should have set appropriate properties', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: false
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          githubRepoName: 'my-ngx-library',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          ngPrefix: 'my-lib',
+          ngVersion: '5.0.0',
+          ngModules: ['core', 'common', 'animations'],
+          useGreenkeeper: true,
+          useCompodoc: false
+        });
+      return ngLibraryApp.then(() => {
+        assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common', 'animations']);
+        assert.deepEqual(ngLibraryApp.generator.ngDevDependencies,
+          ['"@angular/compiler" : "5.0.0"',
+            '"@angular/platform-server" : "5.0.0"',
+            '"@angular/platform-browser" : "5.0.0"',
+            '"@angular/platform-browser-dynamic" : "5.0.0"',
+            '"@angular/compiler-cli" : "5.0.0"',
+            '"zone.js" : "0.8.14"',
+            '"rxjs" : "5.5.2"',
+            '"tslint" : "5.7.0"',
+            '"gulp-tslint" : "8.1.1"',
+            '"typescript" : "2.4.2"',
+            '"awesome-typescript-loader" : "3.3.0"',
+            '"codelyzer" : "4.0.0"']);
+        assert.file([
+          'src/tsconfig.lib.es5.json']);
+      });
+    });
+  });
+
   describe('check generation without skipping installation of dependencies', () => {
     it('should install dependencies and run initial build', function () {
       this.timeout(300000); // Increase timeout to allow install of deps/initial build to finish

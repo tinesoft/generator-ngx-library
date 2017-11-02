@@ -182,7 +182,7 @@ module.exports = class extends Generator {
         this.ngDevDependencies.push(`"@angular/platform-browser-dynamic" : "${this.ngVersion}"`);
       }
 
-      if (this.ngVersion === '2.0.0') {
+      if (this.ngVersionMin === 2) {
         this.ngDevDependencies.push('"@angular/compiler-cli" : "0.6.2"');
         this.ngDevDependencies.push('"zone.js" : "0.6.21"');
         this.ngDevDependencies.push('"rxjs" : "5.0.0-beta.12"');
@@ -192,14 +192,25 @@ module.exports = class extends Generator {
         this.ngDevDependencies.push('"awesome-typescript-loader" : "3.0.5"'); // Because it depends on 'typescript'
         this.ngDevDependencies.push('"codelyzer" : "1.0.0-beta.0"');
       } else {
-        this.ngDevDependencies.push('"@angular/compiler-cli" : "4.0.0"');
-        this.ngDevDependencies.push('"zone.js" : "0.8.13"');
-        this.ngDevDependencies.push('"rxjs" : "5.0.1"');
-        this.ngDevDependencies.push('"tslint" : "5.4.3"');
-        this.ngDevDependencies.push('"gulp-tslint" : "8.1.1"'); // Because it depends on 'tslint'
-        this.ngDevDependencies.push('"typescript" : "2.3.3"');
-        this.ngDevDependencies.push('"awesome-typescript-loader" : "3.0.5"'); // Because it depends on 'typescript'
-        this.ngDevDependencies.push('"codelyzer" : "3.1.1"');
+        if (this.ngVersionMin === 4) {
+          this.ngDevDependencies.push('"@angular/compiler-cli" : "4.0.0"');
+          this.ngDevDependencies.push('"zone.js" : "0.8.13"');
+          this.ngDevDependencies.push('"rxjs" : "5.0.1"');
+          this.ngDevDependencies.push('"tslint" : "5.4.3"');
+          this.ngDevDependencies.push('"gulp-tslint" : "8.1.1"'); // Because it depends on 'tslint'
+          this.ngDevDependencies.push('"typescript" : "2.3.3"');
+          this.ngDevDependencies.push('"awesome-typescript-loader" : "3.0.5"'); // Because it depends on 'typescript'
+          this.ngDevDependencies.push('"codelyzer" : "3.1.1"');
+        } else if (this.ngVersionMin === 5) {
+          this.ngDevDependencies.push('"@angular/compiler-cli" : "5.0.0"');
+          this.ngDevDependencies.push('"zone.js" : "0.8.14"');
+          this.ngDevDependencies.push('"rxjs" : "5.5.2"');
+          this.ngDevDependencies.push('"tslint" : "5.7.0"');
+          this.ngDevDependencies.push('"gulp-tslint" : "8.1.1"'); // Because it depends on 'tslint'
+          this.ngDevDependencies.push('"typescript" : "2.4.2"');
+          this.ngDevDependencies.push('"awesome-typescript-loader" : "3.3.0"'); // Because it depends on 'typescript'
+          this.ngDevDependencies.push('"codelyzer" : "4.0.0"');
+        }
 
         if (this.ngModules.indexOf('animations') === -1) {
           this.ngDevDependencies.push(`"@angular/animations" : "${this.ngVersion}"`);
