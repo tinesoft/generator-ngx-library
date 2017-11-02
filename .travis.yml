@@ -18,6 +18,7 @@ env:
   - TEST_SUITE=units
   - TEST_SUITE=integrations:ng2
   - TEST_SUITE=integrations:ng4
+  - TEST_SUITE=integrations:ng5
 
 before_install:
   - npm install -g --quiet  gulp-cli yo @angular/cli

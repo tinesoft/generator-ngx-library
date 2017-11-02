@@ -13,7 +13,9 @@
     "ngModules": [
       "core",
       "common"
-    ]
+    ],
+    "useGreenkeeper": true,
+    "useCompodoc": true
   }
 }
 

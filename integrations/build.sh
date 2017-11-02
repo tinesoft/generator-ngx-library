@@ -57,6 +57,7 @@ case $TEST_SUITE in
   "units")              runUnitTests ;;
   "integrations:ng2")   runIntegrationTests "ng2" ;;
   "integrations:ng4")   runIntegrationTests "ng4" ;;
+  "integrations:ng5")   runIntegrationTests "ng5" ;;
   *)                    echo "Unknown value for 'TEST_SUITE': '$TEST_SUITE'. Aborting"
                         exit 1 ;;
 esac

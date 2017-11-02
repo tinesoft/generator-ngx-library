@@ -1,7 +1,7 @@
 {
   "rulesDirectory": [
       "node_modules/codelyzer"
-  ],<% if(ngVersion === '2.0.0') {%>
+  ],<% if(ngVersionMin === 2) {%>
   "rules": {
     "class-name": true,
     "comment-format": [
@@ -251,9 +251,9 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true,
+    "directive-class-suffix": true<% if (ngVersionMin < 5) {%>,
     "no-access-missing-member": true,
     "templates-use-public": true,
-    "invoke-injectable": true
+    "invoke-injectable": true<% } %>
   }<% } %>
 }

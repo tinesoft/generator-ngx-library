@@ -79,7 +79,8 @@ module.exports = info => {
       message: '(9/15) What minimal version of Angular do you want to base your library upon?',
       choices: [
         {name: '2.X.X', value: '2.0.0'},
-        {name: '4.X.X', value: '4.0.0'}],
+        {name: '4.X.X', value: '4.0.0'},
+        {name: '5.X.X', value: '5.0.0'}],
       default: 0
     },
     {
