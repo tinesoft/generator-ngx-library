@@ -5,8 +5,9 @@
   },
   "apps": [
     {
+      "name": "bsr",
       "root": "src",
-      "outDir": "dist",
+      "outDir": "dist/browser",
       "assets": [
         "assets",
         "favicon.ico"
@@ -31,7 +32,7 @@
     {
       "name": "ssr",
       "root": "src",
-      "outDir": "dist-server",
+      "outDir": "dist/server",
       "assets": [
         "assets",
         "favicon.ico"

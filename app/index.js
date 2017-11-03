@@ -313,6 +313,7 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/protractor.conf.js');
         this.exclusions.push('demo/proxy.conf.json');
         this.exclusions.push('demo/server.ts');
+        this.exclusions.push('demo/static.paths.ts');
         this.exclusions.push('demo/tsconfig.json');
         this.exclusions.push('demo/tslint.json');
         this.exclusions.push('demo/webpack.server.config.js');

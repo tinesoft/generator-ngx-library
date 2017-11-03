@@ -123,8 +123,10 @@ describe('ngx-library:app', () => {
         'demo/.editorconfig',
         'demo/.gitignore',
         'demo/karma.conf.js',
+        'demo/prerender.ts',
         'demo/protractor.conf.js',
-        'demo/README.md',
+        'demo/tsconfig.json',
+        'demo/server.ts',
         'demo/tsconfig.json',
         'demo/tslint.json',
 
@@ -614,6 +616,7 @@ describe('ngx-library:app', () => {
           'demo/protractor.conf.js',
           'demo/README.md',
           'demo/server.ts',
+          'demo/static.paths.ts',
           'demo/tsconfig.json',
           'demo/tslint.json',
           'demo/webpack.server.config.js'
@@ -697,6 +700,7 @@ describe('ngx-library:app', () => {
           'demo/protractor.conf.js',
           'demo/README.md',
           'demo/server.ts',
+          'demo/static.paths.ts',
           'demo/tsconfig.json',
           'demo/tslint.json',
           'demo/webpack.server.config.js'

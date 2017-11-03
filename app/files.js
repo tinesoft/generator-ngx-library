@@ -96,6 +96,7 @@ module.exports = [
   {name: 'demo/protractor.conf.js', path: 'demo/protractor.conf.js', isTpl: false},
   {name: 'demo/proxy.conf.json', path: 'demo/proxy.conf.json', isTpl: false},
   {name: 'demo/server.ts', path: 'demo/server.ts', isTpl: false},
+  {name: 'demo/static.paths.ts', path: 'demo/static.paths.ts', isTpl: false},
   {name: 'demo/tsconfig.json', path: 'demo/tsconfig.json', isTpl: false},
   {name: 'demo/tslint.json', path: 'demo/tslint.json', isTpl: false},
   {name: 'demo/webpack.server.config.js', path: 'demo/webpack.server.config.js', isTpl: false},

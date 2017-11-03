@@ -91,6 +91,7 @@ const config = {
   demoDir: 'demo/',
   buildDir: 'tmp/',
   outputDir: 'dist/',
+  outputDemoDir: 'demo/dist/browser/',
   coverageDir: 'coverage/'
 };
 
@@ -450,7 +451,7 @@ gulp.task('build:doc', (cb) => {
       tsconfig: 'src/tsconfig.lib.json',
       hideGenerator:true,
       disableCoverage: true,
-      output: <%= skipDemo ? "`${config.outputDir}/doc/`": "`${config.demoDir}/dist/doc/`"%>
+      output: <%= skipDemo ? "`${config.outputDir}/doc/`": "`{config.outputDemoDir}/doc/`"%>
     })
   ], cb);
 });
@@ -507,7 +508,7 @@ gulp.task('serve:demo-ssr',['build:demo'], () => {
   return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --app ssr --output-hashing=none`, { cwd: `${config.demoDir}` })
   .then(exitCode => {
       if(exitCode === 0){
-        execCmd('webpack', '--config webpack.server.config.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
+        execCmd('webpack', '--config webpack.server.config.js --progress --colors', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
         .then(exitCode => exitCode === 0 ? execExternalCmd('node', 'dist/server.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`): Promise.reject(1));
       } else{
         Promise.reject(1);
@@ -520,7 +521,7 @@ gulp.task('build:demo-ssr',['build:demo'], () => {
   return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --app ssr --output-hashing=none`, { cwd: `${config.demoDir}` })
   .then(exitCode => {
       if(exitCode === 0){
-        execCmd('webpack', '--config webpack.server.config.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
+        execCmd('webpack', '--config webpack.server.config.js --progress --colors', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
         .then(exitCode => exitCode === 0 ? execExternalCmd('node', 'dist/prerender.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`): Promise.reject(1));
       } else{
         Promise.reject(1);
@@ -530,7 +531,7 @@ gulp.task('build:demo-ssr',['build:demo'], () => {
 });
 
 gulp.task('push:demo', () => {
-  return execCmd('ngh',`--dir ${config.demoDir}/dist --message="chore(demo): :rocket: deploy new version"`);
+  return execCmd('ngh',`--dir ${config.outputDemoDir} --message="chore(demo): :rocket: deploy new version"`);
 });
 
 gulp.task('deploy:demo', (cb) => {
