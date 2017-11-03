@@ -1,3 +1,15 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.5.1...v5.0.0) (2017-11-03)
+
+
+### Features
+
+* **core:** add support for `Angular 5` and `Angular CLI 1.5.0` ([1837622](https://github.com/tinesoft/generator-ngx-library/commit/1837622))
+* **demo:** add `--aot` to `serve:demo` task to speed up incremental rebuilds in development ([dea0a10](https://github.com/tinesoft/generator-ngx-library/commit/dea0a10))
+* **demo:** update demo ssr code to align with offcial docs + angular 5 ([d758f33](https://github.com/tinesoft/generator-ngx-library/commit/d758f33))
+
+
+
 <a name="4.5.1"></a>
 ## [4.5.1](https://github.com/tinesoft/generator-ngx-library/compare/v4.5.0...v4.5.1) (2017-11-01)
 
