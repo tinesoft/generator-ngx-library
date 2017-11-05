@@ -21,19 +21,22 @@ const conventionalGithubReleaser = require('conventional-github-releaser');
 
 const runSequence = require('run-sequence');
 const through = require('through2');
-const yargs = require('yargs');
 const toc = require('markdown-toc');
 
+const yargs = require('yargs');
 const argv = yargs
   .option('version', {
     alias: 'v',
     describe: 'Enter Version to bump to',
-    choices: ['patch', 'minor', 'major']
+    choices: ['patch', 'minor', 'major'],
+    type: "string"
   })
   .option('ghToken', {
     alias: 'gh',
-    describe: 'Enter Github Token for releasing'
+    describe: 'Enter Github Token for releasing',
+    type: "string"
   })
+  .version(false) // disable default --version from yargs( since v9.0.0)
   .argv;
 
 const getPackageJsonVersion = () => {
