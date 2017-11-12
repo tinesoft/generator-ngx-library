@@ -286,6 +286,7 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/assets/.gitkeep');
         this.exclusions.push('demo/src/assets/.npmignore');
         this.exclusions.push('demo/src/assets/logo.svg');
+        this.exclusions.push('demo/src/environments/environment.hmr.ts');
         this.exclusions.push('demo/src/environments/environment.prod.ts');
         this.exclusions.push('demo/src/environments/environment.ts');
         this.exclusions.push('demo/src/testing/index.ts');
@@ -293,7 +294,7 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/index.html');
         this.exclusions.push('demo/src/_variables.scss');
         this.exclusions.push('demo/src/favicon.ico');
-        this.exclusions.push('demo/src/favicon.ico');
+        this.exclusions.push('demo/src/hmr.ts');
         this.exclusions.push('demo/src/main.server.ts');
         this.exclusions.push('demo/src/main.ts');
         this.exclusions.push('demo/src/polyfills.ts');
