@@ -500,6 +500,10 @@ gulp.task('serve:demo', () => {
   return execDemoCmd('serve --preserve-symlinks --aot<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` });
 });
 
+gulp.task('serve:demo-hmr', () => {
+  return execDemoCmd('serve --hmr -e=hmr --preserve-symlinks --aot<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` });
+});
+
 gulp.task('build:demo', () => {
   return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer`, { cwd: `${config.demoDir}`});
 });

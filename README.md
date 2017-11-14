@@ -63,6 +63,7 @@ If you find next sections way too long, here is a quick summary for you:
   * **Releasing Library**: `gulp release --version=[major|minor|patch]`
 * **Demo app main tasks**:
   * **Serving demo app**: `gulp serve:demo`
+  * Serving demo app with Hot Module Replacement (HMR): `gulp serve:demo-hmr`
   * Serving demo app with Server (Universal): `gulp serve:demo-ssr`
   * Building demo app for Prod: `gulp build:demo`
   * Building demo app for Prod with Server (Universal): `gulp build:demo-ssr`
@@ -316,6 +317,7 @@ Task                    | Purpose
 `gulp build:demo`<sup>1</sup>      | Builds demo application for production. 
 `gulp build:demo-ssr`<sup>1</sup>  | Builds demo application for universal (server side rendering) testing. 
 `gulp serve:demo`<sup>1</sup>      | Serves demo application (same as running `ng serve` from `demo/`). 
+`gulp serve:demo-hmr`<sup>1</sup>  | Serves demo application with HMR (hot module replacement)
 `gulp serve:demo-ssr`<sup>1</sup>  | Serves demo application for universal (server side rendering) testing. 
 `gulp serve:doc`<sup>2</sup>       | Serves the generated compodoc documentation (from `dist/doc` folder) at https://localhost:8080. 
 
