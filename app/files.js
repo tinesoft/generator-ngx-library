@@ -82,7 +82,7 @@ module.exports = [
   {name: 'demo/src/polyfills.ts', path: 'demo/src/polyfills.ts', isTpl: false},
   {name: 'demo/src/styles.scss', path: 'demo/src/styles.scss', isTpl: false},
   {name: 'demo/src/test.ts', path: 'demo/src/test.ts', isTpl: false},
-  {name: 'demo/src/tsconfig.app.json', path: 'demo/src/tsconfig.app.json', isTpl: false},
+  {name: 'demo/src/_tsconfig.app.json', path: 'demo/src/tsconfig.app.json', isTpl: true},
   {name: 'demo/src/tsconfig.server.json', path: 'demo/src/tsconfig.server.json', isTpl: false},
   {name: 'demo/src/tsconfig.spec.json', path: 'demo/src/tsconfig.spec.json', isTpl: false},
   {name: 'demo/src/typings.d.ts', path: 'demo/src/typings.d.ts', isTpl: false},
