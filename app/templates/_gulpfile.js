@@ -482,7 +482,7 @@ const execDemoCmd = (args,opts) => {
     return execCmd('ng', args, opts, `/${config.demoDir}`);
   }
   else{
-    gulpUtil.log(gulpUtil.colors.yellow(`No 'node_modules' found in '${config.demoDir}'. Installing dependencies for you..`));
+    gulpUtil.log(gulpUtil.colors.yellow(`No 'node_modules' found in '${config.demoDir}'. Installing dependencies for you...`));
     return helpers.installDependencies({ cwd: `${config.demoDir}` })
       .then(exitCode => exitCode === 0 ? execCmd('ng', args, opts, `/${config.demoDir}`) : Promise.reject())
       .catch(e => {
