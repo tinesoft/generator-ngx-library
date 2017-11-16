@@ -326,7 +326,8 @@ gulp.task('npm-package', (cb) => {
   // defines project's dependencies as 'peerDependencies' for final users
   targetPkgJson.peerDependencies = {};
   Object.keys(pkgJson.dependencies).forEach((dependency) => {
-    targetPkgJson.peerDependencies[dependency] = `^${pkgJson.dependencies[dependency]}`;
+    // versions are defined as '^' by default, but you can customize it by editing "dependenciesRange" in '.yo-rc.json' file
+    targetPkgJson.peerDependencies[dependency] = `<%- dependenciesRange %>${pkgJson.dependencies[dependency].replace(/[^~><=]/,'')}`;
   });
 
   // copy the needed additional files in the 'dist' folder

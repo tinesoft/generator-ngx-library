@@ -150,9 +150,9 @@ module.exports = class extends Generator {
 
     let done = this.async();
     let init = () => {
+      this.today = new Date();
       this.ngVersionMin = Number(this.ngVersion.split('.')[0]);
       this.demoProjectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}DemoPage`;
-      this.today = new Date();
 
       // Get project's name without the scope if any (@my-scope/[my-project])
       let match = scopedProjectNameRegex.exec(this.projectName);
@@ -337,6 +337,7 @@ module.exports = class extends Generator {
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
     this.otherDependencies = this.config.get('otherDependencies') || [];
+    this.dependenciesRange = this.config.get('dependenciesRange') || '^';
     this.useGreenkeeper = this.config.get('useGreenkeeper');
     this.useCompodoc = this.config.get('useCompodoc');
     this.enforceNgGitCommitMsg = this.config.get('enforceNgGitCommitMsg');
@@ -385,6 +386,7 @@ module.exports = class extends Generator {
         this.config.set('ngVersion', this.ngVersion);
         this.config.set('ngModules', this.ngModules);
         this.config.set('otherDependencies', this.otherDependencies);
+        this.config.set('dependenciesRange', this.dependenciesRange);
         this.config.set('ngPrefix', this.ngPrefix);
         this.config.set('useGreenkeeper', this.useGreenkeeper);
         this.config.set('useCompodoc', this.useCompodoc);
