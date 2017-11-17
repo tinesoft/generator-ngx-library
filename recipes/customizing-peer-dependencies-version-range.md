@@ -10,7 +10,7 @@ If you want to change the default version range to use, simply:
 ```
 {
 ...
-    "dependenciesRange": ">=" // can be '^' (default), '~', '>', '>=', ..
+    "dependenciesRange": ">=" // can be '^' (default), '~', '>', '>=', ...
 }
 ```
 3. - relaunch the generator: `yo ngx-library`

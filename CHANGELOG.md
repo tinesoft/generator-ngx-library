@@ -1,3 +1,21 @@
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.0.0...v5.1.0) (2017-11-17)
+
+
+### Bug Fixes
+
+* **linkedLibraries:** add typescript path mapping for peerDependencies in demo app ([8ad5170](https://github.com/tinesoft/generator-ngx-library/commit/8ad5170))
+* **package:** update chalk to version 2.3.0 ([ecd8009](https://github.com/tinesoft/generator-ngx-library/commit/ecd8009)), closes [#108](https://github.com/tinesoft/generator-ngx-library/issues/108)
+* **peerDependencies:** correct invalid versions range for `peerDependencies` when packaging library ([fcb2e40](https://github.com/tinesoft/generator-ngx-library/commit/fcb2e40))
+
+
+### Features
+
+* **hmr:** add `serve:demo-hmr`task to serve demo app with hot module replacement ([7562741](https://github.com/tinesoft/generator-ngx-library/commit/7562741))
+* **recipe:** add a recipe about how to customize peerDependencies version range ([7540da5](https://github.com/tinesoft/generator-ngx-library/commit/7540da5))
+
+
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v4.5.1...v5.0.0) (2017-11-03)
 
