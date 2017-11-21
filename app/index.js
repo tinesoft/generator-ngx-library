@@ -341,6 +341,9 @@ module.exports = class extends Generator {
     this.useGreenkeeper = this.config.get('useGreenkeeper');
     this.useCompodoc = this.config.get('useCompodoc');
     this.enforceNgGitCommitMsg = this.config.get('enforceNgGitCommitMsg');
+    this.skipDemo = this.config.get('skipDemo');
+    this.skipSample = this.config.get('skipSample');
+    this.skipStyles = this.config.get('skipStyles');
     this.exclusions = this.config.get('exclusions') || [];
 
     if (this.fs.exists('.yo-rc.json') && !this.skipCache) {
@@ -391,6 +394,9 @@ module.exports = class extends Generator {
         this.config.set('useGreenkeeper', this.useGreenkeeper);
         this.config.set('useCompodoc', this.useCompodoc);
         this.config.set('enforceNgGitCommitMsg', this.enforceNgGitCommitMsg);
+        this.config.set('skipDemo', this.skipDemo);
+        this.config.set('skipSample', this.skipSample);
+        this.config.set('skipStyles', this.skipStyles);
         this.config.set('exclusions', this.exclusions);
 
         done();
