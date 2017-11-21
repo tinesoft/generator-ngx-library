@@ -1,7 +1,7 @@
 const helpers = require('./helpers');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
-const {CheckerPlugin} = require('awesome-typescript-loader');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 const getConfig = (hasCoverage, isTddMode) => {
 
@@ -50,7 +50,7 @@ const getConfig = (hasCoverage, isTddMode) => {
                         {
                             loader: 'awesome-typescript-loader',
                             options: {
-                                configFileName: helpers.root('src','tsconfig.spec.json'),
+                                configFileName: helpers.root('src', 'tsconfig.spec.json'),
                                 // use inline sourcemaps for "karma-remap-coverage" reporter (if coverage is activated)
                                 sourceMap: !hasCoverage,
                                 inlineSourceMap: hasCoverage,
