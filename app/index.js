@@ -420,7 +420,10 @@ module.exports = class extends Generator {
   install() {
     let pkgJson = this.fs.readJSON('package.json');
     let hasOtherDependencies = this.otherDependencies.length > 0;
-    let dependencies = hasOtherDependencies ? [..._.keys(pkgJson.dependencies), ..._.keys(pkgJson.devDependencies), ...this.otherDependencies] : [];
+    let dependenciesWithVersion = deps => {
+      return _.keys(_.mapKeys(deps, (v, k) => `${k}@${v}`));
+    };
+    let dependencies = hasOtherDependencies ? [...dependenciesWithVersion(pkgJson.dependencies), ...dependenciesWithVersion(pkgJson.devDependencies), ...this.otherDependencies] : [];
 
     let installationDone = () => {
       this.log(`\nAlmost done (2/3). Running ${chalk.green('gulp npm-package')} to prepare your library package in dist/...`);
