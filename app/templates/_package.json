@@ -2,11 +2,10 @@
   "name": "<%= projectName %>",
   "description": "<%= projectDescription %>",
   "version": "<%= projectVersion %>",
-  "filename": "./src/<%= projectName %>.js",
-  "homepage": "http://github.com/<%= githubUsername %>/<%= githubRepoName %>",
+  "homepage": "https://github.com/<%= githubUsername %>/<%= githubRepoName %>",
   "author": {
     "name": "<%= authorName %>",
-    "url": "http://github.com/<%= githubUsername %>"
+    "url": "https://github.com/<%= githubUsername %>"
   },
   "repository": {
     "type": "git",
@@ -17,11 +16,9 @@
     "<%- projectKeywords.join('",\n    "') %>"
   ],
   "bugs": {
-    "url": "http://github.com/<%= githubUsername %>/<%= githubRepoName %>/issues"
+    "url": "https://github.com/<%= githubUsername %>/<%= githubRepoName %>/issues"
   },
   "private": true,
-  "main": "./dist",
-  "typings": "./dist",
   "scripts": {
     "start": "gulp build",
     "test": " gulp test",
