@@ -6,10 +6,8 @@
     "module": "es2015",
     "types": [],
     "paths": {
-      "@angular/*": [
-        "../node_modules/@angular/*"
-      ]<% if(otherDependencies) {%>,<%}%>
-      <%- otherDependencies.map(d => `"${d}": [\n        "../node_modules/${d}"\n      ]`).join(',\n      ') %>
+      "@angular/*": ["../node_modules/@angular/*"]<% for (dep of otherDependencies) { %>,
+      "<%- dep %>": ["../node_modules/<%- dep %>"]<% } %>
     }
   },
   "exclude": [
