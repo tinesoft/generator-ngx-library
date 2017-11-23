@@ -1,3 +1,22 @@
+<a name="5.2.0"></a>
+# [5.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.1.0...v5.2.0) (2017-11-23)
+
+
+### Bug Fixes
+
+* **demo:** fix syntax issue in `tsconfig.app.json` ([8a85613](https://github.com/tinesoft/generator-ngx-library/commit/8a85613)), closes [#128](https://github.com/tinesoft/generator-ngx-library/issues/128)
+* **package.json:** fix latest packages being used when generating a project with additional deps ([7ee8ab9](https://github.com/tinesoft/generator-ngx-library/commit/7ee8ab9))
+* **packaging:** correct regex used to   build `peerDependencies` in distributed `package.json` ([4f1890e](https://github.com/tinesoft/generator-ngx-library/commit/4f1890e))
+* **template/gulpfile:** add missing $ for documentation output path ([9cebd7f](https://github.com/tinesoft/generator-ngx-library/commit/9cebd7f))
+
+
+### Features
+
+* **core:** remember `--skip-demo`, `--skip-sample` and `--skip-styles` options in `.yo-rc.json` ([d573cf6](https://github.com/tinesoft/generator-ngx-library/commit/d573cf6))
+* **style:** add support for css files ([cbc54f9](https://github.com/tinesoft/generator-ngx-library/commit/cbc54f9)), closes [#131](https://github.com/tinesoft/generator-ngx-library/issues/131)
+
+
+
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.0.0...v5.1.0) (2017-11-17)
 
