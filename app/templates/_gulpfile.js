@@ -174,18 +174,24 @@ const styleProcessor = (stylePath, ext, styleFile, callback) => {
     cssnano
   ];
 
+  const postProcessCss = css => {
+    postcss(processors).process(css).then(function (result) {
+      result.warnings().forEach(function (warn) {
+        gutil.warn(warn.toString());
+      });
+      styleFile = result.css;
+      callback(null, styleFile);
+    });
+  };
+
   if (/\.(scss|sass)$/.test(ext[0])) {
     let sassObj = sass.renderSync({ file: stylePath });
     if (sassObj && sassObj['css']) {
       let css = sassObj.css.toString('utf8');
-      postcss(processors).process(css).then(function (result) {
-        result.warnings().forEach(function (warn) {
-          gutil.warn(warn.toString());
-        });
-        styleFile = result.css;
-        callback(null, styleFile);
-      });
+      postProcessCss(css);
     }
+  } else if (/\.css$/.test(ext[0])) {
+    postProcessCss(styleFile);
   }
 };
 <% } %>
