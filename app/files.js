@@ -118,5 +118,5 @@ module.exports = [
   {name: 'config/_webpack.test.js', path: 'config/webpack.test.js', isTpl: true},
   {name: 'config/helpers.js', path: 'config/helpers.js', isTpl: false},
   {name: 'config/karma-test-shim.js', path: 'config/karma-test-shim.js', isTpl: false},
-  {name: 'config/karma.conf.js', path: 'config/karma.conf.js', isTpl: false}
+  {name: 'config/_karma.conf.js', path: 'config/karma.conf.js', isTpl: true}
 ];

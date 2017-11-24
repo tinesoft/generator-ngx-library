@@ -18,10 +18,10 @@ const path = require('path');
 const gulpFile = require('gulp-file');
 
 /** To properly handle pipes on error */
-const pump = require('pump');
+const pump = require('pump');<% if(!skipCoveralls) { %>
 
 /** To upload code coverage to coveralls */
-const gulpCoveralls = require('gulp-coveralls');
+const gulpCoveralls = require('gulp-coveralls');<% } %>
 
 /** To order tasks */
 const runSequence = require('run-sequence');
@@ -56,8 +56,8 @@ const stripInlineComments = require('postcss-strip-inline-comments');<% } %>
 //Bumping, Releasing tools
 const gulpGit = require('gulp-git');
 const gulpBump = require('gulp-bump');
-const gulpConventionalChangelog = require('gulp-conventional-changelog');
-const conventionalGithubReleaser = require('conventional-github-releaser');
+const gulpConventionalChangelog = require('gulp-conventional-changelog');<% if(!skipGhReleasing) { %>
+const conventionalGithubReleaser = require('conventional-github-releaser');<% } %>
 
 /** To load gulp tasks from multiple files */
 const gulpHub = require('gulp-hub');<% if(useCompodoc){ %>
@@ -72,12 +72,12 @@ const argv = yargs
     describe: 'Enter Version to bump to',
     choices: ['patch', 'minor', 'major'],
     type: "string"
-  })
+  })<% if(!skipGhReleasing) { %>
   .option('ghToken', {
     alias: 'gh',
     describe: 'Enter Github Token for releasing',
     type: "string"
-  })
+  })<% } %>
   .version(false) // disable default --version from yargs( since v9.0.0)
   .argv;
 
@@ -103,14 +103,14 @@ const es2015OutputFolder = path.join(buildFolder, 'lib-es2015');<% } %>
 
 //Helper functions
 const startKarmaServer = (isTddMode, hasCoverage, cb) => {
-  const karmaServer = require('karma').Server;
-  const travis = process.env.TRAVIS;
+  const karmaServer = require('karma').Server;<% if(!skipTravis) {%>
+  const travis = process.env.TRAVIS;<% } %>
 
-  let config = { configFile: `${__dirname}/karma.conf.js`, singleRun: !isTddMode, autoWatch: isTddMode };
+  let config = { configFile: `${__dirname}/karma.conf.js`, singleRun: !isTddMode, autoWatch: isTddMode };<% if(!skipTravis) {%>
 
   if (travis) {
     config['browsers'] = ['Chrome_travis_ci']; // 'Chrome_travis_ci' is defined in "customLaunchers" section of config/karma.conf.js
-  }
+  }<% } %>
 
   config['hasCoverage'] = hasCoverage;
 
@@ -124,23 +124,26 @@ const getPackageJsonVersion = () => {
 };
 
 const isOK = condition => {
+  if(condition === undefined){
+    return gulpUtil.colors.yellow('[SKIPPED]');
+  }
   return condition ? gulpUtil.colors.green('[OK]') : gulpUtil.colors.red('[KO]');
 };
 
-const readyToRelease = () => {
-  let isTravisPassing = /build #\d+ passed/.test(execSync('npm run check-travis').toString().trim()) ;
+const readyToRelease = () => {<% if(!skipTravis) { %>
+  let isTravisPassing = /build #\d+ passed/.test(execSync('npm run check-travis').toString().trim());<% } %>
   let onMasterBranch = execSync('git symbolic-ref --short -q HEAD').toString().trim() === 'master';
-  let canBump = !!argv.version;
-  let canGhRelease = argv.ghToken || process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN;
+  let canBump = !!argv.version;<% if(!skipGhReleasing) { %>
+  let canGhRelease = argv.ghToken || process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN;<% } %>
   let canNpmPublish = !!execSync('npm whoami').toString().trim() && execSync('npm config get registry').toString().trim() === 'https://registry.npmjs.org/';
 
-  gulpUtil.log(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(isTravisPassing)}`);
+  gulpUtil.log(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(<% if(!skipTravis) { %>isTravisPassing<% } %>)}`);
   gulpUtil.log(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
   gulpUtil.log(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
   gulpUtil.log(`[bump-version]   Option '--version' provided, with value : 'major', 'minor' or 'patch'.................${isOK(canBump)}`);
-  gulpUtil.log(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(canGhRelease)}`);
+  gulpUtil.log(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(<% if(!skipGhReleasing) { %>canGhRelease<% } %>)}`);
 
-  return isTravisPassing && onMasterBranch && canBump && canGhRelease && canNpmPublish;
+  return <% if(!skipTravis) { %>isTravisPassing && <% } %>onMasterBranch && canBump && <% if(!skipGhReleasing) { %>canGhRelease && <% } %>canNpmPublish;
 };
 
 const execCmd = (name, args, opts, ...subFolders) => {
@@ -582,7 +585,7 @@ gulp.task('changelog', (cb) => {
       gulpConventionalChangelog({ preset: 'angular', releaseCount: 0 }),
       gulp.dest('./')
     ], cb);
-});
+});<% if(!skipGhReleasing) {%>
 
 gulp.task('github-release', (cb) => {
   if (!argv.ghToken && !process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN) {
@@ -597,7 +600,7 @@ gulp.task('github-release', (cb) => {
     },
     { preset: 'angular' },
     cb);
-});
+});<% } %>
 
 gulp.task('bump-version', (cb) => {
   if (!argv.version) {
@@ -662,8 +665,8 @@ gulp.task('release', (cb) => {
       'changelog',
       'commit-changes',
       'push-changes',
-      'create-new-tag',
-      'github-release',
+      'create-new-tag',<% if(!skipGhReleasing) {%>
+      'github-release',<% } %>
       'npm-publish',<% if(!skipDemo || useCompodoc) { %>
       'deploy:<%= !skipDemo? "demo":"doc" %>',<% } %>
       (error) => {
@@ -692,7 +695,7 @@ gulp.task('link', () => {
 
 gulp.task('unlink', () => {
   return execExternalCmd('npm', 'unlink', { cwd: `${config.outputDir}` });
-});
+});<% if(!skipCoveralls) {%>
 
 // Upload code coverage report to coveralls.io (will be triggered by Travis CI on successful build)
 gulp.task('coveralls', (cb) => {
@@ -701,7 +704,7 @@ gulp.task('coveralls', (cb) => {
       gulp.src(`${config.coverageDir}/coverage.lcov`),
       gulpCoveralls()
     ], cb);
-});
+});<% } %>
 
 gulp.task('default', ['build']);
 

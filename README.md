@@ -136,9 +136,12 @@ Name         | Purpose
 skip-install | skips the automatic installation of project dependencies at the end of the generator
 skip-checks  | skips the checks of required tools (yarn, angular-cli) prior to generation
 skip-cache   | forces the regeneration on an exising project (ignore previous answers)
+skip-demo    | skips the generation of the demo application
 skip-styles  | skips the generation of style inlining related code (in case you don't use styles)
 skip-sample  | skips the generation of the sample library
-skip-demo    | skips the generation of the demo application
+skip-travis  | skips the integration with Travis CI
+skip-coveralls  | skips the integration with Coveralls (code coverage)
+skip-gh-releasing  | skips the releasing of the library on Github
 npm          | forces usage of `npm` to install dependencies
 
 # Overall Directory Structure
@@ -385,6 +388,8 @@ A set of checks is automatically performed for you prior to releasing (during `g
 ![pre release checks](assets/pre-release-checks.png)
 
 You can also run the `gulp pre-release` task alone, to solely perform these checks without actually releasing anything.
+
+**Note:** if you provided `--skip-travis` option (resp. `--skip-gh-releasing`) when running the generator, the Travis build (resp. releasing on Github) will be ignored/skipped.
 
 # Releasing
 

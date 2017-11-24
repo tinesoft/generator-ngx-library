@@ -22,8 +22,8 @@
   "scripts": {
     "start": "gulp build",
     "test": " gulp test",
-    "demo": " gulp build:demo",
-    "check-travis": " travis-status --repo=<%= githubUsername %>/<%= githubRepoName %> --branch=master --fail-pending || echo 'Not yet passing'"
+    "demo": " gulp build:demo"<% if(!skipTravis) {%>,
+    "check-travis": " travis-status --repo=<%= githubUsername %>/<%= githubRepoName %> --branch=master --fail-pending || echo 'Not yet passing'"<% } %>
   },
   "dependencies": {
     <%- ngDependencies.join(',\n    ') %>
@@ -35,15 +35,15 @@
     "angular-cli-ghpages": "0.5.1",
     "angular2-template-loader": "0.6.2",<% if(useCompodoc){%>
     "@compodoc/gulp-compodoc": "0.0.8",<% } %><% if(enforceNgGitCommitMsg){%>
-    "commitplease": "3.1.0",<% } %>
-    "conventional-github-releaser": "1.1.13",
+    "commitplease": "3.1.0",<% } if(!skipGhReleasing) { %>
+    "conventional-github-releaser": "1.1.13",<% } %>
     "core-js": "2.5.1",
     "del": "3.0.0",<% if(useYarn) { %>
     "greenkeeper-lockfile": "1.12.0",<% } %>
     "gulp": "3.9.1",
     "gulp-bump": "2.8.0",
-    "gulp-conventional-changelog": "1.1.6",
-    "gulp-coveralls": "0.1.4",
+    "gulp-conventional-changelog": "1.1.6",<% if(!skipCoveralls) { %>
+    "gulp-coveralls": "0.1.4",<% } %>
     "gulp-file": "0.3.0",
     "gulp-git": "2.4.2",
     "gulp-inline-ng2-template": "4.0.0",
@@ -77,8 +77,8 @@
     "postcss": "6.0.13",
     "postcss-strip-inline-comments": "0.1.5",<% } %>
     "raw-loader": "0.5.1",
-    "source-map-loader": "0.2.2",
-    "travis-status": "2.0.0",
+    "source-map-loader": "0.2.2",<% if(!skipTravis) {%>
+    "travis-status": "2.0.0",<% } %>
     "webpack": "3.8.1",
     "webpack-dev-middleware": "1.12.0",
     "webpack-dev-server": "2.9.2",
