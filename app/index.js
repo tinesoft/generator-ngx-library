@@ -54,6 +54,27 @@ module.exports = class extends Generator {
       defaults: false
     });
 
+    // This adds support for a `--skip-travis` flag
+    this.option('skip-travis', {
+      description: 'Skip Travis CI integration',
+      type: Boolean,
+      defaults: false
+    });
+
+    // This adds support for a `--skip-coveralls` flag
+    this.option('skip-coveralls', {
+      description: 'Skip Coveralls integration',
+      type: Boolean,
+      defaults: false
+    });
+
+    // This adds support for a `--skip-gh-release` flag
+    this.option('skip-gh-releasing', {
+      description: 'Skip Github Releasing support',
+      type: Boolean,
+      defaults: false
+    });
+
     // This adds support for a `--npm` flag
     this.option('npm', {
       description: 'Use npm instead of yarn',
@@ -65,6 +86,9 @@ module.exports = class extends Generator {
     this.skipInstall = this.options.skipInstall;
     this.skipStyles = this.options.skipStyles;
     this.skipSample = this.options.skipSample;
+    this.skipTravis = this.options.skipTravis;
+    this.skipCoveralls = this.options.skipCoveralls;
+    this.skipGhReleasing = this.options.skipGhReleasing;
 
     this.skipDemo = this.options.skipDemo;
     this.skipCache = this.options.skipCache;
@@ -242,6 +266,10 @@ module.exports = class extends Generator {
         this.exclusions.push('src/module/lib.module.ts');
       }
 
+      if (this.skipTravis) {
+        this.exclusions.push('.travis.yml');
+      }
+
       if (this.ngVersionMin < 4) {
         this.exclusions.push('src/tsconfig.lib.es5.json');
       }
@@ -342,8 +370,11 @@ module.exports = class extends Generator {
     this.useCompodoc = this.config.get('useCompodoc');
     this.enforceNgGitCommitMsg = this.config.get('enforceNgGitCommitMsg');
     this.skipDemo = this.config.get('skipDemo') || this.skipDemo;
-    this.skipSample = this.config.get('skipSample') || this.skipSample;
     this.skipStyles = this.config.get('skipStyles') || this.skipStyles;
+    this.skipSample = this.config.get('skipSample') || this.skipSample;
+    this.skipTravis = this.config.get('skipTravis') || this.skipTravis;
+    this.skipCoveralls = this.config.get('skipCoveralls') || this.skipCoveralls;
+    this.skipGhReleasing = this.config.get('skipGhReleasing') || this.skipGhReleasing;
     this.exclusions = this.config.get('exclusions') || [];
 
     if (this.fs.exists('.yo-rc.json') && !this.skipCache) {
@@ -395,8 +426,11 @@ module.exports = class extends Generator {
         this.config.set('useCompodoc', this.useCompodoc);
         this.config.set('enforceNgGitCommitMsg', this.enforceNgGitCommitMsg);
         this.config.set('skipDemo', this.skipDemo);
-        this.config.set('skipSample', this.skipSample);
         this.config.set('skipStyles', this.skipStyles);
+        this.config.set('skipSample', this.skipSample);
+        this.config.set('skipTravis', this.skipTravis);
+        this.config.set('skipCoveralls', this.skipCoveralls);
+        this.config.set('skipGhReleasing', this.skipGhReleasing);
         this.config.set('exclusions', this.exclusions);
 
         done();

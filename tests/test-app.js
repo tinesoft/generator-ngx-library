@@ -756,4 +756,97 @@ describe('ngx-library:app', () => {
       });
     });
   });
+
+  describe('check "skipTravis" option', () => {
+    it('should not generate travis-related code when "skipTravis" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipTravis: true
+      });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipTravis, true);
+
+        assert.noFileContent('package.json', '    "travis-status":');
+        assert.noFile('.travis.yml');
+      });
+    });
+
+    it('should generate travis-related code when "skipTravis" is set to false', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipTravis: false
+      });
+
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipTravis, false);
+
+        assert.fileContent('package.json', '    "travis-status":');
+        assert.file('.travis.yml');
+      });
+    });
+  });
+
+  describe('check "skipCoveralls" option', () => {
+    it('should not generate coveralls-related code when "skipCoveralls" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipCoveralls: true
+      });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipCoveralls, true);
+
+        assert.noFileContent('package.json', '    "gulp-coveralls":');
+        assert.noFileContent('gulpfile.js', /gulp\.task\('coveralls'/);
+      });
+    });
+
+    it('should generate coveralls-related code when "skipCoveralls" is set to false', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipCoveralls: false
+      });
+
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipCoveralls, false);
+
+        assert.fileContent('package.json', '    "gulp-coveralls":');
+        assert.fileContent('gulpfile.js', /gulp\.task\('coveralls'/);
+      });
+    });
+  });
+
+  describe('check "skipGhReleasing" option', () => {
+    it('should not generate github-releasing-related code when "skipGhReleasing" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipGhReleasing: true
+      });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipGhReleasing, true);
+
+        assert.noFileContent('package.json', '    "conventional-github-releaser":');
+        assert.noFileContent('gulpfile.js', /gulp\.task\('github-release'/);
+      });
+    });
+
+    it('should generate github-releasing-related code when "skipGhReleasing" is set to false', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipGhReleasing: false
+      });
+
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.skipGhReleasing, false);
+
+        assert.fileContent('package.json', '    "conventional-github-releaser":');
+        assert.fileContent('gulpfile.js', /gulp\.task\('github-release'/);
+      });
+    });
+  });
 });

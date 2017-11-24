@@ -4,9 +4,9 @@
 
 <% } %># <%= githubRepoName %> - <%= projectDescription %>
 
-[![npm version](https://badge.fury.io/js/<%= githubRepoName %>.svg)](https://badge.fury.io/js/<%= githubRepoName %>)
-[![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= githubRepoName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= githubRepoName %>)
-[![Coverage Status](https://coveralls.io/repos/github/<%= githubUsername %>/<%= githubRepoName %>/badge.svg?branch=master)](https://coveralls.io/github/<%= githubUsername %>/<%= githubRepoName %>?branch=master)
+[![npm version](https://badge.fury.io/js/<%= githubRepoName %>.svg)](https://badge.fury.io/js/<%= githubRepoName %>)<% if(!skipTravis) {%>,
+[![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= githubRepoName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= githubRepoName %>)<% } if(!skipCoveralls) { %>
+[![Coverage Status](https://coveralls.io/repos/github/<%= githubUsername %>/<%= githubRepoName %>/badge.svg?branch=master)](https://coveralls.io/github/<%= githubUsername %>/<%= githubRepoName %>?branch=master)<% } %>
 [![dependency Status](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>/status.svg)](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>)
 [![devDependency Status](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>/dev-status.svg?branch=master)](https://david-dm.org/<%= githubUsername %>/<%= githubRepoName %>#info=devDependencies)<% if(useGreenkeeper){%>
 [![Greenkeeper Badge](https://badges.greenkeeper.io/<%= githubUsername %>/<%= githubRepoName %>.svg)](https://greenkeeper.io/)<% } %>
