@@ -18,4 +18,4 @@ To achieve this, nothing simpler:
 }
 ```
 
-The generator now remembers the skip options you've provided (`--skip-demo`, `--skip-styles`) when creating your project, and automatically add the related files to exclude.
+The generator now remembers the skip options you've provided (`--skip-demo`, `--skip-styles`, `--skip-travis`) when creating your project, and automatically add the related files to exclude.
