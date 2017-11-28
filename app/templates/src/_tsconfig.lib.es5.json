@@ -14,7 +14,7 @@
     "skipTemplateCodegen": true,
     "genDir": "../tmp/lib-gen-dir/",
     "flatModuleOutFile": "<%= unscopedProjectName %>.js",
-    "flatModuleId": "<%= unscopedProjectName %>",
+    "flatModuleId": "<%= projectName %>",
     "annotateForClosureCompiler": true
   }
 }
