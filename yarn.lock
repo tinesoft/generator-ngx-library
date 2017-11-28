@@ -107,9 +107,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/yeoman-generator@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@types/yeoman-generator/-/yeoman-generator-1.0.3.tgz#cb90cd0c3fd9bb18c093a377d756caff13a2b48a"
+"@types/yeoman-generator@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/yeoman-generator/-/yeoman-generator-2.0.0.tgz#822a692ac947c4c4da1591114b05e1fded483cbf"
   dependencies:
     "@types/inquirer" "*"
 

@@ -1,3 +1,18 @@
+<a name="5.3.0"></a>
+# [5.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.2.0...v5.3.0) (2017-11-28)
+
+
+### Bug Fixes
+
+* **scopedLibrary:** fix scoped libraries' `*.metadata.json` not being valid (AOT compilation issue) ([18de2fb](https://github.com/tinesoft/generator-ngx-library/commit/18de2fb)), closes [#133](https://github.com/tinesoft/generator-ngx-library/issues/133)
+
+
+### Features
+
+* **workflow:** add options `--skip-travis`, `--skip-coveralls`, `--skip-gh-releasing` ([1929e3b](https://github.com/tinesoft/generator-ngx-library/commit/1929e3b)), closes [#130](https://github.com/tinesoft/generator-ngx-library/issues/130)
+
+
+
 <a name="5.2.0"></a>
 # [5.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.1.0...v5.2.0) (2017-11-23)
 
