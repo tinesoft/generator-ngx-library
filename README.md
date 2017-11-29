@@ -254,12 +254,13 @@ dist/
 	|  |  |- lib.service.d.ts             # Type definitions
 	|- CHANGELOG.md                       #
 	|- my-ngx-library.d.ts                # Type definitions
-	|- my-ngx-library.es5.js              # ESM+ES5 flat module (FESM5)
-	|- my-ngx-library.es5.js.map          # ESM+ES5 flat module (FESM5) sourcemap
 	|- my-ngx-library.metadata.json       # Metadata used by AOT compiler
-	|- my-ngx-library.js                  # ESM+ES2015 flat module (FESM15)
-	|- my-ngx-library.js.map              # ESM+ES2015 flat module (FESM15) sourcemap
-	|- my-ngx-library.metadata.json       # Metadata used by AOT compiler
+  |- [esm5]/                            # Optional Directory containing ESM5 files (for ng >=v5 only)
+	|  |- my-ngx-library.es5.js           # ESM+ES5 flat module (FESM5)
+	|  |- my-ngx-library.es5.js.map       # ESM+ES5 flat module (FESM5) sourcemap
+  |- [esm2015]/                         # Optional Directory containing ESM2015 files (for ng >=v5 only)
+	|  |- my-ngx-library.js              # ESM+ES2015 flat module (FESM15)
+	|  |- my-ngx-library.js.map          # ESM+ES2015 flat module (FESM15) sourcemap
 	|- LICENSE                            #
 	|- lib.module.d.ts                    # Type definitions
 	|- package.json                       # Package.json, with just the right dependencies & peerDependencies
