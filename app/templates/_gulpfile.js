@@ -325,12 +325,12 @@ gulp.task('npm-package', (cb) => {
   //only copy needed properties from project's package json
   fieldsToCopy.forEach((field) => { targetPkgJson[field] = pkgJson[field]; });
 
-  targetPkgJson['main'] = `bundles/${config.unscopedLibraryName}.umd.js`;<% if(ngVersion === '2.0.0'){ %>
-  targetPkgJson['module'] = `index.js`;
-  targetPkgJson['typings'] = `index.d.ts`;<% } else {%>
-  targetPkgJson['module'] = `${config.libraryName}.es5.js`;
-  targetPkgJson['es2015'] = `${config.libraryName}.js`;
-  targetPkgJson['typings'] = `${config.unscopedLibraryName}.d.ts`;<% } %>
+  targetPkgJson['main'] = `./bundles/${config.unscopedLibraryName}.umd.js`;<% if(ngVersion === '2.0.0'){ %>
+  targetPkgJson['module'] = `./index.js`;
+  targetPkgJson['typings'] = `./index.d.ts`;<% } else {%>
+  targetPkgJson['module'] = `./<% if(ngVersionMin >= 5){ %>esm5/${config.unscopedLibraryName}.es5.js<% } else {%>${config.libraryName}.es5.js<% } %>`;
+  targetPkgJson['es2015'] = `./<% if(ngVersionMin >= 5){ %>esm2015/${config.unscopedLibraryName}.js<% } else {%>${config.libraryName}.js<% } %>`;
+  targetPkgJson['typings'] = `./${config.unscopedLibraryName}.d.ts`;<% } %>
 
   // defines project's dependencies as 'peerDependencies' for final users
   targetPkgJson.peerDependencies = {};
@@ -422,14 +422,14 @@ gulp.task('rollup-bundle', (cb) => {
     // ESM+ES5 flat module bundle.
     const fesm5config = Object.assign({}, rollupBaseConfig, {
       input: es5Input,
-      file: path.join(distFolder, `${config.libraryName}.es5.js`),
+      file: path.join(distFolder,<% if(ngVersionMin >= 5){ %> 'esm5', `${config.unscopedLibraryName}.es5.js`<% } else {%> `${config.libraryName}.es5.js`<% } %>),
       format: 'es'
     });
 
     // ESM+ES2015 flat module bundle.
     const fesm2015config = Object.assign({}, rollupBaseConfig, {
       input: es2015Input,
-      file: path.join(distFolder, `${config.libraryName}.js`),
+      file: path.join(distFolder,<% if(ngVersionMin >= 5){ %> 'esm2015', `${config.unscopedLibraryName}.js`<% } else {%> `${config.libraryName}.js`<% } %>),
       format: 'es'
     });<% } %>
 
