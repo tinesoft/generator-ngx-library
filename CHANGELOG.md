@@ -1,3 +1,14 @@
+<a name="5.4.0"></a>
+# [5.4.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.3.0...v5.4.0) (2017-12-14)
+
+
+### Features
+
+* **demo:** update demo app to `Angular CLI 1.6` ([eb73b53](https://github.com/tinesoft/generator-ngx-library/commit/eb73b53))
+* **packaging:** update library packaging to support Angular Package Format v5.0 ([7a343cc](https://github.com/tinesoft/generator-ngx-library/commit/7a343cc))
+
+
+
 <a name="5.3.0"></a>
 # [5.3.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.2.0...v5.3.0) (2017-11-28)
 
