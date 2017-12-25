@@ -48,16 +48,16 @@ describe('HeaderComponent', () => {
   });
 
   it('can get RouterLinks from template', () => {
-    expect(links.length).toBe(2, 'should have 2 links');
-    expect(links[0].linkParams).toBe('/home', '1st link should go to Home');
-    expect(links[1].linkParams).toBe('/getting-started', '2nd link should go to GettingStarted');
+    expect(links.length).toBe(2<%- testingFramework === 'jest' ? '); // should have 2 links' : ', "should have 2 links");' %>
+    expect(links[0].linkParams).toBe('/home'<%- testingFramework === 'jest' ? '); // 1st link should go to Home' : ', "1st link should go to Home");' %>
+    expect(links[1].linkParams).toBe('/getting-started'<%- testingFramework === 'jest' ? '); // 2nd link should go to GettingStarted' : ', "2nd link should go to GettingStarted");' %>
   });
 
   it('can click Home link in template', () => {
     const homeLinkDe = linkDes[0];
     const homeLink = links[0];
 
-    expect(homeLink.navigatedTo).toBeNull('link should not have navigated yet');
+    expect(homeLink.navigatedTo).toBeNull(<%- testingFramework === 'jest' ? '); // link should not have navigated yet' : '"link should not have navigated yet");' %>
 
     homeLinkDe.triggerEventHandler('click', null);
     fixture.detectChanges();
@@ -69,7 +69,7 @@ describe('HeaderComponent', () => {
     const gettingStartedLinkDe = linkDes[1];
     const gettingStartedLink = links[1];
 
-    expect(gettingStartedLink.navigatedTo).toBeNull('link should not have navigated yet');
+    expect(gettingStartedLink.navigatedTo).toBeNull(<%- testingFramework === 'jest' ? '); // link should not have navigated yet' : '"link should not have navigated yet");' %>
 
     gettingStartedLinkDe.triggerEventHandler('click', null);
     fixture.detectChanges();

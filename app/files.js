@@ -79,9 +79,11 @@ module.exports = [
   {name: 'demo/src/favicon.ico', path: 'demo/src/favicon.ico', isTpl: false},
   {name: 'demo/src/favicon.ico', path: 'demo/src/favicon.ico', isTpl: false},
   {name: 'demo/src/hmr.ts', path: 'demo/src/hmr.ts', isTpl: false},
+  {name: 'demo/src/jestGlobalMocks.ts', path: 'demo/src/jestGlobalMocks.ts', isTpl: false},
   {name: 'demo/src/main.server.ts', path: 'demo/src/main.server.ts', isTpl: false},
   {name: 'demo/src/main.ts', path: 'demo/src/main.ts', isTpl: false},
   {name: 'demo/src/polyfills.ts', path: 'demo/src/polyfills.ts', isTpl: false},
+  {name: 'demo/src/setupJest.ts', path: 'demo/src/setupJest.ts', isTpl: false},
   {name: 'demo/src/styles.scss', path: 'demo/src/styles.scss', isTpl: false},
   {name: 'demo/src/test.ts', path: 'demo/src/test.ts', isTpl: false},
   {name: 'demo/src/_tsconfig.app.json', path: 'demo/src/tsconfig.app.json', isTpl: true},
@@ -118,5 +120,7 @@ module.exports = [
   {name: 'config/_webpack.test.js', path: 'config/webpack.test.js', isTpl: true},
   {name: 'config/helpers.js', path: 'config/helpers.js', isTpl: false},
   {name: 'config/karma-test-shim.js', path: 'config/karma-test-shim.js', isTpl: false},
-  {name: 'config/_karma.conf.js', path: 'config/karma.conf.js', isTpl: true}
+  {name: 'config/jestGlobalMocks.ts', path: 'config/jestGlobalMocks.ts', isTpl: false},
+  {name: 'config/_karma.conf.js', path: 'config/karma.conf.js', isTpl: true},
+  {name: 'config/setupJest.ts', path: 'config/setupJest.ts', isTpl: false}
 ];

@@ -20,8 +20,9 @@ const gulpFile = require('gulp-file');
 /** To properly handle pipes on error */
 const pump = require('pump');<% if(!skipCoveralls) { %>
 
-/** To upload code coverage to coveralls */
-const gulpCoveralls = require('gulp-coveralls');<% } %>
+/** Testing/Code Coverage */
+const gulpCoveralls = require('gulp-coveralls');<% } if(testingFramework === 'jest') {%>
+const jestCli = require('jest-cli');<% } %>
 
 /** To order tasks */
 const runSequence = require('run-sequence');
@@ -101,7 +102,7 @@ const distFolder = path.join(rootFolder, `${config.outputDir}`);
 const es5OutputFolder = path.join(buildFolder, 'lib-es5');<% if(ngVersionMin >= 4) { %>
 const es2015OutputFolder = path.join(buildFolder, 'lib-es2015');<% } %>
 
-//Helper functions
+//Helper functions<% if(testingFramework === 'karma'){%>
 const startKarmaServer = (isTddMode, hasCoverage, cb) => {
   const karmaServer = require('karma').Server;<% if(!skipTravis) {%>
   const travis = process.env.TRAVIS;<% } %>
@@ -115,7 +116,7 @@ const startKarmaServer = (isTddMode, hasCoverage, cb) => {
   config['hasCoverage'] = hasCoverage;
 
   new karmaServer(config, cb).start();
-};
+};<% } %>
 
 const getPackageJsonVersion = () => {
   // We parse the json file instead of using require because require caches
@@ -178,7 +179,7 @@ const styleProcessor = (stylePath, ext, styleFile, callback) => {
   ];
 
   const postProcessCss = css => {
-    postcss(processors).process(css).then(function (result) {
+    postcss(processors).process(css).then(result => {
       result.warnings().forEach(function (warn) {
         gutil.warn(warn.toString());
       });
@@ -556,23 +557,30 @@ gulp.task('deploy:demo', (cb) => {
 /////////////////////////////////////////////////////////////////////////////
 // Test Tasks
 /////////////////////////////////////////////////////////////////////////////
-gulp.task('test', (cb) => {
+gulp.task('test', (cb) => {<% if(testingFramework === 'jest') {%>
+  let isTravis = !!process.env.TRAVIS;
+  jestCli.runCLI({ config: require('./package.json').jest, coverage: true, runInBand: isTravis, ci: isTravis }, ".", result => 
+    cb(result.success ? undefined: 'There are test failures!'));<% } else { %>
   const ENV = process.env.NODE_ENV = process.env.ENV = 'test';
-  startKarmaServer(false, true, cb);
+  startKarmaServer(false, true, cb);<% } %>
 });
 
 gulp.task('test:ci', ['clean'], (cb) => {
   runSequence('compile', 'test');
 });
 
-gulp.task('test:watch', (cb) => {
+gulp.task('test:watch', (cb) => {<% if(testingFramework === 'jest') {%>
+  jestCli.runCLI({ config: require('./package.json').jest, watch: true }, ".", result => 
+    cb(result.success ? undefined: 'There are test failures!'));<% } else { %>
   const ENV = process.env.NODE_ENV = process.env.ENV = 'test';
-  startKarmaServer(true, true, cb);
+  startKarmaServer(true, true, cb);<% } %>
 });
 
-gulp.task('test:watch-no-cc', (cb) => {//no coverage (useful for debugging failing tests in browser)
+gulp.task('test:watch-no-cc', (cb) => {//no coverage (useful for debugging failing tests in browser)<% if(testingFramework === 'jest') {%>
+  jestCli.runCLI({ config: require('./package.json').jest, watch: true, coverage:false }, ".", result => 
+    cb(result.success ? undefined: 'There are test failures!'));<% } else { %>
   const ENV = process.env.NODE_ENV = process.env.ENV = 'test';
-  startKarmaServer(true, false, cb);
+  startKarmaServer(true, false, cb);<% } %>
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -701,7 +709,7 @@ gulp.task('unlink', () => {
 gulp.task('coveralls', (cb) => {
   pump(
     [
-      gulp.src(`${config.coverageDir}/coverage.lcov`),
+      gulp.src(`${config.coverageDir}/<%= testingFramework === 'jest' ? 'lcov.info': 'coverage.lcov' %>`),
       gulpCoveralls()
     ], cb);
 });<% } %>
