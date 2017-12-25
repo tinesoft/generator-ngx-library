@@ -6,9 +6,8 @@ const gulpUtil = require('gulp-util');
 const gulpShell = require('gulp-shell');
 const execSync = require('child_process').execSync;
 
+const jestCli = require('jest-cli');
 const gulpEslint = require('gulp-eslint');
-const gulpMocha = require('gulp-mocha');
-const gulpIstanbul = require('gulp-istanbul');
 const gulpNsp = require('gulp-nsp');
 const gulpPlumber = require('gulp-plumber');
 const gulpCoveralls = require('gulp-coveralls');
@@ -104,35 +103,18 @@ gulp.task('toc', () => {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('pre-test', () => {
-  return gulp.src([
-    'app/*.js'
-  ])
-    .pipe(gulpPlumber())
-    .pipe(gulpIstanbul({
-      includeUntested: true
-    }))
-    .pipe(gulpIstanbul.hookRequire());
-});
-
-gulp.task('test', ['pre-test'], cb => {
-  let mochaErr;
-
-  gulp.src('tests/**/*.js')
-    .pipe(gulpPlumber())
-    .pipe(gulpMocha({ reporter: 'spec', timeout: 10000 }))
-    .on('error', err => {
-      mochaErr = err;
-    })
-    .pipe(gulpIstanbul.writeReports())
-    .on('end', () => {
-      cb(mochaErr);
-    });
+gulp.task('test', cb => {
+  let isTravis = !!process.env.TRAVIS;
+  jestCli.runCLI({ config: require('./package.json').jest, coverage: true, runInBand: isTravis, ci: isTravis}, ".", function(result) {
+    cb(result.success ? undefined: 'There are test failures!');
+  });
 });
 
 // Watch changes on *.js files and test
 gulp.task('test:watch', () => {
-  gulp.watch(['app/index.js', 'tests/**/*.js'], ['test']);
+  jestCli.runCLI({ config: require('./package.json').jest, watch: true}, ".", function(result) {
+    cb(result.success ? undefined: 'There are test failures!');
+  });
 });
 
 gulp.task('coveralls', ['test'], () => {

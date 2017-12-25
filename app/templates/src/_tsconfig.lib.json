@@ -11,6 +11,7 @@
       "suppressImplicitAnyIndexErrors": true,
       "rootDir": "./",
       "baseUrl": "",
+      "types" : ["node"],
       "skipLibCheck": true,
       "stripInternal": true,
       "outDir": "../tmp/lib-es5/",
@@ -34,7 +35,7 @@
     "target": "es2015",
     "rootDir": "./",
     "baseUrl": "",
-    "types": []
+    "types": [ "node"]
   },
   "files": [
     "./index.ts"

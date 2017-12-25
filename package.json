@@ -22,7 +22,7 @@
   "bugs": "https://github.com/tinesoft/generator-ngx-library/issues",
   "author": {
     "name": "Tine Kondo",
-    "email": "",
+    "email": "kondotine@gmail.com",
     "url": "https://github.com/tinesoft"
   },
   "main": "app/index.js",
@@ -31,7 +31,7 @@
     "url": "git://github.com/tinesoft/generator-ngx-library.git"
   },
   "scripts": {
-    "test": "mocha --reporter spec",
+    "test": "jest",
     "check-appveyor": "appveyor-status --project=tinesoft/generator-ngx-library --branch=master --wait || echo 'Not yet passing'",
     "check-travis": " travis-status --repo=tinesoft/generator-ngx-library --branch=master --fail-pending || echo 'Not yet passing'"
   },
@@ -42,6 +42,7 @@
     "yosay": "2.0.0"
   },
   "devDependencies": {
+    "@types/jest": "22.0.1",
     "@types/yeoman-generator": "2.0.0",
     "appveyor-status": "2.0.1",
     "commitplease": "3.1.0",
@@ -56,12 +57,11 @@
     "gulp-coveralls": "0.1.4",
     "gulp-eslint": "3.0.1",
     "gulp-git": "2.4.2",
-    "gulp-istanbul": "1.1.2",
-    "gulp-mocha": "3.0.1",
     "gulp-nsp": "2.4.2",
     "gulp-plumber": "1.1.0",
     "gulp-shell": "0.6.3",
     "gulp-util": "3.0.8",
+    "jest": "22.0.5",
     "lodash": "4.17.4",
     "markdown-toc": "1.2.0",
     "run-sequence": "2.2.0",
@@ -71,11 +71,6 @@
     "yargs": "10.0.3",
     "yeoman-assert": "3.1.0",
     "yeoman-test": "1.7.0"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "gulp-mocha"
-    ]
   },
   "commitplease": {
     "style": "angular",
@@ -92,6 +87,22 @@
       "demo"
     ],
     "scope": "\\S+.*"
+  },
+  "jest":{
+    "testMatch": [ "**/__tests__/**/*.js"],
+    "testPathIgnorePatterns": [
+      "templates"
+    ],
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "app/**/*.{js,jsx}",
+      "!app/templates/**"
+    ],
+    "coverageDirectory": "coverage",
+    "mapCoverage": true,
+    "coverageReporters": [ "lcov", "text" ],
+    "coveragePathIgnorePatterns": [ "/node_modules/", "/integrations/", "/recipes/", "/assets/", "/dist/"]
   },
   "engines": {
     "node": ">=6.0.0"
