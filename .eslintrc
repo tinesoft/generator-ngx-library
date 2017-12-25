@@ -1,7 +1,7 @@
 {
   "extends": "xo-space",
   "env": {
-    "mocha": true
+    "jest": true
   },
   "rules": {
     "quote-props": [
