@@ -17,6 +17,7 @@ const createNgLibraryApp = (options, prompts) => {
       projectDescription: 'Angular library for ...',
       projectkeywords: 'ng, angular,library',
       ngPrefix: 'my-lib',
+      testingFramework: 'karma',
       ngVersion: '2.0.0',
       ngModules: ['core', 'common'],
       useGreenkeeper: true,
@@ -169,6 +170,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common', 'animations'],
           useGreenkeeper: true,
@@ -212,6 +214,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '4.0.0',
           ngModules: ['core', 'common', 'animations'],
           useGreenkeeper: true,
@@ -255,6 +258,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '5.0.0',
           ngModules: ['core', 'common', 'animations'],
           useGreenkeeper: true,
@@ -334,6 +338,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: true,
@@ -364,6 +369,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -396,6 +402,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -425,6 +432,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -457,6 +465,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -485,6 +494,7 @@ describe('ngx-library:app', () => {
           projectDescription: 'Angular library for ...',
           projectkeywords: 'ng, angular,library',
           ngPrefix: 'my-lib',
+          testingFramework: 'karma',
           ngVersion: '2.0.0',
           ngModules: ['core', 'common'],
           useGreenkeeper: false,
@@ -494,6 +504,82 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.enforceNgGitCommitMsg, false);
         assert.noFileContent('package.json', '    "commitplease":');
+      });
+    });
+  });
+
+  describe('check testingFramework', () => {
+    it('should add jest-related code if "testingFramework" is set to "jest" ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          githubRepoName: 'my-ngx-library',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          ngPrefix: 'my-lib',
+          testingFramework: 'jest',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: false,
+          useCompodoc: false,
+          enforceNgGitCommitMsg: false
+        });
+      return ngLibraryApp.then(() => {
+        assert.fileContent('package.json', '    "jest":');
+        assert.file([
+          'config/jestGlobalMocks.ts',
+          'config/setupJest.ts'
+        ]);
+        assert.noFile([
+          'config/webpack.test.js',
+          'config/karma-test-shim.js',
+          'config/karma.conf.js'
+        ]);
+      });
+    });
+
+    it('should add karma-related code if "testingFramework" is set to "karma" ', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: true
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          githubRepoName: 'my-ngx-library',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          ngPrefix: 'my-lib',
+          testingFramework: 'karma',
+          ngVersion: '2.0.0',
+          ngModules: ['core', 'common'],
+          useGreenkeeper: false,
+          useCompodoc: false,
+          enforceNgGitCommitMsg: false
+        });
+      return ngLibraryApp.then(() => {
+        assert.noFileContent('package.json', '    "jest":');
+        assert.file([
+          'config/webpack.test.js',
+          'config/karma-test-shim.js',
+          'config/karma.conf.js'
+        ]);
+        assert.noFile([
+          'config/jestGlobalMocks.ts',
+          'config/setupJest.ts'
+        ]);
       });
     });
   });

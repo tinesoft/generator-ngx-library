@@ -38,7 +38,7 @@ These are the main features of the generator:
 * **Integrated demo app** built with [angular-cli](https://cli.angular.io) and [ng-bootstrap](https://ng-bootstrap.github.io) 
 * **Project Documentation** built with [compodoc](https://compodoc.github.io/website/) and published along with demo app :books:
 * **Continuous Integration** with [Travis CI](https://travis-ci.org)
-* **Testing Environment** with [Karma](https://karma-runner.github.io/) and [Webpack](https://webpack.github.io/)
+* **Testing Environment** with [Karma](https://karma-runner.github.io/) and [Webpack](https://webpack.github.io/) or [Jest](http://facebook.github.io/jest/)
 * **Code Coverage** with [Coveralls.io](https://coveralls.io/)
 * **Real-time Monitoring** and **Automatic Updates** of npm dependencies with [Greenkeeper](https://greenkeeper.io) :palm_tree:
 * **Enforcing of Angular Git Commit Message Guideline** with [Commitplease](https://github.com/jzaefferer/commitplease) :speech_balloon:
@@ -221,7 +221,7 @@ File / Folder       | Purpose
 `src/tsconfig.lib.json` | The typescript configuration file used to compile your library in an AoT compatible way, either as ESM/ES2015 module (when targeting Angular v4.x.x) or as ESM/ES5 module (when targeting Angular v2.x.x)
 `src/tsconfig.spec.json` | The typescript configuration file used for tests
 `src/`              | This folder will contain all the files of your library
-`config/`           | This folder contains the configuration files for tools used to test your lib (`Webpack` & `Karma`)
+`config/`           | This folder contains the configuration files for tools used to test your lib (`Webpack` & `Karma` or `Jest`)
 `demo/`             | This folder contains an integrated demo application, to showcase your library. The demo app is built with [angular-cli](https://github.com/angular/angular-cli), so everything you know about the CLI is applicable inside this folder.
 `dist/` (generated) | This generated folder contains everything that will be published as part of your package to [npm registry](https://npmjs.org).  It contains only necessary files and is built via `gulp build`command
 

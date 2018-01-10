@@ -7,15 +7,22 @@
     "projectVersion": "0.0.1",
     "projectDescription": "Angular library built with ❤ using ngx-library yeoman generator.",
     "projectKeywords": [],
-    "ngPrefix": "my-lib",
     "moduleName": "my-ng-module",
     "ngVersion": "4.0.0",
     "ngModules": [
       "core",
       "common"
     ],
-    "useGreenkeeper": true,
-    "useCompodoc": true
+    "otherDependencies": [],
+    "dependenciesRange": "^",
+    "ngPrefix": "my-lib",
+    "testingFramework": "karma",
+    "useGreenkeeper": false,
+    "useCompodoc": false,
+    "enforceNgGitCommitMsg": true,
+    "exclusions": [
+      "demo/proxy.conf.json"
+    ]
   }
 }
 

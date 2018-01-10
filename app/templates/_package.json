@@ -29,8 +29,26 @@
     <%- ngDependencies.join(',\n    ') %>
    },
   "devDependencies": {<% for (dep of ngDevDependencies) { %>
-    <%- dep %>,<% } %>
+    <%- dep %>,<% } %><% if(testingFramework === 'karma'){%>
     "@types/jasmine": "2.5.41",
+    "istanbul-instrumenter-loader": "3.0.0",
+    "jasmine-core": "2.8.0",
+    "karma": "1.7.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-coverage": "1.1.1",
+    "karma-jasmine": "1.1.0",
+    "karma-mocha-reporter": "2.2.5",
+    "karma-jasmine-html-reporter": "0.2.2",
+    "karma-remap-coverage": "0.1.4",
+    "karma-sourcemap-loader": "0.3.7",
+    "webpack": "3.8.1",
+    "webpack-dev-middleware": "1.12.0",
+    "webpack-dev-server": "2.9.2",
+    "karma-webpack": "2.0.5",<% } else if(testingFramework === 'jest') {%>
+    <% if(ngVersionMin == 2) {%>"@types/jest": "16.0.7",<%} 
+    else {%>"@types/jest": "21.1.9",<% } %>
+    "jest": "22.0.4",
+    "jest-preset-angular": "5.0.0",<% } %>
     "@types/node": "8.0.44",
     "angular-cli-ghpages": "0.5.1",
     "angular2-template-loader": "0.6.2",<% if(useCompodoc){%>
@@ -49,18 +67,7 @@
     "gulp-inline-ng2-template": "4.0.0",
     "gulp-hub": "0.8.0",
     "gulp-util": "3.0.8",
-    "html-loader": "0.5.1",
-    "istanbul-instrumenter-loader": "3.0.0",
-    "jasmine-core": "2.8.0",
-    "karma": "1.7.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-coverage": "1.1.1",
-    "karma-jasmine": "1.1.0",
-    "karma-mocha-reporter": "2.2.5",
-    "karma-jasmine-html-reporter": "0.2.2",
-    "karma-remap-coverage": "0.1.4",
-    "karma-sourcemap-loader": "0.3.7",
-    "karma-webpack": "2.0.5",
+    "html-loader": "0.5.1",    
     "pump": "1.0.2",
     "rollup": "0.50.0",
     "rollup-plugin-uglify": "2.0.1",
@@ -79,14 +86,18 @@
     "raw-loader": "0.5.1",
     "source-map-loader": "0.2.2",<% if(!skipTravis) {%>
     "travis-status": "2.0.0",<% } %>
-    "webpack": "3.8.1",
-    "webpack-dev-middleware": "1.12.0",
-    "webpack-dev-server": "2.9.2",
     "yargs": "10.0.3"
   },
   "engines": {
     "node": ">=6.0.0"
-  }<% if(useGreenkeeper){%>,
+  }<% if(testingFramework === 'jest'){%>,
+  "jest": {
+    "preset": "jest-preset-angular",
+    "roots": [ "<rootDir>/src/" ],
+    "coverageReporters": [ "lcov", "text" ],
+    "coveragePathIgnorePatterns": [ "/node_modules/", "/config", "/dist/"],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/setupJest.ts"
+  }<% } %><% if(useGreenkeeper){%>,
   "greenkeeper": {
     "ignore": [
       <%- greenkeeperExclusions.join(',\n      ') %>

@@ -326,6 +326,10 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/main.server.ts');
         this.exclusions.push('demo/src/main.ts');
         this.exclusions.push('demo/src/polyfills.ts');
+        if(this.testingFramework !== 'jest'){
+          this.exclusions.push('demo/src/jestGlobalMocks.ts');
+          this.exclusions.push('demo/src/setupJest.ts');
+        }
         this.exclusions.push('demo/src/styles.scss');
         this.exclusions.push('demo/src/test.ts');
         this.exclusions.push('demo/src/tsconfig.app.json');
@@ -351,6 +355,17 @@ module.exports = class extends Generator {
       if (!this.useCompodoc) {
         this.exclusions.push('demo/proxy.conf.json');
       }
+
+      if(this.testingFramework === 'karma'){
+        this.exclusions.push('demo/src/jestGlobalMocks.ts');
+        this.exclusions.push('demo/src/setupJest.ts');
+        this.exclusions.push('config/jestGlobalMocks.ts');
+        this.exclusions.push('config/setupJest.ts');
+      } else if(this.testingFramework === 'jest'){
+        this.exclusions.push('config/karma.conf.js');
+        this.exclusions.push('config/webpack.test.js');
+        this.exclusions.push('config/karma-test-shim.js');
+      }
     };
 
     this.authorName = this.config.get('authorName');
@@ -362,6 +377,7 @@ module.exports = class extends Generator {
     this.projectDescription = this.config.get('projectDescription');
     this.projectKeywords = this.config.get('projectKeywords');
     this.ngPrefix = this.config.get('ngPrefix') || 'my-lib';
+    this.testingFramework = this.config.get('testingFramework') || 'karma';
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
     this.otherDependencies = this.config.get('otherDependencies') || [];
@@ -395,6 +411,7 @@ module.exports = class extends Generator {
         this.ngModules = props.ngModules;
         this.otherDependencies = props.otherDependencies ? props.otherDependencies.split(',') : [];
         this.ngPrefix = props.ngPrefix;
+        this.testingFramework = props.testingFramework;
         this.useGreenkeeper = props.useGreenkeeper;
         this.useCompodoc = props.useCompodoc;
         this.enforceNgGitCommitMsg = props.enforceNgGitCommitMsg;
@@ -422,6 +439,7 @@ module.exports = class extends Generator {
         this.config.set('otherDependencies', this.otherDependencies);
         this.config.set('dependenciesRange', this.dependenciesRange);
         this.config.set('ngPrefix', this.ngPrefix);
+        this.config.set('testingFramework', this.testingFramework);
         this.config.set('useGreenkeeper', this.useGreenkeeper);
         this.config.set('useCompodoc', this.useCompodoc);
         this.config.set('enforceNgGitCommitMsg', this.enforceNgGitCommitMsg);
