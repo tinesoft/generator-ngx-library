@@ -27,6 +27,6 @@ describe('LibComponent', function () {
   it('should have expected <p> text', () => {
     fixture.detectChanges();
     const p = de.nativeElement;
-    expect(p.innerText).toEqual('<%= projectDescription %>');
+    expect(p.textContent).toEqual('<%= projectDescription %>');
   });
 });
