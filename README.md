@@ -23,6 +23,8 @@ Here are live examples of some Angular libraries developed with the generator:
 * [ngx-cookieconsent](https://github.com/tinesoft/ngx-cookieconsent) (:innocent:)
 * [ngx-wow](https://github.com/tinesoft/ngx-wow) (:innocent:)
 * [ngx-disqus](https://github.com/murhafsousli/ngx-disqus/)
+* [ngx-slideshow](https://github.com/WireFlare/ngx-slideshow)
+* [ng2-avatar](https://github.com/snics/ng2-avatar)
 
 These are some that [i know of](https://github.com/search?q=generator-ngx-library+filename%3A.yo-rc.json+path%3A%2F&type=Code&utf8=%E2%9C%93). Want your project listed here ? Drop me a line.
 
@@ -431,4 +433,4 @@ Having trouble using the generator? Want to discuss about new features to add? C
 
 # License
 
-Copyright (c) 2017 Tine Kondo. Licensed under the MIT License (MIT)
+Copyright (c) 2018 Tine Kondo. Licensed under the MIT License (MIT)
