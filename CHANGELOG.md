@@ -1,3 +1,14 @@
+<a name="5.5.0"></a>
+# [5.5.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.4.0...v5.5.0) (2018-01-12)
+
+
+### Features
+
+* **demo:** update demo app to `Angular CLI` 1.6.3 ([8846d56](https://github.com/tinesoft/generator-ngx-library/commit/8846d56))
+* **testing:** add support for `jest` testing platform ([#136](https://github.com/tinesoft/generator-ngx-library/issues/136)) ([f139a29](https://github.com/tinesoft/generator-ngx-library/commit/f139a29)), closes [#139](https://github.com/tinesoft/generator-ngx-library/issues/139)
+
+
+
 <a name="5.4.0"></a>
 # [5.4.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.3.0...v5.4.0) (2017-12-14)
 
