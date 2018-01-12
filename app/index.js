@@ -151,37 +151,8 @@ module.exports = class extends Generator {
         done();
       });
     };
-  }
 
-  initializing() {
-    this.pkg = require('../package.json');
-    this.checkYarn();
-    this.checkAngularCLI();
-  }
-
-  prompting() {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      `Welcome to the wondrous ${chalk.green(`ngx-library@${this.pkg.version}`)} generator!`
-    ));
-
-    let info = {
-      git: {
-        name: this.user.git.name(),
-        email: this.user.git.email()
-      }
-    };
-
-    let done = this.async();
-    let init = () => {
-      this.today = new Date();
-      this.ngVersionMin = Number(this.ngVersion.split('.')[0]);
-      this.demoProjectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}DemoPage`;
-
-      // Get project's name without the scope if any (@my-scope/[my-project])
-      let match = scopedProjectNameRegex.exec(this.projectName);
-      this.unscopedProjectName = match === null ? this.projectName : match[1];
-
+    this.setUpDependencies = () => {
       // Set up ng dependencies
       this.ngDependencies = [];
       for (let ngModule of this.ngModules) {
@@ -240,7 +211,9 @@ module.exports = class extends Generator {
           this.ngDevDependencies.push(`"@angular/animations" : "${this.ngVersion}"`);
         }
       }
+    };
 
+    this.setUpGreenkeeperExclusions = () => {
       // Greenkeeper's excluded packages
       this.greenkeeperExclusions = [];
       if (this.useGreenkeeper) {
@@ -251,7 +224,9 @@ module.exports = class extends Generator {
 
         this.greenkeeperExclusions.push('"@types/jasmine"'); // Workaround for issue with >=v2.5.41
       }
+    };
 
+    this.setUpGeneratorExclusions = () => {
       // Generator's excluded files
       if (this.skipStyles || this.skipSample) {
         this.exclusions.push('src/module/component/lib.component.html');
@@ -326,7 +301,7 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/main.server.ts');
         this.exclusions.push('demo/src/main.ts');
         this.exclusions.push('demo/src/polyfills.ts');
-        if(this.testingFramework !== 'jest'){
+        if (this.testingFramework !== 'jest') {
           this.exclusions.push('demo/src/jestGlobalMocks.ts');
           this.exclusions.push('demo/src/setupJest.ts');
         }
@@ -356,16 +331,56 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/proxy.conf.json');
       }
 
-      if(this.testingFramework === 'karma'){
+      if (this.testingFramework === 'karma') {
         this.exclusions.push('demo/src/jestGlobalMocks.ts');
         this.exclusions.push('demo/src/setupJest.ts');
         this.exclusions.push('config/jestGlobalMocks.ts');
         this.exclusions.push('config/setupJest.ts');
-      } else if(this.testingFramework === 'jest'){
+      } else if (this.testingFramework === 'jest') {
         this.exclusions.push('config/karma.conf.js');
         this.exclusions.push('config/webpack.test.js');
         this.exclusions.push('config/karma-test-shim.js');
       }
+    };
+  }
+
+  initializing() {
+    this.pkg = require('../package.json');
+    this.checkYarn();
+    this.checkAngularCLI();
+  }
+
+  prompting() {
+    // Have Yeoman greet the user.
+    this.log(yosay(
+      `Welcome to the wondrous ${chalk.green(`ngx-library@${this.pkg.version}`)} generator!`
+    ));
+
+    let info = {
+      git: {
+        name: this.user.git.name(),
+        email: this.user.git.email()
+      }
+    };
+
+    let done = this.async();
+    let init = () => {
+      this.today = new Date();
+      this.ngVersionMin = Number(this.ngVersion.split('.')[0]);
+      this.demoProjectPageClass = `${_.upperFirst(_.camelCase(this.projectName))}DemoPage`;
+
+      // Get project's name without the scope if any (@my-scope/[my-project])
+      let match = scopedProjectNameRegex.exec(this.projectName);
+      this.unscopedProjectName = match === null ? this.projectName : match[1];
+
+      // Set up dependencies
+      this.setUpDependencies();
+
+      // Set up Greenkeeper's excluded packages
+      this.setUpGreenkeeperExclusions();
+
+      // Set upGenerator's excluded files
+      this.setUpGeneratorExclusions();
     };
 
     this.authorName = this.config.get('authorName');
