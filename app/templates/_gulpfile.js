@@ -559,8 +559,9 @@ gulp.task('deploy:demo', (cb) => {
 /////////////////////////////////////////////////////////////////////////////
 gulp.task('test', (cb) => {<% if(testingFramework === 'jest') {%>
   let isTravis = !!process.env.TRAVIS;
-  jestCli.runCLI({ config: require('./package.json').jest, coverage: true, runInBand: isTravis, ci: isTravis }, ".", result => 
-    cb(result.success ? undefined: 'There are test failures!'));<% } else { %>
+  return jestCli.runCLI({ config: require('./package.json').jest, coverage: true, runInBand: isTravis, ci: isTravis }, ".").then(({ results }) => {
+    if (!results.success) throw new Error('There are test failures!');
+  });<% } else { %>
   const ENV = process.env.NODE_ENV = process.env.ENV = 'test';
   startKarmaServer(false, true, cb);<% } %>
 });
@@ -570,15 +571,17 @@ gulp.task('test:ci', ['clean'], (cb) => {
 });
 
 gulp.task('test:watch', (cb) => {<% if(testingFramework === 'jest') {%>
-  jestCli.runCLI({ config: require('./package.json').jest, watch: true }, ".", result => 
-    cb(result.success ? undefined: 'There are test failures!'));<% } else { %>
+  return jestCli.runCLI({ config: require('./package.json').jest, watch: true }, ".").then(({ results }) => {
+    if (!results.success) throw new Error('There are test failures!');
+  });<% } else { %>
   const ENV = process.env.NODE_ENV = process.env.ENV = 'test';
   startKarmaServer(true, true, cb);<% } %>
 });
 
 gulp.task('test:watch-no-cc', (cb) => {//no coverage (useful for debugging failing tests in browser)<% if(testingFramework === 'jest') {%>
-  jestCli.runCLI({ config: require('./package.json').jest, watch: true, coverage:false }, ".", result => 
-    cb(result.success ? undefined: 'There are test failures!'));<% } else { %>
+  return jestCli.runCLI({ config: require('./package.json').jest, watch: true, coverage:false }, ".").then(({ results }) => {
+    if (!results.success) throw new Error('There are test failures!');
+  });<% } else { %>
   const ENV = process.env.NODE_ENV = process.env.ENV = 'test';
   startKarmaServer(true, false, cb);<% } %>
 });
