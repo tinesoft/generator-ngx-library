@@ -50,6 +50,7 @@
     "jest": "22.0.4",
     "jest-preset-angular": "5.0.0",<% } %>
     "@types/node": "8.0.44",
+    "@types/lodash": "4.14.92",
     "angular-cli-ghpages": "0.5.1",
     "angular2-template-loader": "0.6.2",<% if(useCompodoc){%>
     "@compodoc/gulp-compodoc": "0.0.8",<% } %><% if(enforceNgGitCommitMsg){%>
@@ -73,7 +74,7 @@
     "rollup-plugin-uglify": "2.0.1",
     "rollup-plugin-sourcemaps": "0.4.2",
     "rollup-plugin-commonjs": "8.2.6",
-    "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-plugin-node-resolve": "3.0.2",
     "run-sequence": "2.2.0",<% if(!skipStyles) { %>
     "autoprefixer": "7.1.5",
     "cssnano": "3.10.0",
@@ -86,6 +87,7 @@
     "raw-loader": "0.5.1",
     "source-map-loader": "0.2.2",<% if(!skipTravis) {%>
     "travis-status": "2.0.0",<% } %>
+    "lodash": "4.17.4",
     "yargs": "10.0.3"
   },
   "engines": {
