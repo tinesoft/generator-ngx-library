@@ -362,6 +362,10 @@ gulp.task('rollup-bundle', (cb) => {
     const es5Input = path.join(es5OutputFolder, `<%= ngVersion === '2.0.0' ? 'index.js' : '${config.unscopedLibraryName}.js' %>`);<% if(ngVersionMin >= 4) { %>
     const es2015Input = path.join(es2015OutputFolder, `${config.unscopedLibraryName}.js`);<% } %>
     const globals = {
+      // The key here is library name, and the value is the name of the global variable name
+      // the window object.
+      // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals for more.
+
       // Angular dependencies <% for (ngModule of ngModules) { %>
       '@angular/<%= ngModule %>': 'ng.<%= ngModule %>',<% } %>
 
@@ -389,49 +393,67 @@ gulp.task('rollup-bundle', (cb) => {
       // ATTENTION:
       // Add any other dependency or peer dependency of your library here
       // This is required for UMD bundle users.
-      <%- otherDependencies.map(d => `'${d}': '${d}'`).join(',\n      ') %>
+      // See for more See https://github.com/tinesoft/generator-ngx-library/TROUBLESHOUTING.md
+      <%- otherDependencies.map(d => `'${d}': _.camelCase('${d}'.replace('/','.'))`).join(',\n      ') %>
+
     };
     const rollupBaseConfig = {
-      name: _.camelCase(config.libraryName),
-      sourcemap: true,
-      globals: globals,
+      output:{
+        name: _.camelCase(config.libraryName),
+        sourcemap: true,
+        globals: globals
+      },
+      // List of dependencies
+      // See https://github.com/rollup/rollup/wiki/JavaScript-API#external for more.
       external: Object.keys(globals),
       plugins: [
         rollupCommonjs({
           include: ['node_modules/rxjs/**']
         }),
         rollupSourcemaps(),
-        rollupNodeResolve({ jsnext: true, module: true })
+        rollupNodeResolve({ 
+          jsnext: true, 
+          module: true,
+          jail: distFolder, // to use final 'package.json' from 'dist/'
+         })
       ]
     };
 
     // UMD bundle.
-    const umdConfig = Object.assign({}, rollupBaseConfig, {
+    const umdConfig = _.merge({}, rollupBaseConfig, {
       input: es5Input,
-      file: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.js`),
-      format: 'umd',
+      output: {
+        format: 'umd',
+        file: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.js`)
+      }
     });
 
     // Minified UMD bundle.
-    const minifiedUmdConfig = Object.assign({}, rollupBaseConfig, {
+    const minifiedUmdConfig = _.merge({}, rollupBaseConfig, {
       input: es5Input,
-      file: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.min.js`),
-      format: 'umd',
+      output: {
+        format: 'umd',
+        file: path.join(distFolder, `bundles`, `${config.unscopedLibraryName}.umd.min.js`),
+      },
       plugins: rollupBaseConfig.plugins.concat([rollupUglify({})])
     });<% if(ngVersionMin >= 4){ %>
 
     // ESM+ES5 flat module bundle.
-    const fesm5config = Object.assign({}, rollupBaseConfig, {
+    const fesm5config = _.merge({}, rollupBaseConfig, {
       input: es5Input,
-      file: path.join(distFolder,<% if(ngVersionMin >= 5){ %> 'esm5', `${config.unscopedLibraryName}.es5.js`<% } else {%> `${config.libraryName}.es5.js`<% } %>),
-      format: 'es'
+      output: {
+        format: 'es',
+        file: path.join(distFolder,<% if(ngVersionMin >= 5){ %> 'esm5', `${config.unscopedLibraryName}.es5.js`<% } else {%> `${config.libraryName}.es5.js`<% } %>),
+      }
     });
 
     // ESM+ES2015 flat module bundle.
-    const fesm2015config = Object.assign({}, rollupBaseConfig, {
+    const fesm2015config = _.merge({}, rollupBaseConfig, {
       input: es2015Input,
-      file: path.join(distFolder,<% if(ngVersionMin >= 5){ %> 'esm2015', `${config.unscopedLibraryName}.js`<% } else {%> `${config.libraryName}.js`<% } %>),
-      format: 'es'
+      output: {
+        format: 'es',
+        file: path.join(distFolder,<% if(ngVersionMin >= 5){ %> 'esm2015', `${config.unscopedLibraryName}.js`<% } else {%> `${config.libraryName}.js`<% } %>),
+      }
     });<% } %>
 
     const allBundles = [
@@ -439,7 +461,7 @@ gulp.task('rollup-bundle', (cb) => {
       minifiedUmdConfig<% if(ngVersionMin >= 4){ %>,
       fesm5config,
       fesm2015config<% } %>
-    ].map(cfg => rollup.rollup(cfg).then(bundle => bundle.write(cfg)));
+    ].map(cfg => rollup.rollup(cfg).then(bundle => bundle.write(cfg.output)));
 
     return Promise.all(allBundles)
       .then(() => gulpUtil.log('All bundles generated successfully.'))
