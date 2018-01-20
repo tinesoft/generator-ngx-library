@@ -393,7 +393,7 @@ gulp.task('rollup-bundle', (cb) => {
       // ATTENTION:
       // Add any other dependency or peer dependency of your library here
       // This is required for UMD bundle users.
-      // See for more See https://github.com/tinesoft/generator-ngx-library/TROUBLESHOUTING.md
+      // See https://github.com/tinesoft/generator-ngx-library/TROUBLESHOUTING.md if trouble
       <%- otherDependencies.map(d => `'${d}': _.camelCase('${d}'.replace('/','.'))`).join(',\n      ') %>
 
     };
@@ -412,7 +412,7 @@ gulp.task('rollup-bundle', (cb) => {
         }),
         rollupSourcemaps(),
         rollupNodeResolve({ 
-          jsnext: true, 
+          jsnext: true,
           module: true,
           jail: distFolder, // to use final 'package.json' from 'dist/'
          })
