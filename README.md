@@ -88,6 +88,7 @@ If you find next sections way too long, here is a quick summary for you:
 - [Enforcing angular-style commit messages](#enforcing-angular-style--commit-messages)
 - [Pre-Releasing :checkered_flag:](#pre-releasing-checkered_flag)
 - [Releasing](#releasing)
+- [Troubleshooting](#troubleshooting)
 - [Support](#support)
 - [License](#license)
 
@@ -426,6 +427,10 @@ The demo application will be available at : `https://USERNAME.github.io/REPO_NAM
 
 The documentation will be available at : `https://USERNAME.github.io/REPO_NAME/doc/` (provided you chose to generate one) or
 at `https://USERNAME.github.io/REPO_NAME/`, if you chose to skip demo application generation.
+
+# Troubleshooting
+
+See most common problems, and how to solve them [here](TROUBLESHOOTING.md).
 
 # Support
 
