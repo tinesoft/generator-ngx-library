@@ -23,6 +23,13 @@ describe('ngx-library:validators', () => {
     assert.strictEqual(!validators.validateGithubUsername(), false, 'not passing a value should fail validation');
     assert.strictEqual(!validators.validateGithubUsername('My_/_Name'), false, 'not passing a valid value should fail validation');
     assert.strictEqual(validators.validateGithubUsername('user007'), true, 'passing a valid value passes validation');
+    assert.strictEqual(validators.validateGithubUsername('a'.repeat(39)), true, 'passing a 39 char string should pass validation');
+    assert.strictEqual(validators.validateGithubUsername('user-007'), true, 'passing dash in the middle of a user name should pass validation');
+    assert.strictEqual(validators.validateGithubUsername('a-b-123'), true, 'passing multiple non repeating dashes should pass validation');
+    assert.strictEqual(!validators.validateGithubUsername('-user007'), false, 'passing a dash at the beginning of a user name should fail validation');
+    assert.strictEqual(!validators.validateGithubUsername('user007-'), false, 'passing a dash at the end of a user name should fail validation');
+    assert.strictEqual(!validators.validateGithubUsername('user--007'), false, 'passing repeating dash should fail validation');
+    assert.strictEqual(!validators.validateGithubUsername('a'.repeat(40)), false, 'passing a 40 char string should fail validation');
   });
 
   it('should validate "githubRepoName"', () => {

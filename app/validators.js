@@ -31,7 +31,7 @@ module.exports = {
   },
 
   validateGithubUsername: input => {
-    return /^[a-zA-Z0-9]+$/.test(input) ? true : 'Your github username cannot contain special characters or a blank space';
+    return /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(input) ? true : 'Your github username cannot contain special characters or a blank space';
   },
 
   validateGithubRepoName: input => {
