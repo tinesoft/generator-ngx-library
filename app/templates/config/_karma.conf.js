@@ -15,17 +15,16 @@ module.exports = function (config) {
       require('karma-sourcemap-loader'),
       require('karma-mocha-reporter'),
       require('karma-jasmine-html-reporter'),
-    ]<% if(!skipTravis) {%>,
-
+    ],
     customLaunchers: {
-      // chrome setup for travis CI
-      Chrome_travis_ci: {
-        base: 'Chrome',
+      // Chrome setup for CI (Travis, Docker, ...)
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
         flags: ['--no-sandbox']
-      }<% } %>
+      }
     },
     files: [
-      { pattern: './config/karma-test-shim.js', watched: false }
+      {pattern: './config/karma-test-shim.js', watched: false}
     ],
 
     preprocessors: {
