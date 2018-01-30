@@ -1,0 +1,12 @@
+version: '3'
+services:
+  node-6:
+    build: 
+      context: .
+      args:
+        NODE_VERSION: 6
+  node-8:
+    build: 
+      context: .
+      args:
+        NODE_VERSION: 8

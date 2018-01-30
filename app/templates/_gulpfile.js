@@ -3,6 +3,7 @@ const del = require('del');
 const gulp = require('gulp');
 const gulpUtil = require('gulp-util');
 const helpers = require('./config/helpers');
+const isDocker = require('is-docker');
 
 /** TSLint checker */<% if(ngVersionMin >= 4){ %>
 const tslint = require('tslint');<% } %>
@@ -105,13 +106,13 @@ const es2015OutputFolder = path.join(buildFolder, 'lib-es2015');<% } %>
 //Helper functions<% if(testingFramework === 'karma'){%>
 const startKarmaServer = (isTddMode, hasCoverage, cb) => {
   const karmaServer = require('karma').Server;<% if(!skipTravis) {%>
-  const travis = process.env.TRAVIS;<% } %>
+  const isCI = process.env.TRAVIS || isDocker();<% } %>
 
-  let config = { configFile: `${__dirname}/karma.conf.js`, singleRun: !isTddMode, autoWatch: isTddMode };<% if(!skipTravis) {%>
+  let config = { configFile: `${__dirname}/karma.conf.js`, singleRun: !isTddMode, autoWatch: isTddMode };
 
-  if (travis) {
-    config['browsers'] = ['Chrome_travis_ci']; // 'Chrome_travis_ci' is defined in "customLaunchers" section of config/karma.conf.js
-  }<% } %>
+  if (isCI) {
+    config['browsers'] = ['ChromeHeadlessCI'];
+  }
 
   config['hasCoverage'] = hasCoverage;
 
