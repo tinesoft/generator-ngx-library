@@ -1,3 +1,21 @@
+<a name="5.6.0"></a>
+# [5.6.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.5.0...v5.6.0) (2018-02-12)
+
+
+### Bug Fixes
+
+* **core:** update github username validation to align with Github validation rules ([26b0e6f](https://github.com/tinesoft/generator-ngx-library/commit/26b0e6f)), closes [#144](https://github.com/tinesoft/generator-ngx-library/issues/144)
+* **jest:** correct gulp's test tasks stopping inclusive sequences when using jest ([1200ea7](https://github.com/tinesoft/generator-ngx-library/commit/1200ea7))
+
+
+### Features
+
+* **demo:** update demo app to Angular CLI `1.6.8`, bootstrap `4.0.0` and ng-bootstrap `1.0.0` ([4e45707](https://github.com/tinesoft/generator-ngx-library/commit/4e45707))
+* **doc:** add a 'Troubleshooting' section to documentation ([21d3ea3](https://github.com/tinesoft/generator-ngx-library/commit/21d3ea3))
+* **umd:** fix external libraries being bundled with main UMD file  and improve related docs ([f25e037](https://github.com/tinesoft/generator-ngx-library/commit/f25e037))
+
+
+
 <a name="5.5.0"></a>
 # [5.5.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.4.0...v5.5.0) (2018-01-12)
 
