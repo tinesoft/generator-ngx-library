@@ -171,7 +171,7 @@ describe('ngx-library:app', () => {
           ngPrefix: 'my-lib',
           testingFramework: 'karma',
           ngVersion: '2.0.0',
-          ngModules: ['core', 'common', 'animations'],
+          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker'],
           useGreenkeeper: true,
           useCompodoc: false
         });
@@ -215,7 +215,7 @@ describe('ngx-library:app', () => {
           ngPrefix: 'my-lib',
           testingFramework: 'karma',
           ngVersion: '4.0.0',
-          ngModules: ['core', 'common', 'animations'],
+          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker'],
           useGreenkeeper: true,
           useCompodoc: false
         });
@@ -259,12 +259,12 @@ describe('ngx-library:app', () => {
           ngPrefix: 'my-lib',
           testingFramework: 'karma',
           ngVersion: '5.0.0',
-          ngModules: ['core', 'common', 'animations'],
+          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker'],
           useGreenkeeper: true,
           useCompodoc: false
         });
       return ngLibraryApp.then(() => {
-        assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common', 'animations']);
+        assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common', 'animations', 'bazel', 'service-worker']);
         assert.deepEqual(ngLibraryApp.generator.ngDevDependencies,
           ['"@angular/compiler" : "5.0.0"',
             '"@angular/platform-server" : "5.0.0"',

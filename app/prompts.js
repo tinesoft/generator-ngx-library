@@ -16,7 +16,9 @@ const NG_MODULES = [
   'platform-server',
   'platform-webworker-dynamic',
   'platform-webworker',
-  {name: 'animations (angular 4+ only)', value: 'animations'}
+  {name: 'animations (angular 4+ only)', value: 'animations'},
+  {name: 'bazel (angular 5+ only)', value: 'bazel'},
+  {name: 'service-worker (angular 5+ only)', value: 'service-worker'}
 ];
 
 module.exports = info => {
