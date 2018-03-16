@@ -431,13 +431,18 @@ module.exports = class extends Generator {
         this.useCompodoc = props.useCompodoc;
         this.enforceNgGitCommitMsg = props.enforceNgGitCommitMsg;
 
+        init();
+
         // Filter ngModules
-        if (this.ngVersion === '2.0.0' && this.ngModules.indexOf('animations') !== -1) {
+        if (this.ngVersionMin < 4 && this.ngModules.indexOf('animations') !== -1) {
           this.warning(`Module 'animations' is only available for angular v4+. Removing it.`);
           _.remove(this.ngModules, ngModule => ngModule === 'animations');
         }
 
-        init();
+        if (this.ngVersionMin < 5 && (this.ngModules.indexOf('bazel') !== -1 || this.ngModules.indexOf('service-worker') !== -1)) {
+          this.warning(`Modules 'bazel', 'service-worker' are only available for angular v5+. Removing them.`);
+          _.remove(this.ngModules, ngModule => ngModule === 'bazel' || ngModule === 'service-worker');
+        }
 
         // Save config
         this.config.set('version', this.pkg.version);

@@ -17,7 +17,8 @@ const NG_MODULES_DEPENDENCIES = {
   'platform-server': ['core', 'common', 'compiler', 'platform-browser'],
   'platform-webworker-dynamic': ['core', 'compiler', 'platform-browser', 'platform-webworker'],
   'platform-webworker': ['core', 'platform-browser'],
-  'animations': ['core']
+  'animations': ['core'],
+  'service-worker': ['core', 'common']
 };
 
 module.exports = {
