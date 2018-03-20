@@ -1,3 +1,15 @@
+<a name="5.7.0"></a>
+# [5.7.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.6.0...v5.7.0) (2018-03-20)
+
+
+### Features
+
+* **demo:** update demo app to Angular CLI `1.7.3` ([68804ba](https://github.com/tinesoft/generator-ngx-library/commit/68804ba))
+* **ngModules:** add 'bazel' and 'service-worker' modules (for ng5+) ([8992724](https://github.com/tinesoft/generator-ngx-library/commit/8992724))
+* **rollup:** update rollup to `v0.57.0` for better perfs ([ca19b0b](https://github.com/tinesoft/generator-ngx-library/commit/ca19b0b))
+
+
+
 <a name="5.6.0"></a>
 # [5.6.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.5.0...v5.6.0) (2018-02-12)
 
