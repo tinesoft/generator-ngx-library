@@ -4,22 +4,23 @@ const semver = require('semver');
 const _ = require('lodash');
 
 const NG_MODULES_DEPENDENCIES = {
-  'core': ['rxjs', 'zone.js'],
+  'animations': ['core'],
+  'bazel': ['compiler-cli'],
   'common': ['core'],
+  'compiler-cli': ['compiler'],
+  'compiler': ['core'],
+  'core': ['rxjs', 'zone.js'],
   'forms': ['core', 'common'],
   'http': ['core', 'platform-browser', 'rxjs'],
-  'compiler': ['core'],
-  'router': ['core', 'common', 'platform-browser', 'rxjs'],
-  'upgrade': ['core', 'compiler', 'platform-browser', 'platform-browser-dynamic'],
   'language-service': [],
   'platform-browser-dynamic': ['core', 'common', 'compiler', 'platform-browser'],
   'platform-browser': ['core', 'common'],
   'platform-server': ['core', 'common', 'compiler', 'platform-browser'],
   'platform-webworker-dynamic': ['core', 'compiler', 'platform-browser', 'platform-webworker'],
   'platform-webworker': ['core', 'platform-browser'],
-  'animations': ['core'],
+  'router': ['core', 'common', 'platform-browser', 'rxjs'],
   'service-worker': ['core', 'common'],
-  'bazel': ['compiler-cli']
+  'upgrade': ['core', 'compiler', 'platform-browser', 'platform-browser-dynamic']
 };
 
 module.exports = {
