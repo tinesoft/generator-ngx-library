@@ -1,6 +1,6 @@
 {
   "name": "generator-ngx-library",
-  "version": "5.7.0",
+  "version": "5.7.1",
   "description": "Yeoman generator to bootstrap Angular library creation and publication, with integrated demo app, continuous integration/deployment system, code coverage status and much more!",
   "license": "MIT",
   "keywords": [

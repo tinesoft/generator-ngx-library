@@ -1,3 +1,14 @@
+<a name="5.7.1"></a>
+## [5.7.1](https://github.com/tinesoft/generator-ngx-library/compare/v5.7.0...v5.7.1) (2018-03-22)
+
+
+### Bug Fixes
+
+* **module:** add missing dependency when adding `bazel` module ([1dfc011](https://github.com/tinesoft/generator-ngx-library/commit/1dfc011))
+* **module:** add missing dependency when adding `compiler-cli` module ([d640864](https://github.com/tinesoft/generator-ngx-library/commit/d640864))
+
+
+
 <a name="5.7.0"></a>
 # [5.7.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.6.0...v5.7.0) (2018-03-20)
 
