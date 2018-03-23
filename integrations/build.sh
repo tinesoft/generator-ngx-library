@@ -61,6 +61,7 @@ case $SUITE in
   "integrations:ng2")   runIntegrationTests "ng2" ;;
   "integrations:ng4")   runIntegrationTests "ng4" ;;
   "integrations:ng5")   runIntegrationTests "ng5" ;;
+  "integrations:ng6")   runIntegrationTests "ng6" ;;
   *)                    echo "Unknown value for 'TEST_SUITE': '$SUITE'. Aborting"
                         exit 1 ;;
 esac

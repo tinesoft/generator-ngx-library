@@ -3,7 +3,6 @@ const del = require('del');
 const gulp = require('gulp');
 const gulpUtil = require('gulp-util');
 const helpers = require('./config/helpers');
-const isDocker = require('is-docker');
 
 /** TSLint checker */<% if(ngVersionMin >= 4){ %>
 const tslint = require('tslint');<% } %>
@@ -106,13 +105,13 @@ const es2015OutputFolder = path.join(buildFolder, 'lib-es2015');<% } %>
 //Helper functions<% if(testingFramework === 'karma'){%>
 const startKarmaServer = (isTddMode, hasCoverage, cb) => {
   const karmaServer = require('karma').Server;<% if(!skipTravis) {%>
-  const isCI = process.env.TRAVIS || isDocker();<% } %>
+  const isCI = process.env.TRAVIS;<% } %>
 
-  let config = { configFile: `${__dirname}/karma.conf.js`, singleRun: !isTddMode, autoWatch: isTddMode };
+  let config = { configFile: `${__dirname}/karma.conf.js`, singleRun: !isTddMode, autoWatch: isTddMode };<% if(!skipTravis) {%>
 
   if (isCI) {
     config['browsers'] = ['ChromeHeadlessCI'];
-  }
+  }<% } %>
 
   config['hasCoverage'] = hasCoverage;
 
@@ -527,45 +526,34 @@ const execDemoCmd = (args,opts) => {
 };
 
 gulp.task('test:demo', () => {
-  return execDemoCmd('test --preserve-symlinks', { cwd: `${config.demoDir}`});
+  return <% if(testingFramework === 'jest') {%>execExternalCmd('npm', 'run test'<%} else {%>execDemoCmd('test --preserve-symlinks'<%}%>, { cwd: `${config.demoDir}`});
 });
 
 gulp.task('serve:demo', () => {
-  return execDemoCmd('serve --preserve-symlinks --aot<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` });
+  return execDemoCmd('serve --aot<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` });
 });
 
 gulp.task('serve:demo-hmr', () => {
-  return execDemoCmd('serve --hmr -e=hmr --preserve-symlinks --aot<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` });
+  return execDemoCmd('serve --configuration hmr --aot<% if(useCompodoc){ %> --proxy-config proxy.conf.json<% } %>', { cwd: `${config.demoDir}` });
 });
 
 gulp.task('build:demo', () => {
-  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --base-href /<%=githubRepoName%>/ --deploy-url /<%=githubRepoName%>/`, { cwd: `${config.demoDir}`});
+  return execDemoCmd(`build --preserve-symlinks --prod --base-href /<%=githubRepoName%>/ --deploy-url /<%=githubRepoName%>/`, { cwd: `${config.demoDir}`});
 });
 
-gulp.task('serve:demo-ssr',['build:demo'], () => {
-  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --app ssr --output-hashing=none`, { cwd: `${config.demoDir}` })
-  .then(exitCode => {
-      if(exitCode === 0){
-        execCmd('webpack', '--config webpack.server.config.js --progress --colors', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
-        .then(exitCode => exitCode === 0 ? execExternalCmd('node', 'dist/server.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`): Promise.reject(1));
-      } else{
-        Promise.reject(1);
-      }
-    }
-  );
+gulp.task('serve:demo-ssr',['build:demo-ssr'], () => {
+  return execExternalCmd('node', 'dist/server.js', { cwd: `${config.demoDir}` });
 });
 
-gulp.task('build:demo-ssr',['build:demo'], () => {
-  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --app ssr --output-hashing=none`, { cwd: `${config.demoDir}` })
-  .then(exitCode => {
-      if(exitCode === 0){
-        execCmd('webpack', '--config webpack.server.config.js --progress --colors', { cwd: `${config.demoDir}` }, `/${config.demoDir}`)
-        .then(exitCode => exitCode === 0 ? execExternalCmd('node', 'dist/prerender.js', { cwd: `${config.demoDir}` }, `/${config.demoDir}`): Promise.reject(1));
-      } else{
-        Promise.reject(1);
-      }
-    }
-  );
+gulp.task('build:demo-ssr', () => {
+  return execDemoCmd(`build --preserve-symlinks --prod`, { cwd: `${config.demoDir}`})
+    .then(() => execDemoCmd(`run <%= projectName %>-demo:server`, { cwd: `${config.demoDir}` }))
+    .then(() => execCmd('webpack', '--config webpack.server.config.js --progress --colors', { cwd: `${config.demoDir}` }, `/${config.demoDir}`))
+    .catch(e => {
+      gulpUtil.log(gulpUtil.colors.red(`build:demo-ssr command failed. See below for errors.\n`));
+      gulpUtil.log(gulpUtil.colors.red(e));
+      process.exit(1);
+    });
 });
 
 gulp.task('push:demo', () => {

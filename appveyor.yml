@@ -12,6 +12,9 @@ environment:
     - node_version: "8"
       TEST_SUITE: "integrations:ng5"
 
+    - node_version: "8"
+      TEST_SUITE: "integrations:ng6"
+
 matrix:
   fast_finish: true
 

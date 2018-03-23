@@ -10,6 +10,7 @@ const NG_MODULES_DEPENDENCIES = {
   'compiler-cli': ['compiler'],
   'compiler': ['core'],
   'core': ['rxjs', 'zone.js'],
+  'elements': ['core', 'platform-browser', 'rxjs'],
   'forms': ['core', 'common'],
   'http': ['core', 'platform-browser', 'rxjs'],
   'language-service': [],

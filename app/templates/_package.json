@@ -69,7 +69,6 @@
     "gulp-hub": "0.8.0",
     "gulp-util": "3.0.8",
     "html-loader": "0.5.1",    
-    "is-docker": "1.1.0",
     "pump": "1.0.2",
     "rollup": "0.57.0",
     "rollup-plugin-uglify": "3.0.0",
@@ -92,7 +91,7 @@
     "yargs": "10.0.3"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": "<%- ngVersionMin >= 6 ? '>=8.0.0' : '>=6.0.0'%>"
   }<% if(testingFramework === 'jest'){%>,
   "jest": {
     "preset": "jest-preset-angular",

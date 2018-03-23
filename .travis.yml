@@ -11,14 +11,20 @@ addons:
 
 language: node_js
 node_js:
-  - "6"
-  - "8"
+  - 6
+  - 8
 
 env:
   - TEST_SUITE=units
   - TEST_SUITE=integrations:ng2
   - TEST_SUITE=integrations:ng4
   - TEST_SUITE=integrations:ng5
+  - TEST_SUITE=integrations:ng6
+
+matrix:
+  exclude:
+    - node_js: 6
+      env: TEST_SUITE=integrations:ng6
 
 before_install:
   - npm install -g --quiet  gulp-cli yo @angular/cli

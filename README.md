@@ -49,7 +49,7 @@ These are the main features of the generator:
 * **Enforcing of Angular Git Commit Message Guideline** with [Commitplease](https://github.com/jzaefferer/commitplease) :speech_balloon:
 * **Publication** to [npm registry](https://npmjs.org)
 * **Releasing** to [Github](https://help.github.com/articles/about-releases/) :octocat:
-* Support for Angular 2.x.x, 4.x.x and now **5.x.x**!
+* Support for Angular from 2.x.x all the way up to **6.x.x**!
 * and so much more out-of-the-box :package:!
 
 # TL; DR :)
