@@ -205,6 +205,15 @@ module.exports = class extends Generator {
           this.ngDevDependencies.push('"typescript" : "2.4.2"');
           this.ngDevDependencies.push('"awesome-typescript-loader" : "3.3.0"'); // Because it depends on 'typescript'
           this.ngDevDependencies.push('"codelyzer" : "4.0.0"');
+        } else if (this.ngVersionMin === 6) {
+          this.ngDevDependencies.push('"@angular/compiler-cli" : "6.0.0"');
+          this.ngDevDependencies.push('"zone.js" : "0.8.26"');
+          this.ngDevDependencies.push('"rxjs" : "6.0.0"');
+          this.ngDevDependencies.push('"tslint" : "5.9.1"');
+          this.ngDevDependencies.push('"gulp-tslint" : "8.1.3"'); // Because it depends on 'tslint'
+          this.ngDevDependencies.push('"typescript" : "2.7.2"');
+          this.ngDevDependencies.push('"awesome-typescript-loader" : "5.0.0"'); // Because it depends on 'typescript'
+          this.ngDevDependencies.push('"codelyzer" : "4.2.1"');
         }
 
         if (this.ngModules.indexOf('animations') === -1) {
@@ -250,8 +259,9 @@ module.exports = class extends Generator {
       }
 
       if (this.skipDemo) {
-        this.exclusions.push('demo/e2e/app.e2e-spec.ts');
-        this.exclusions.push('demo/e2e/app.po.ts');
+        this.exclusions.push('demo/e2e/src/app.e2e-spec.ts');
+        this.exclusions.push('demo/e2e/src/app.po.ts');
+        this.exclusions.push('demo/e2e/protractor.conf.js');
         this.exclusions.push('demo/e2e/tsconfig.e2e.json');
         this.exclusions.push('demo/src/app/getting-started/getting-started.component.ts');
         this.exclusions.push('demo/src/app/getting-started/getting-started-routing.module.ts');
@@ -296,6 +306,7 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/testing/router-stubs.ts');
         this.exclusions.push('demo/src/index.html');
         this.exclusions.push('demo/src/_variables.scss');
+        this.exclusions.push('demo/src/browserslist');
         this.exclusions.push('demo/src/favicon.ico');
         this.exclusions.push('demo/src/hmr.ts');
         this.exclusions.push('demo/src/main.server.ts');
@@ -311,14 +322,13 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/tsconfig.server.json');
         this.exclusions.push('demo/src/tsconfig.spec.json');
         this.exclusions.push('demo/src/typings.d.ts');
-        this.exclusions.push('demo/.angular-cli.json');
+        this.exclusions.push('demo/angular.json');
         this.exclusions.push('demo/package.json');
         this.exclusions.push('demo/README.md');
         this.exclusions.push('demo/.editorconfig');
         this.exclusions.push('demo/.gitignore');
         this.exclusions.push('demo/karma.conf.js');
         this.exclusions.push('demo/prerender.ts');
-        this.exclusions.push('demo/protractor.conf.js');
         this.exclusions.push('demo/proxy.conf.json');
         this.exclusions.push('demo/server.ts');
         this.exclusions.push('demo/static.paths.ts');
@@ -444,6 +454,11 @@ module.exports = class extends Generator {
         if (this.ngVersionMin < 5 && (this.ngModules.indexOf('bazel') !== -1 || this.ngModules.indexOf('service-worker') !== -1)) {
           this.warning(`Modules 'bazel', 'service-worker' are only available for angular v5+. Removing them.`);
           _.remove(this.ngModules, ngModule => ngModule === 'bazel' || ngModule === 'service-worker');
+        }
+
+        if (this.ngVersionMin < 6 && this.ngModules.indexOf('elements') !== -1) {
+          this.warning(`Module 'elements' is only available for angular v6+. Removing it.`);
+          _.remove(this.ngModules, ngModule => ngModule === 'elements');
         }
 
         // Save config

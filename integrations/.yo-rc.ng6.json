@@ -1,0 +1,28 @@
+{
+  "generator-ngx-library": {
+    "authorName": "Tine Kondo",
+    "authorEmail": "kondotine@gmail.com",
+    "githubUsername": "tinesoft",
+    "projectName": "my-ngx-library",
+    "projectVersion": "0.0.1",
+    "projectDescription": "Angular library built with ❤ using ngx-library yeoman generator.",
+    "projectKeywords": [],
+    "moduleName": "my-ng-module",
+    "ngVersion": "6.0.0",
+    "ngModules": [
+      "core",
+      "common"
+    ],
+    "otherDependencies": [],
+    "dependenciesRange": "^",
+    "ngPrefix": "my-lib",
+    "testingFramework": "karma",
+    "useGreenkeeper": false,
+    "useCompodoc": false,
+    "enforceNgGitCommitMsg": true,
+    "exclusions": [
+      "demo/proxy.conf.json"
+    ]
+  }
+}
+

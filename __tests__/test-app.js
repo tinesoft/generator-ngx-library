@@ -65,9 +65,10 @@ describe('ngx-library:app', () => {
           'src/tsconfig.spec.json',
 
           // Create Demo files
-          'demo/e2e/app.e2e-spec.ts',
-          'demo/e2e/app.po.ts',
+          'demo/e2e/src/app.e2e-spec.ts',
+          'demo/e2e/src/app.po.ts',
           'demo/e2e/tsconfig.e2e.json',
+          'demo/e2e/protractor.conf.js',
           'demo/src/app/getting-started/getting-started-routing.module.ts',
           'demo/src/app/getting-started/getting-started.component.ts',
           'demo/src/app/getting-started/getting-started.component.html',
@@ -110,6 +111,7 @@ describe('ngx-library:app', () => {
           'demo/src/testing/router-stubs.ts',
           'demo/src/index.html',
           'demo/src/_variables.scss',
+          'demo/src/browserslist',
           'demo/src/favicon.ico',
           'demo/src/hmr.ts',
           'demo/src/main.server.ts',
@@ -121,12 +123,11 @@ describe('ngx-library:app', () => {
           'demo/src/tsconfig.spec.json',
           'demo/src/typings.d.ts',
           'demo/package.json',
-          'demo/.angular-cli.json',
+          'demo/angular.json',
           'demo/.editorconfig',
           'demo/.gitignore',
           'demo/karma.conf.js',
           'demo/prerender.ts',
-          'demo/protractor.conf.js',
           'demo/tsconfig.json',
           'demo/server.ts',
           'demo/tsconfig.json',
@@ -175,7 +176,7 @@ describe('ngx-library:app', () => {
           ngPrefix: 'my-lib',
           testingFramework: 'karma',
           ngVersion: '2.0.0',
-          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker'],
+          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker', 'elements'],
           useGreenkeeper: true,
           useCompodoc: false
         });
@@ -219,7 +220,7 @@ describe('ngx-library:app', () => {
           ngPrefix: 'my-lib',
           testingFramework: 'karma',
           ngVersion: '4.0.0',
-          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker'],
+          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker', 'elements'],
           useGreenkeeper: true,
           useCompodoc: false
         });
@@ -263,7 +264,7 @@ describe('ngx-library:app', () => {
           ngPrefix: 'my-lib',
           testingFramework: 'karma',
           ngVersion: '5.0.0',
-          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker'],
+          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker', 'elements'],
           useGreenkeeper: true,
           useCompodoc: false
         });
@@ -282,6 +283,50 @@ describe('ngx-library:app', () => {
             '"typescript" : "2.4.2"',
             '"awesome-typescript-loader" : "3.3.0"',
             '"codelyzer" : "4.0.0"']);
+        assert.file([
+          'src/tsconfig.lib.es5.json']);
+      });
+    });
+  });
+
+  describe('check generation for ng6', () => {
+    it('should have set appropriate properties', () => {
+      let ngLibraryApp = createNgLibraryApp(
+        {
+          skipInstall: true,
+          skipChecks: false
+        },
+        {
+          authorName: 'Awesome Developer',
+          authorEmail: 'awesome.developer@github.com',
+          githubUsername: 'awesomedeveloper',
+          githubRepoName: 'my-ngx-library',
+          projectName: 'my-ngx-library',
+          projectVersion: '1.0.0',
+          projectDescription: 'Angular library for ...',
+          projectkeywords: 'ng, angular,library',
+          ngPrefix: 'my-lib',
+          testingFramework: 'karma',
+          ngVersion: '6.0.0',
+          ngModules: ['core', 'common', 'animations', 'bazel', 'service-worker', 'elements'],
+          useGreenkeeper: true,
+          useCompodoc: false
+        });
+      return ngLibraryApp.then(() => {
+        assert.deepEqual(ngLibraryApp.generator.ngModules, ['core', 'common', 'animations', 'bazel', 'service-worker', 'elements']);
+        assert.deepEqual(ngLibraryApp.generator.ngDevDependencies,
+          ['"@angular/compiler" : "6.0.0"',
+            '"@angular/platform-server" : "6.0.0"',
+            '"@angular/platform-browser" : "6.0.0"',
+            '"@angular/platform-browser-dynamic" : "6.0.0"',
+            '"@angular/compiler-cli" : "6.0.0"',
+            '"zone.js" : "0.8.26"',
+            '"rxjs" : "6.0.0"',
+            '"tslint" : "5.9.1"',
+            '"gulp-tslint" : "8.1.3"',
+            '"typescript" : "2.7.2"',
+            '"awesome-typescript-loader" : "5.0.0"',
+            '"codelyzer" : "4.2.1"']);
         assert.file([
           'src/tsconfig.lib.es5.json']);
       });
@@ -644,8 +689,9 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.skipDemo, true);
         assert.noFile([
-          'demo/e2e/app.e2e-spec.ts',
-          'demo/e2e/app.po.ts',
+          'demo/e2e/src/app.e2e-spec.ts',
+          'demo/e2e/src/app.po.ts',
+          'demo/e2e/protractor.conf.js',
           'demo/e2e/tsconfig.e2e.json',
           'demo/src/app/getting-started/getting-started-routing.module.ts',
           'demo/src/app/getting-started/getting-started.component.ts',
@@ -692,6 +738,7 @@ describe('ngx-library:app', () => {
           'demo/src/testing/router-stubs.ts',
           'demo/src/index.html',
           'demo/src/_variables.scss',
+          'demo/src/browserslist',
           'demo/src/favicon.ico',
           'demo/src/hmr.ts',
           'demo/src/main.server.ts',
@@ -704,12 +751,11 @@ describe('ngx-library:app', () => {
           'demo/src/tsconfig.spec.json',
           'demo/src/typings.d.ts',
           'demo/package.json',
-          'demo/.angular-cli.json',
+          'demo/angular.json',
           'demo/.editorconfig',
           'demo/.gitignore',
           'demo/karma.conf.js',
           'demo/prerender.ts',
-          'demo/protractor.conf.js',
           'demo/README.md',
           'demo/server.ts',
           'demo/static.paths.ts',
@@ -731,8 +777,9 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.skipDemo, false);
         assert.file([
-          'demo/e2e/app.e2e-spec.ts',
-          'demo/e2e/app.po.ts',
+          'demo/e2e/src/app.e2e-spec.ts',
+          'demo/e2e/src/app.po.ts',
+          'demo/e2e/protractor.conf.js',
           'demo/e2e/tsconfig.e2e.json',
           'demo/src/app/getting-started/getting-started-routing.module.ts',
           'demo/src/app/getting-started/getting-started.component.ts',
@@ -776,7 +823,7 @@ describe('ngx-library:app', () => {
           'demo/src/testing/router-stubs.ts',
           'demo/src/index.html',
           'demo/src/_variables.scss',
-          'demo/src/favicon.ico',
+          'demo/src/browserslist',
           'demo/src/favicon.ico',
           'demo/src/main.server.ts',
           'demo/src/main.ts',
@@ -788,12 +835,11 @@ describe('ngx-library:app', () => {
           'demo/src/tsconfig.spec.json',
           'demo/src/typings.d.ts',
           'demo/package.json',
-          'demo/.angular-cli.json',
+          'demo/angular.json',
           'demo/.editorconfig',
           'demo/.gitignore',
           'demo/karma.conf.js',
           'demo/prerender.ts',
-          'demo/protractor.conf.js',
           'demo/README.md',
           'demo/server.ts',
           'demo/static.paths.ts',
