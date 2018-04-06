@@ -353,7 +353,7 @@ Task                    | Purpose
 >
 > <sup>2</sup> = This task is only available if you chose to use compodoc during generator setup
 
-### Recipes
+### Recipes 🍯
 
 Some useful recipes to help you during the development process can be found [here](recipes/)
 
