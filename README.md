@@ -26,6 +26,7 @@ Here are live examples of some Angular libraries developed with the generator:
 * [ngx-slideshow](https://github.com/WireFlare/ngx-slideshow)
 * [ng2-avatar](https://github.com/snics/ng2-avatar)
 * [dejajs-components](https://github.com/DSI-HUG/dejajs-components)
+* [ngx-auth-firebaseui](https://github.com/AnthonyNahas/ngx-auth-firebaseui)
 
 These are some that [i know of](https://github.com/search?q=generator-ngx-library+filename%3A.yo-rc.json+path%3A%2F&type=Code&utf8=%E2%9C%93). Want your project listed here ? Drop me a line.
 
