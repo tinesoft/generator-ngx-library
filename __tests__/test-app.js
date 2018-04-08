@@ -20,6 +20,7 @@ const createNgLibraryApp = (options, prompts) => {
       testingFramework: 'karma',
       ngVersion: '2.0.0',
       ngModules: ['core', 'common'],
+      additionalPackageFiles: 'styles/*.scss, images/*.(png|jpg)',
       useGreenkeeper: true,
       useCompodoc: false,
       enforceNgGitCommitMsg: true
@@ -148,6 +149,9 @@ describe('ngx-library:app', () => {
           'config/webpack.test.js',
           'config/gulp-tasks/README.md'
         ]);
+
+        assert.fileContent('gulpfile.js', `      gulp.src(['README.md', 'LICENSE', 'CHANGELOG.md', 'styles/*.scss', 'images/*.(png|jpg)',`);
+
       });
     });
   });
