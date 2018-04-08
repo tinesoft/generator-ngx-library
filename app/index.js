@@ -396,6 +396,7 @@ module.exports = class extends Generator {
     this.ngVersion = this.config.get('ngVersion');
     this.ngModules = this.config.get('ngModules');
     this.otherDependencies = this.config.get('otherDependencies') || [];
+    this.additionalPackageFiles = this.config.get('additionalPackageFiles') || [];
     this.dependenciesRange = this.config.get('dependenciesRange') || '^';
     this.useGreenkeeper = this.config.get('useGreenkeeper');
     this.useCompodoc = this.config.get('useCompodoc');
@@ -421,10 +422,11 @@ module.exports = class extends Generator {
         this.projectName = props.projectName;
         this.projectVersion = props.projectVersion;
         this.projectDescription = props.projectDescription;
-        this.projectKeywords = props.projectKeywords ? props.projectKeywords.split(',') : [];
+        this.projectKeywords = props.projectKeywords ? props.projectKeywords.split(/, */) : [];
         this.ngVersion = props.ngVersion;
         this.ngModules = props.ngModules;
-        this.otherDependencies = props.otherDependencies ? props.otherDependencies.split(',') : [];
+        this.otherDependencies = props.otherDependencies ? props.otherDependencies.split(/, */) : [];
+        this.additionalPackageFiles = props.additionalPackageFiles ? props.additionalPackageFiles.split(/, */) : [];
         this.ngPrefix = props.ngPrefix;
         this.testingFramework = props.testingFramework;
         this.useGreenkeeper = props.useGreenkeeper;
@@ -457,6 +459,7 @@ module.exports = class extends Generator {
         this.config.set('ngVersion', this.ngVersion);
         this.config.set('ngModules', this.ngModules);
         this.config.set('otherDependencies', this.otherDependencies);
+        this.config.set('additionalPackageFiles', this.additionalPackageFiles);
         this.config.set('dependenciesRange', this.dependenciesRange);
         this.config.set('ngPrefix', this.ngPrefix);
         this.config.set('testingFramework', this.testingFramework);
