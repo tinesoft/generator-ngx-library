@@ -27,6 +27,7 @@ describe('LibComponent', function () {
   it('should have expected <p> text', () => {
     fixture.detectChanges();
     const p = de.nativeElement;
-    expect(p.textContent).toEqual('<%= projectDescription %>');
+    const description = '<%= projectDescription.length>=113 ? projectDescription.substring(0,110)+"..." : projectDescription %>';
+    expect(p.textContent).toEqual(description);
   });
 });

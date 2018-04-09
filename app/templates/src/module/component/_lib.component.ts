@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./lib.component.scss']
 })
 export class LibComponent {
-  description = '<%= projectDescription %>';
+  description = '<%= projectDescription.length>=121 ? projectDescription.substring(0,118)+"..." : projectDescription %>';
 }
