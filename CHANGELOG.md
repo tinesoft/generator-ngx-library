@@ -1,3 +1,19 @@
+<a name="5.8.0"></a>
+# [5.8.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.7.1...v5.8.0) (2018-04-17)
+
+
+### Bug Fixes
+
+* **tslint:** fix building issue when project's description exceeds 140 chars ([d69807e](https://github.com/tinesoft/generator-ngx-library/commit/d69807e)), closes [#154](https://github.com/tinesoft/generator-ngx-library/issues/154)
+
+
+### Features
+
+* **packaging:** allow packaging of additional files (images, styles,...) ([d1df8dc](https://github.com/tinesoft/generator-ngx-library/commit/d1df8dc))
+* **recipe:** add recipe about how to build multi-modules libraries ([745bd09](https://github.com/tinesoft/generator-ngx-library/commit/745bd09))
+
+
+
 <a name="5.7.1"></a>
 ## [5.7.1](https://github.com/tinesoft/generator-ngx-library/compare/v5.7.0...v5.7.1) (2018-03-22)
 
