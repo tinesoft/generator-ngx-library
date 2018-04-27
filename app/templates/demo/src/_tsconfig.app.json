@@ -12,7 +12,9 @@
   },
   "exclude": [
     "testing/*",
-    "test.ts",
+    "test.ts",<% if(testingFramework === 'jest'){%>
+    "setupJest.ts",
+    "jestGlobalMocks.ts",<% } %>
     "**/*.spec.ts"
   ]
 }
