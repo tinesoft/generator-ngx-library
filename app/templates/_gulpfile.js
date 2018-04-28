@@ -539,7 +539,7 @@ gulp.task('serve:demo-hmr', () => {
 });
 
 gulp.task('build:demo', () => {
-  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer`, { cwd: `${config.demoDir}`});
+  return execDemoCmd(`build --preserve-symlinks --prod --aot --build-optimizer --base-href /<%=githubRepoName%>/ --deploy-url /<%=githubRepoName%>/`, { cwd: `${config.demoDir}`});
 });
 
 gulp.task('serve:demo-ssr',['build:demo'], () => {
