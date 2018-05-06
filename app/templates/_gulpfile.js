@@ -1,7 +1,8 @@
 const _ = require('lodash');
 const del = require('del');
 const gulp = require('gulp');
-const gulpUtil = require('gulp-util');
+const acolors = require('ansi-colors');
+const fancyLog = require('fancy-log');
 const helpers = require('./config/helpers');
 
 /** TSLint checker */<% if(ngVersionMin >= 4){ %>
@@ -126,9 +127,9 @@ const getPackageJsonVersion = () => {
 
 const isOK = condition => {
   if(condition === undefined){
-    return gulpUtil.colors.yellow('[SKIPPED]');
+    return acolors.yellow('[SKIPPED]');
   }
-  return condition ? gulpUtil.colors.green('[OK]') : gulpUtil.colors.red('[KO]');
+  return condition ? acolors.green('[OK]') : acolors.red('[KO]');
 };
 
 const readyToRelease = () => {<% if(!skipTravis) { %>
@@ -138,11 +139,11 @@ const readyToRelease = () => {<% if(!skipTravis) { %>
   let canGhRelease = argv.ghToken || process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN;<% } %>
   let canNpmPublish = !!execSync('npm whoami').toString().trim() && execSync('npm config get registry').toString().trim() === 'https://registry.npmjs.org/';
 
-  gulpUtil.log(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(<% if(!skipTravis) { %>isTravisPassing<% } %>)}`);
-  gulpUtil.log(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
-  gulpUtil.log(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
-  gulpUtil.log(`[bump-version]   Option '--version' provided, with value : 'major', 'minor' or 'patch'.................${isOK(canBump)}`);
-  gulpUtil.log(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(<% if(!skipGhReleasing) { %>canGhRelease<% } %>)}`);
+  fancyLog(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(<% if(!skipTravis) { %>isTravisPassing<% } %>)}`);
+  fancyLog(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
+  fancyLog(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
+  fancyLog(`[bump-version]   Option '--version' provided, with value : 'major', 'minor' or 'patch'.................${isOK(canBump)}`);
+  fancyLog(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(<% if(!skipGhReleasing) { %>canGhRelease<% } %>)}`);
 
   return <% if(!skipTravis) { %>isTravisPassing && <% } %>onMasterBranch && canBump && <% if(!skipGhReleasing) { %>canGhRelease && <% } %>canNpmPublish;
 };
@@ -151,8 +152,8 @@ const execCmd = (name, args, opts, ...subFolders) => {
   const cmd = helpers.root(subFolders, helpers.binPath(`${name}`));
   return helpers.execp(`${cmd} ${args}`, opts)
     .catch(e => {
-      gulpUtil.log(gulpUtil.colors.red(`${name} command failed. See below for errors.\n`));
-      gulpUtil.log(gulpUtil.colors.red(e));
+      fancyLog(acolors.red(`${name} command failed. See below for errors.\n`));
+      fancyLog(acolors.red(e));
       process.exit(1);
     });
 };
@@ -160,8 +161,8 @@ const execCmd = (name, args, opts, ...subFolders) => {
 const execExternalCmd = (name, args, opts) => {
   return helpers.execp(`${name} ${args}`, opts)
     .catch(e => {
-      gulpUtil.log(gulpUtil.colors.red(`${name} command failed. See below for errors.\n`));
-      gulpUtil.log(gulpUtil.colors.red(e));
+      fancyLog(acolors.red(`${name} command failed. See below for errors.\n`));
+      fancyLog(acolors.red(e));
       process.exit(1);
     });
 };
@@ -179,9 +180,9 @@ const styleProcessor = (stylePath, ext, styleFile, callback) => {
   ];
 
   const postProcessCss = css => {
-    postcss(processors).process(css).then(result => {
+    postcss(processors).process(css, {from: undefined}).then(result => {
       result.warnings().forEach(function (warn) {
-        gutil.warn(warn.toString());
+        fancyLog.warn(warn.toString());
       });
       styleFile = result.css;
       callback(null, styleFile);
@@ -266,16 +267,16 @@ gulp.task('ng-compile',() => {
     // Compile to ES5.
     .then(() => ngc(<% if(ngVersionMin === 2){ %>{ project: `${buildFolder}/tsconfig.lib.json` }<% } else if(ngVersionMin === 4){ %>{ project: `${buildFolder}/tsconfig.lib.es5.json` }<% } else {%>['--project',`${buildFolder}/tsconfig.lib.es5.json`]<%}%>)
       .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
-      .then(() => gulpUtil.log('ES5 compilation succeeded.'))
+      .then(() => fancyLog('ES5 compilation succeeded.'))
     )<% if(ngVersionMin >= 4){ %>
     // Compile to ES2015.
     .then(() => ngc(<% if(ngVersionMin === 4){ %>{ project: `${buildFolder}/tsconfig.lib.json` }<% } else {%>['--project',`${buildFolder}/tsconfig.lib.json`]<%}%>)
       .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
-      .then(() => gulpUtil.log('ES2015 compilation succeeded.'))
+      .then(() => fancyLog('ES2015 compilation succeeded.'))
     )<% } %>
     .catch(e => {
-      gulpUtil.log(gulpUtil.colors.red('ng-compilation failed. See below for errors.\n'));
-      gulpUtil.log(gulpUtil.colors.red(e));
+      fancyLog(acolors.red('ng-compilation failed. See below for errors.\n'));
+      fancyLog(acolors.red(e));
       process.exit(1);
     });
 });
@@ -464,11 +465,11 @@ gulp.task('rollup-bundle', (cb) => {
     ].map(cfg => rollup.rollup(cfg).then(bundle => bundle.write(cfg.output)));
 
     return Promise.all(allBundles)
-      .then(() => gulpUtil.log('All bundles generated successfully.'))
+      .then(() => fancyLog('All bundles generated successfully.'))
   })
   .catch(e => {
-    gulpUtil.log(gulpUtil.colors.red('rollup-bundling failed. See below for errors.\n'));
-    gulpUtil.log(gulpUtil.colors.red(e));
+    fancyLog(acolors.red('rollup-bundling failed. See below for errors.\n'));
+    fancyLog(acolors.red(e));
     process.exit(1);
   });
 });
@@ -514,12 +515,12 @@ const execDemoCmd = (args,opts) => {
     return execCmd('ng', args, opts, `/${config.demoDir}`);
   }
   else{
-    gulpUtil.log(gulpUtil.colors.yellow(`No 'node_modules' found in '${config.demoDir}'. Installing dependencies for you...`));
+    fancyLog(acolors.yellow(`No 'node_modules' found in '${config.demoDir}'. Installing dependencies for you...`));
     return helpers.installDependencies({ cwd: `${config.demoDir}` })
       .then(exitCode => exitCode === 0 ? execCmd('ng', args, opts, `/${config.demoDir}`) : Promise.reject())
       .catch(e => {
-        gulpUtil.log(gulpUtil.colors.red(`ng command failed. See below for errors.\n`));
-        gulpUtil.log(gulpUtil.colors.red(e));
+        fancyLog(acolors.red(`ng command failed. See below for errors.\n`));
+        fancyLog(acolors.red(e));
         process.exit(1);
       });
   }
@@ -550,8 +551,8 @@ gulp.task('build:demo-ssr', () => {
     .then(() => execDemoCmd(`run <%= projectName %>-demo:server`, { cwd: `${config.demoDir}` }))
     .then(() => execCmd('webpack', '--config webpack.server.config.js --progress --colors', { cwd: `${config.demoDir}` }, `/${config.demoDir}`))
     .catch(e => {
-      gulpUtil.log(gulpUtil.colors.red(`build:demo-ssr command failed. See below for errors.\n`));
-      gulpUtil.log(gulpUtil.colors.red(e));
+      fancyLog(acolors.red(`build:demo-ssr command failed. See below for errors.\n`));
+      fancyLog(acolors.red(e));
       process.exit(1);
     });
 });
@@ -611,7 +612,7 @@ gulp.task('changelog', (cb) => {
 
 gulp.task('github-release', (cb) => {
   if (!argv.ghToken && !process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN) {
-    gulpUtil.log(gulpUtil.colors.red(`You must specify a Github Token via '--ghToken' or set environment variable 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' to allow releasing on Github`));
+    fancyLog(acolors.red(`You must specify a Github Token via '--ghToken' or set environment variable 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' to allow releasing on Github`));
     throw new Error(`Missing '--ghToken' argument and environment variable 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' not set`);
   }
 
@@ -626,7 +627,7 @@ gulp.task('github-release', (cb) => {
 
 gulp.task('bump-version', (cb) => {
   if (!argv.version) {
-    gulpUtil.log(gulpUtil.colors.red(`You must specify which version to bump to (Possible values: 'major', 'minor', and 'patch')`));
+    fancyLog(acolors.red(`You must specify which version to bump to (Possible values: 'major', 'minor', and 'patch')`));
     throw new Error(`Missing '--version' argument`);
   }
 
@@ -675,13 +676,13 @@ gulp.task('pre-release', cb => {
 });
 
 gulp.task('release', (cb) => {
-  gulpUtil.log('# Performing Pre-Release Checks...');
+  fancyLog('# Performing Pre-Release Checks...');
   if (!readyToRelease()) {
-    gulpUtil.log(gulpUtil.colors.red('# Pre-Release Checks have failed. Please fix them and try again. Aborting...'));
+    fancyLog(acolors.red('# Pre-Release Checks have failed. Please fix them and try again. Aborting...'));
     cb();
   }
   else {
-    gulpUtil.log(gulpUtil.colors.green('# Pre-Release Checks have succeeded. Continuing...'));
+    fancyLog(acolors.green('# Pre-Release Checks have succeeded. Continuing...'));
     runSequence(
       'bump-version',
       'changelog',
@@ -693,9 +694,9 @@ gulp.task('release', (cb) => {
       'deploy:<%= !skipDemo? "demo":"doc" %>',<% } %>
       (error) => {
         if (error) {
-          gulpUtil.log(gulpUtil.colors.red(error.message));
+          fancyLog(acolors.red(error.message));
         } else {
-          gulpUtil.log(gulpUtil.colors.green('RELEASE FINISHED SUCCESSFULLY'));
+          fancyLog(acolors.green('RELEASE FINISHED SUCCESSFULLY'));
         }
         cb(error);
       });

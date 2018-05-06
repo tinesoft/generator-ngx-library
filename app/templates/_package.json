@@ -31,64 +31,65 @@
   "devDependencies": {<% for (dep of ngDevDependencies) { %>
     <%- dep %>,<% } %><% if(testingFramework === 'karma'){%>
     "@types/jasmine": "2.5.41",
-    "istanbul-instrumenter-loader": "3.0.0",
-    "jasmine-core": "2.8.0",
-    "karma": "1.7.0",
+    "istanbul-instrumenter-loader": "3.0.1",
+    "jasmine": "2.8.0",
+    "karma": "2.0.2",
     "karma-chrome-launcher": "2.2.0",
-    "karma-coverage": "1.1.1",
-    "karma-jasmine": "1.1.1",
+    "karma-coverage": "1.1.2",
+    "karma-jasmine": "1.1.2",
     "karma-mocha-reporter": "2.2.5",
-    "karma-jasmine-html-reporter": "0.2.2",
+    "karma-jasmine-html-reporter": "1.0.0",
     "karma-remap-coverage": "0.1.5",
     "karma-sourcemap-loader": "0.3.7",
-    "webpack": "3.8.1",
-    "webpack-dev-middleware": "1.12.0",
-    "webpack-dev-server": "2.9.2",
-    "karma-webpack": "2.0.5",<% } else if(testingFramework === 'jest') {%>
+    "webpack": "4.8.0",
+    "webpack-dev-middleware": "3.1.3",
+    "webpack-dev-server": "3.1.4",
+    "karma-webpack": "3.0.0",<% } else if(testingFramework === 'jest') {%>
     <% if(ngVersionMin == 2) {%>"@types/jest": "16.0.7",<%} 
-    else {%>"@types/jest": "21.1.9",<% } %>
-    "jest": "22.0.4",
-    "jest-preset-angular": "5.0.0",<% } %>
+    else {%>"@types/jest": "22.2.3",<% } %>
+    "jest": "22.4.3",
+    "jest-preset-angular": "5.2.2",<% } %>
     "@types/node": "8.0.44",
     "@types/lodash": "4.14.92",
-    "angular-cli-ghpages": "0.5.1",
+    "angular-cli-ghpages": "0.5.2",
     "angular2-template-loader": "0.6.2",<% if(useCompodoc){%>
     "@compodoc/gulp-compodoc": "0.0.8",<% } %><% if(enforceNgGitCommitMsg){%>
-    "commitplease": "3.1.0",<% } if(!skipGhReleasing) { %>
-    "conventional-github-releaser": "1.1.13",<% } %>
-    "core-js": "2.5.1",
+    "commitplease": "3.2.0",<% } if(!skipGhReleasing) { %>
+    "conventional-github-releaser": "2.0.2",<% } %>
+    "core-js": "2.5.5",
     "del": "3.0.0",<% if(useYarn) { %>
-    "greenkeeper-lockfile": "1.12.0",<% } %>
+    "greenkeeper-lockfile": "1.14.0",<% } %>
     "gulp": "3.9.1",
-    "gulp-bump": "2.8.0",
-    "gulp-conventional-changelog": "1.1.6",<% if(!skipCoveralls) { %>
+    "gulp-bump": "3.1.1",
+    "gulp-conventional-changelog": "1.1.24",<% if(!skipCoveralls) { %>
     "gulp-coveralls": "0.1.4",<% } %>
-    "gulp-file": "0.3.0",
-    "gulp-git": "2.4.2",
-    "gulp-inline-ng2-template": "4.0.0",
+    "gulp-file": "0.4.0",
+    "gulp-git": "2.6.0",
+    "gulp-inline-ng2-template": "4.1.0",
     "gulp-hub": "0.8.0",
-    "gulp-util": "3.0.8",
-    "html-loader": "0.5.1",    
-    "pump": "1.0.2",
-    "rollup": "0.57.0",
+    "ansi-colors": "2.0.1",
+    "fancy-log": "1.3.2",
+    "html-loader": "0.5.5",    
+    "pump": "3.0.0",
+    "rollup": "0.58.2",
     "rollup-plugin-uglify": "3.0.0",
     "rollup-plugin-sourcemaps": "0.4.2",
-    "rollup-plugin-commonjs": "9.1.0",
-    "rollup-plugin-node-resolve": "3.2.0",
-    "run-sequence": "2.2.0",<% if(!skipStyles) { %>
-    "autoprefixer": "7.1.5",
+    "rollup-plugin-commonjs": "9.1.3",
+    "rollup-plugin-node-resolve": "3.3.0",
+    "run-sequence": "2.2.1",<% if(!skipStyles) { %>
+    "autoprefixer": "8.4.1",
     "cssnano": "3.10.0",
-    "sass-loader": "6.0.6",
-    "css-loader": "0.28.7",
+    "sass-loader": "7.0.1",
+    "css-loader": "0.28.11",
     "to-string-loader": "1.1.5",
-    "node-sass": "4.5.3",
-    "postcss": "6.0.13",
+    "node-sass": "4.9.0",
+    "postcss": "6.0.22",
     "postcss-strip-inline-comments": "0.1.5",<% } %>
     "raw-loader": "0.5.1",
-    "source-map-loader": "0.2.2",<% if(!skipTravis) {%>
+    "source-map-loader": "0.2.3",<% if(!skipTravis) {%>
     "travis-status": "2.0.0",<% } %>
-    "lodash": "4.17.4",
-    "yargs": "10.0.3"
+    "lodash": "4.17.10",
+    "yargs": "11.0.0"
   },
   "engines": {
     "node": "<%- ngVersionMin >= 6 ? '>=8.0.0' : '>=6.0.0'%>"

@@ -322,7 +322,7 @@ describe('ngx-library:app', () => {
             '"@angular/compiler-cli" : "6.0.0"',
             '"zone.js" : "0.8.26"',
             '"rxjs" : "6.0.0"',
-            '"tslint" : "5.9.1"',
+            '"tslint" : "5.7.0"',
             '"gulp-tslint" : "8.1.3"',
             '"typescript" : "2.7.2"',
             '"awesome-typescript-loader" : "5.0.0"',
