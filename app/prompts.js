@@ -84,7 +84,8 @@ module.exports = info => {
         {name: '2.X.X', value: '2.0.0'},
         {name: '4.X.X', value: '4.0.0'},
         {name: '5.X.X', value: '5.0.0'},
-        {name: '6.X.X', value: '6.0.0'}],
+        {name: '6.X.X', value: '6.0.0'}
+      ],
       default: 3
     },
     {
@@ -119,7 +120,8 @@ module.exports = info => {
       message: '(14/17) What testing framework do you want to use?',
       choices: [
         {name: 'Karma', value: 'karma'},
-        {name: 'Jest', value: 'jest'}],
+        {name: 'Jest', value: 'jest'}
+      ],
       default: 0
     },
     {

@@ -3,6 +3,7 @@
 const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
+const fs = require('fs-extra');
 
 const createNgLibraryApp = (options, prompts) => {
   return helpers.run(path.join(__dirname, '../app'))
@@ -152,7 +153,6 @@ describe('ngx-library:app', () => {
         ]);
 
         assert.fileContent('gulpfile.js', `      gulp.src(['README.md', 'LICENSE', 'CHANGELOG.md', 'styles/*.scss', 'images/*.(png|jpg)',`);
-
       });
     });
   });
@@ -196,7 +196,8 @@ describe('ngx-library:app', () => {
             '"awesome-typescript-loader" : "3.0.5"',
             '"codelyzer" : "1.0.0-beta.0"']);
         assert.noFile([
-          'src/tsconfig.lib.es5.json']);
+          'src/tsconfig.lib.es5.json'
+        ]);
       });
     });
   });
@@ -240,7 +241,8 @@ describe('ngx-library:app', () => {
             '"awesome-typescript-loader" : "3.0.5"',
             '"codelyzer" : "3.1.1"']);
         assert.file([
-          'src/tsconfig.lib.es5.json']);
+          'src/tsconfig.lib.es5.json'
+        ]);
       });
     });
   });
@@ -284,7 +286,8 @@ describe('ngx-library:app', () => {
             '"awesome-typescript-loader" : "3.3.0"',
             '"codelyzer" : "4.0.0"']);
         assert.file([
-          'src/tsconfig.lib.es5.json']);
+          'src/tsconfig.lib.es5.json'
+        ]);
       });
     });
   });
@@ -328,7 +331,8 @@ describe('ngx-library:app', () => {
             '"awesome-typescript-loader" : "5.0.0"',
             '"codelyzer" : "4.2.1"']);
         assert.file([
-          'src/tsconfig.lib.es5.json']);
+          'src/tsconfig.lib.es5.json'
+        ]);
       });
     });
   });
@@ -985,6 +989,45 @@ describe('ngx-library:app', () => {
 
         assert.fileContent('package.json', '    "conventional-github-releaser":');
         assert.fileContent('gulpfile.js', /gulp\.task\('github-release'/);
+      });
+    });
+  });
+
+  describe('check "delExcludedFiles" option', () => {
+    it('should not delete excluded files when "delExcludedFiles" is set to false', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipDemo: true,
+        delExcludedFiles: false
+      }).inTmpDir(dir => {// Simulates presence of excluded files (demo)
+        fs.copySync(path.join(__dirname, '../app/templates/demo'), path.join(dir, 'demo'));
+      });
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.delExcludedFiles, false);
+
+        assert.file('demo/karma.conf.js');
+        assert.file('demo/tsconfig.json');
+        assert.file('demo/tslint.json');
+      });
+    });
+
+    it('should delete excluded files code when "delExcludedFiles" is set to true', () => {
+      let ngLibraryApp = createNgLibraryApp({
+        skipInstall: true,
+        skipChecks: true,
+        skipDemo: true,
+        delExcludedFiles: true
+      }).inTmpDir(dir => {// Simulates presence of excluded files (demo)
+        fs.copySync(path.join(__dirname, '../app/templates/demo'), path.join(dir, 'demo'));
+      });
+
+      return ngLibraryApp.then(() => {
+        assert.equal(ngLibraryApp.generator.delExcludedFiles, true);
+
+        assert.noFile('demo/karma.conf.js');
+        assert.noFile('demo/tsconfig.json');
+        assert.noFile('demo/tslint.json');
       });
     });
   });

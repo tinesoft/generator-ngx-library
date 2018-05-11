@@ -7,6 +7,7 @@ const yosay = require('yosay');
 const mkdirp = require('mkdirp');
 const exec = require('child_process').exec;
 const path = require('path');
+const del = require('del');
 const _ = require('lodash');
 
 const prompts = require('./prompts');
@@ -75,6 +76,13 @@ module.exports = class extends Generator {
       defaults: false
     });
 
+    // This adds support for a `--del-excluded-files` flag
+    this.option('del-excluded-files', {
+      description: 'Delete files that have been excluded if found in the filesystem',
+      type: Boolean,
+      defaults: true
+    });
+
     // This adds support for a `--npm` flag
     this.option('npm', {
       description: 'Use npm instead of yarn',
@@ -89,6 +97,7 @@ module.exports = class extends Generator {
     this.skipTravis = this.options.skipTravis;
     this.skipCoveralls = this.options.skipCoveralls;
     this.skipGhReleasing = this.options.skipGhReleasing;
+    this.delExcludedFiles = this.options.delExcludedFiles;
 
     this.skipDemo = this.options.skipDemo;
     this.skipCache = this.options.skipCache;
@@ -417,6 +426,7 @@ module.exports = class extends Generator {
     this.skipTravis = this.config.get('skipTravis') || this.skipTravis;
     this.skipCoveralls = this.config.get('skipCoveralls') || this.skipCoveralls;
     this.skipGhReleasing = this.config.get('skipGhReleasing') || this.skipGhReleasing;
+    this.delExcludedFiles = this.config.get('delExcludedFiles') || this.delExcludedFiles;
     this.exclusions = this.config.get('exclusions') || [];
 
     if (this.fs.exists('.yo-rc.json') && !this.skipCache) {
@@ -487,6 +497,7 @@ module.exports = class extends Generator {
         this.config.set('skipTravis', this.skipTravis);
         this.config.set('skipCoveralls', this.skipCoveralls);
         this.config.set('skipGhReleasing', this.skipGhReleasing);
+        this.config.set('delExcludedFiles', this.delExcludedFiles);
         this.config.set('exclusions', this.exclusions);
 
         done();
@@ -498,10 +509,12 @@ module.exports = class extends Generator {
     // Initializes files that will be excluded
     let excluder = new ExcludeParser(this.exclusions, this.destinationRoot());
 
+    let filesToDelete = [];
     // Write files
     files.forEach(file => {
       if (excluder.isExcluded(file.path)) {
-        this.log(`${chalk.yellow('Excluded')} ${file.path}`);
+        this.log(`${chalk.bold.yellow('excluded')} ${file.path}`);
+        filesToDelete.push(path.join(this.destinationRoot(), file.path));
       } else if (file.isTpl) {
         this.fs.copyTpl(this.templatePath(file.name), this.destinationPath(file.path), this);
       } else {
@@ -511,6 +524,16 @@ module.exports = class extends Generator {
 
     // Write folders (empty are not created by 'mem-fs-editor' by default)
     folders.forEach(folder => mkdirp(folder));
+
+    // Delete excluded files that have been found in the file system
+    if (this.delExcludedFiles && filesToDelete.length) {
+      del(filesToDelete).then(paths => {
+        if (paths.length) {
+          this.log(`${chalk.red(`The following excluded files have been deleted from your file system ['del-excluded-files' option was true] :\n`)}`);
+          paths.forEach(path => this.log(`${chalk.bold.red('deleted')} ${path}`));
+        }
+      });
+    }
   }
 
   install() {

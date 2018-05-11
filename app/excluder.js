@@ -4,7 +4,6 @@
 const glob = require('glob');
 
 module.exports = class ExcludeParser {
-
   constructor(exclusions, cwd) {
     this.globFiles = [];
     this.exclusions = exclusions;
