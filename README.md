@@ -49,6 +49,7 @@ These are the main features of the generator:
 * **Enforcing of Angular Git Commit Message Guideline** with [Commitplease](https://github.com/jzaefferer/commitplease) :speech_balloon:
 * **Publication** to [npm registry](https://npmjs.org)
 * **Releasing** to [Github](https://help.github.com/articles/about-releases/) :octocat:
+* Support for **scoped packages** (eg: @mycompany/mylibrary)
 * Support for Angular from 2.x.x all the way up to **6.x.x**!
 * and so much more out-of-the-box :package:!
 
@@ -148,6 +149,7 @@ skip-sample  | skips the generation of the sample library
 skip-travis  | skips the integration with Travis CI
 skip-coveralls  | skips the integration with Coveralls (code coverage)
 skip-gh-releasing  | skips the releasing of the library on Github
+del-excluded-files  | deletes excluded files that have been found in the file system (from previous generation for example)
 npm          | forces usage of `npm` to install dependencies
 
 # Overall Directory Structure
@@ -198,6 +200,9 @@ my-ngx-library/
   |  |	|  |- app-rooting.module.ts
   |  |	|- assets/
   |  |	|  |- logo.svg
+  |  |	|- testing/
+  |  |	|  |- index.ts
+  |  |	|  |- router-stubs.ts
   |  |	|- tsconfig.server.json           # for universal (server side rendering)
   |  |- prerender.ts                      # for universal (server side rendering)
   |  |- server.ts                         # for universal (server side rendering)
@@ -211,7 +216,6 @@ my-ngx-library/
   |- LICENSE
   |- package.json
   |- tsconfig.json
-  |- tsconfig-aot.json
   |- tslint.json
   |- webpack.config.js
 ```
