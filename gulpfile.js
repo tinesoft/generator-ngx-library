@@ -58,12 +58,12 @@ const readyToRelease = () => {
   let canGhRelease = argv.ghToken || process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN;
   let canNpmPublish = !!execSync('npm whoami').toString().trim() && execSync('npm config get registry').toString().trim() === 'https://registry.npmjs.org/';
 
-  fancyLog.log(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(isTravisPassing)}`);
-  fancyLog.log(`[appveyor-ci]    Appveyor build on 'master' branch is passing..........................................${isOK(isAppveyorPassing)}`);
-  fancyLog.log(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
-  fancyLog.log(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
-  fancyLog.log(`[bump-version]   Option '--version' provided, with value : 'major', 'minor' or 'patch'.................${isOK(canBump)}`);
-  fancyLog.log(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(canGhRelease)}`);
+  fancyLog(`[travis-ci]      Travis build on 'master' branch is passing............................................${isOK(isTravisPassing)}`);
+  fancyLog(`[appveyor-ci]    Appveyor build on 'master' branch is passing..........................................${isOK(isAppveyorPassing)}`);
+  fancyLog(`[git-branch]     User is currently on 'master' branch..................................................${isOK(onMasterBranch)}`);
+  fancyLog(`[npm-publish]    User is currently logged in to NPM Registry...........................................${isOK(canNpmPublish)}`);
+  fancyLog(`[bump-version]   Option '--version' provided, with value : 'major', 'minor' or 'patch'.................${isOK(canBump)}`);
+  fancyLog(`[github-release] Option '--ghToken' provided or 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' variable set......${isOK(canGhRelease)}`);
 
   return isTravisPassing && isAppveyorPassing && onMasterBranch && canBump && canGhRelease && canNpmPublish;
 };
@@ -139,7 +139,7 @@ gulp.task('changelog', () => {
 
 gulp.task('github-release', (cb) => {
   if (!argv.ghToken && !process.env.CONVENTIONAL_GITHUB_RELEASER_TOKEN) {
-    fancyLog.log(acolors.red(`You must specify a Github Token via '--ghToken' or set environment variable 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' to allow releasing on Github`));
+    fancyLog(acolors.red(`You must specify a Github Token via '--ghToken' or set environment variable 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' to allow releasing on Github`));
     throw new Error(`Missing '--ghToken' argument and environment variable 'CONVENTIONAL_GITHUB_RELEASER_TOKEN' not set`);
   }
 
@@ -154,7 +154,7 @@ gulp.task('github-release', (cb) => {
 
 gulp.task('bump-version', () => {
   if (!argv.version) {
-    fancyLog.log(acolors.red(`You must specify which version to bump to (Possible values: 'major', 'minor', and 'patch')`));
+    fancyLog(acolors.red(`You must specify which version to bump to (Possible values: 'major', 'minor', and 'patch')`));
     throw new Error(`Missing '--version' argument`);
   }
   return gulp.src('./package.json')
@@ -196,13 +196,13 @@ gulp.task('pre-release', cb => {
 });
 
 gulp.task('release', (cb) => {
-  fancyLog.log('# Performing Pre-Release Checks...');
+  fancyLog('# Performing Pre-Release Checks...');
   if (!readyToRelease()) {
-    fancyLog.log(acolors.red('# Pre-Release Checks have failed. Please fix them and try again. Aborting...'));
+    fancyLog(acolors.red('# Pre-Release Checks have failed. Please fix them and try again. Aborting...'));
     cb();
   }
   else {
-    fancyLog.log(acolors.green('# Pre-Release Checks have succeeded. Continuing...'));
+    fancyLog(acolors.green('# Pre-Release Checks have succeeded. Continuing...'));
     runSequence(
       'static',
       'bump-version',
@@ -214,9 +214,9 @@ gulp.task('release', (cb) => {
       'npm-publish',
       (error) => {
         if (error) {
-          fancyLog.log(error.message);
+          fancyLog(error.message);
         } else {
-          fancyLog.log(acolors.green('RELEASE FINISHED SUCCESSFULLY'));
+          fancyLog(acolors.green('RELEASE FINISHED SUCCESSFULLY'));
         }
         cb(error);
       });
