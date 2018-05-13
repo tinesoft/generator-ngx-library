@@ -29,7 +29,6 @@
     "font-awesome": "^4.7.0",
     "include-media": "^1.4.9",
     "rxjs": "^6.0.0",
-    "rxjs-compat": "^6.0.0",
     "zone.js": "^0.8.26",
     "@angular/platform-server": "^6.0.0"
   },
