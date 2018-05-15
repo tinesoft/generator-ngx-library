@@ -398,7 +398,7 @@ module.exports = class extends Generator {
       // Set up Greenkeeper's excluded packages
       this.setUpGreenkeeperExclusions();
 
-      // Set upGenerator's excluded files
+      // Set up Generator's excluded files
       this.setUpGeneratorExclusions();
     };
 
@@ -428,6 +428,7 @@ module.exports = class extends Generator {
     this.skipGhReleasing = this.config.get('skipGhReleasing') || this.skipGhReleasing;
     this.delExcludedFiles = this.config.get('delExcludedFiles') || this.delExcludedFiles;
     this.exclusions = this.config.get('exclusions') || [];
+    this.deleteExclusions = this.config.get('deleteExclusions') || [];
 
     if (this.fs.exists('.yo-rc.json') && !this.skipCache) {
       this.log(chalk.green('This is an existing project, using the configuration from your .yo-rc.json file to re-generate it...\n'));
@@ -499,6 +500,7 @@ module.exports = class extends Generator {
         this.config.set('skipGhReleasing', this.skipGhReleasing);
         this.config.set('delExcludedFiles', this.delExcludedFiles);
         this.config.set('exclusions', this.exclusions);
+        this.config.set('deleteExclusions', this.deleteExclusions);
 
         done();
       });
@@ -506,15 +508,18 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    // Initializes files that will be excluded
-    let excluder = new ExcludeParser(this.exclusions, this.destinationRoot());
+    // Initializes files that will be excluded/ deleted from fs
+    let generateExcluder = new ExcludeParser(this.exclusions, this.destinationRoot());
+    let deleteExcluder = new ExcludeParser(this.deleteExclusions, this.destinationRoot());
 
     let filesToDelete = [];
     // Write files
     files.forEach(file => {
-      if (excluder.isExcluded(file.path)) {
+      if (generateExcluder.isExcluded(file.path)) {
         this.log(`${chalk.bold.yellow('excluded')} ${file.path}`);
-        filesToDelete.push(path.join(this.destinationRoot(), file.path));
+        if (!deleteExcluder.isExcluded(file.path)) {
+          filesToDelete.push(path.join(this.destinationRoot(), file.path));
+        }
       } else if (file.isTpl) {
         this.fs.copyTpl(this.templatePath(file.name), this.destinationPath(file.path), this);
       } else {

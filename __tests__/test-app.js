@@ -1031,4 +1031,27 @@ describe('ngx-library:app', () => {
       });
     });
   });
+
+  it('should only delete excluded files not in "deleteExclusions" if "delExcludedFiles" set to true and ', () => {
+    let ngLibraryApp = createNgLibraryApp({
+      skipInstall: true,
+      skipChecks: true,
+      skipDemo: true,
+      delExcludedFiles: true
+    }).withLocalConfig({
+      deleteExclusions: ['demo/tsconfig.json', 'demo/tslint.json']
+    }).inTmpDir(dir => {// Simulates presence of excluded files (demo)
+      fs.copySync(path.join(__dirname, '../app/templates/demo'), path.join(dir, 'demo'));
+    });
+    return ngLibraryApp.then(() => {
+      assert.equal(ngLibraryApp.generator.delExcludedFiles, true);
+
+      assert.noFile('demo/src/app/app-routing.module.ts');
+      assert.noFile('demo/src/app/app.component.html');
+      assert.noFile('demo/src/app/app.component.scss');
+
+      assert.file('demo/tsconfig.json');
+      assert.file('demo/tslint.json');
+    });
+  });
 });
