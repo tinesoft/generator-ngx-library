@@ -1,3 +1,18 @@
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v6.0.0...v6.1.0) (2018-05-15)
+
+
+### Bug Fixes
+
+* **core:** fix installation error due to `del` package not being found ([bf1995b](https://github.com/tinesoft/generator-ngx-library/commit/bf1995b))
+
+
+### Features
+
+* **options:** add separate `deleteExclusions` property in `.yo-rc.json` to control which excluded files get deleted or not ([2398ad6](https://github.com/tinesoft/generator-ngx-library/commit/2398ad6))
+
+
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/tinesoft/generator-ngx-library/compare/v5.8.0...v6.0.0) (2018-05-13)
 
