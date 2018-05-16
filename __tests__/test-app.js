@@ -115,6 +115,7 @@ describe('ngx-library:app', () => {
           'demo/src/browserslist',
           'demo/src/favicon.ico',
           'demo/src/hmr.ts',
+          'demo/src/karma.conf.js',
           'demo/src/main.server.ts',
           'demo/src/main.ts',
           'demo/src/polyfills.ts',
@@ -127,7 +128,6 @@ describe('ngx-library:app', () => {
           'demo/angular.json',
           'demo/.editorconfig',
           'demo/.gitignore',
-          'demo/karma.conf.js',
           'demo/prerender.ts',
           'demo/tsconfig.json',
           'demo/server.ts',
@@ -745,6 +745,7 @@ describe('ngx-library:app', () => {
           'demo/src/browserslist',
           'demo/src/favicon.ico',
           'demo/src/hmr.ts',
+          'demo/src/karma.conf.js',
           'demo/src/main.server.ts',
           'demo/src/main.ts',
           'demo/src/polyfills.ts',
@@ -758,7 +759,6 @@ describe('ngx-library:app', () => {
           'demo/angular.json',
           'demo/.editorconfig',
           'demo/.gitignore',
-          'demo/karma.conf.js',
           'demo/prerender.ts',
           'demo/README.md',
           'demo/server.ts',
@@ -829,6 +829,7 @@ describe('ngx-library:app', () => {
           'demo/src/_variables.scss',
           'demo/src/browserslist',
           'demo/src/favicon.ico',
+          'demo/src/karma.conf.js',
           'demo/src/main.server.ts',
           'demo/src/main.ts',
           'demo/src/polyfills.ts',
@@ -842,7 +843,6 @@ describe('ngx-library:app', () => {
           'demo/angular.json',
           'demo/.editorconfig',
           'demo/.gitignore',
-          'demo/karma.conf.js',
           'demo/prerender.ts',
           'demo/README.md',
           'demo/server.ts',
@@ -1006,7 +1006,7 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.delExcludedFiles, false);
 
-        assert.file('demo/karma.conf.js');
+        assert.file('demo/src/karma.conf.js');
         assert.file('demo/tsconfig.json');
         assert.file('demo/tslint.json');
       });
@@ -1025,7 +1025,7 @@ describe('ngx-library:app', () => {
       return ngLibraryApp.then(() => {
         assert.equal(ngLibraryApp.generator.delExcludedFiles, true);
 
-        assert.noFile('demo/karma.conf.js');
+        assert.noFile('demo/src/karma.conf.js');
         assert.noFile('demo/tsconfig.json');
         assert.noFile('demo/tslint.json');
       });

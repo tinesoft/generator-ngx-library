@@ -318,6 +318,7 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/src/browserslist');
         this.exclusions.push('demo/src/favicon.ico');
         this.exclusions.push('demo/src/hmr.ts');
+        this.exclusions.push('demo/src/karma.conf.js');
         this.exclusions.push('demo/src/main.server.ts');
         this.exclusions.push('demo/src/main.ts');
         this.exclusions.push('demo/src/polyfills.ts');
@@ -336,7 +337,6 @@ module.exports = class extends Generator {
         this.exclusions.push('demo/README.md');
         this.exclusions.push('demo/.editorconfig');
         this.exclusions.push('demo/.gitignore');
-        this.exclusions.push('demo/karma.conf.js');
         this.exclusions.push('demo/prerender.ts');
         this.exclusions.push('demo/proxy.conf.json');
         this.exclusions.push('demo/server.ts');
