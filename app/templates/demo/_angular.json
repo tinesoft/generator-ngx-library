@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "<%= projectName %>-demo": {
+    "<%= githubRepoName %>-demo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -50,12 +50,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "<%= projectName %>-demo:build",
+            "browserTarget": "<%= githubRepoName %>-demo:build",
             "hmrWarning": false
           },
           "configurations": {
             "production": {
-              "browserTarget": "<%= projectName %>-demo:build:production"
+              "browserTarget": "<%= githubRepoName %>-demo:build:production"
             },
             "hmr": {
               "hmr": true
@@ -65,7 +65,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "<%= projectName %>-demo:build"
+            "browserTarget": "<%= githubRepoName %>-demo:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "<%= projectName %>-demo-e2e": {
+    "<%= githubRepoName %>-demo-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -115,7 +115,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "<%= projectName %>-demo:serve"
+            "devServerTarget": "<%= githubRepoName %>-demo:serve"
           }
         },
         "lint": {
@@ -130,5 +130,5 @@
       }
     }
   },
-  "defaultProject": "<%= projectName %>-demo"
+  "defaultProject": "<%= githubRepoName %>-demo"
 }
