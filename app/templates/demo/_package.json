@@ -28,7 +28,6 @@
     "bootstrap": "4.0.0",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
-    "include-media": "^1.4.9",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26",
     "@angular/platform-server": "^6.0.0"
