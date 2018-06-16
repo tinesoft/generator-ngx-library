@@ -188,7 +188,7 @@ gulp.task('create-new-tag', (cb) => {
 
 gulp.task('build', ['static', 'test'])
 
-gulp.task('npm-publish', gulpShell.task('npm publish'));
+gulp.task('npm-publish', gulpShell.task('npm publish --access public'));
 
 gulp.task('pre-release', cb => {
   readyToRelease();
