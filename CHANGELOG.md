@@ -1,3 +1,13 @@
+<a name="6.2.1"></a>
+## [6.2.1](https://github.com/tinesoft/generator-ngx-library/compare/v6.2.0...v6.2.1) (2018-06-17)
+
+
+### Bug Fixes
+
+* **publish:** fix typo with option to publish scoped packages on npm ([a19f054](https://github.com/tinesoft/generator-ngx-library/commit/a19f054))
+
+
+
 <a name="6.2.0"></a>
 # [6.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v6.1.0...v6.2.0) (2018-06-17)
 
