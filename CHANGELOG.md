@@ -1,3 +1,23 @@
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/tinesoft/generator-ngx-library/compare/v6.1.0...v6.2.0) (2018-06-17)
+
+
+### Bug Fixes
+
+* **demo:** correct import path for `_variables.scss` in the main `styles.scss` ([2eb1e27](https://github.com/tinesoft/generator-ngx-library/commit/2eb1e27))
+* **demo:** fix demo app tests (remaining `rxjs<6` code) and misplaced `karma.conf.js` ([b81afd6](https://github.com/tinesoft/generator-ngx-library/commit/b81afd6))
+* **demo:** remove useless dependency on `webpack` (already referenced by CLI) ([892c7d2](https://github.com/tinesoft/generator-ngx-library/commit/892c7d2)), closes [#163](https://github.com/tinesoft/generator-ngx-library/issues/163)
+* **publishing:** add missing npm option to allow publishing scoped packages ([42fc79f](https://github.com/tinesoft/generator-ngx-library/commit/42fc79f))
+
+
+### Features
+
+* **demo:** add button on home page to allow editing demo on `StackBlitz` ([8e19a53](https://github.com/tinesoft/generator-ngx-library/commit/8e19a53))
+* **demo:** improve styling and remove useless `include-media` dependency ([8866231](https://github.com/tinesoft/generator-ngx-library/commit/8866231))
+* **demo:** improve styling and remove useless ìnclude-media` dependency ([822413a](https://github.com/tinesoft/generator-ngx-library/commit/822413a))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/tinesoft/generator-ngx-library/compare/v6.0.0...v6.1.0) (2018-05-15)
 
