@@ -221,7 +221,7 @@ module.exports = class extends Generator {
           this.ngDevDependencies.push('"tslint" : "5.7.0"');
           this.ngDevDependencies.push('"gulp-tslint" : "8.1.3"'); // Because it depends on 'tslint'
           this.ngDevDependencies.push('"typescript" : "2.7.2"');
-          this.ngDevDependencies.push('"awesome-typescript-loader" : "5.0.0"'); // Because it depends on 'typescript'
+          this.ngDevDependencies.push('"awesome-typescript-loader" : "5.2.0"'); // Because it depends on 'typescript'
           this.ngDevDependencies.push('"codelyzer" : "4.2.1"');
         }
 
