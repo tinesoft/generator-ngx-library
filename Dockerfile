@@ -19,7 +19,7 @@ RUN \
 ENV CHROME_BIN=/usr/bin/chromium-browser
 ENV CHROME_PATH=/usr/lib/chromium/
 
-RUN yarn global add --silent gulp-cli yo @angular/cli && yarn cache clean
+RUN npm -g install --silent gulp-cli yo @angular/cli && npm cache clean
 RUN sed -i -e '/rootCheck/d' "/usr/local/share/.config/yarn/global/node_modules/yo/lib/cli.js"
 
 COPY integrations/ integrations/
