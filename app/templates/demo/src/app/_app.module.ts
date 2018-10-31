@@ -1,6 +1,6 @@
 
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TransferHttpCacheModule } from '@nguniversal/common';
@@ -21,7 +21,7 @@ import { AppComponent } from './app.component';
         BrowserModule.withServerTransition({ appId: '<%= projectName %>-demo-id' }),
         TransferHttpCacheModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         AppRoutingModule,
         AppSharedModule,
         HomeModule
