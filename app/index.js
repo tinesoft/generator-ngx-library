@@ -101,7 +101,7 @@ module.exports = class extends Generator {
 
     this.skipDemo = this.options.skipDemo;
     this.skipCache = this.options.skipCache;
-    this.useYarn = !this.options.npm;
+    this.useNpm = this.options.npm;
 
     if (this.options.projectFolder) {
       this.destinationRoot(path.join(this.destinationRoot(), this.options.projectFolder));
@@ -126,20 +126,20 @@ module.exports = class extends Generator {
     };
 
     /**
-     *  Check if yarn is installed
+     *  Check if npm is installed
      */
-    this.checkYarn = () => {
-      if (this.skipChecks || !this.useYarn) {
+    this.checkNpm = () => {
+      if (this.skipChecks || !this.useNpm) {
         return;
       }
       const done = this.async();
-      exec('yarn --version', err => {
+      exec('npm --version', err => {
         if (err) {
-          this.warning('yarn is not found on your computer.\n',
-            ' Using npm instead');
-          this.useYarn = false;
+          this.warning('npm is not found on your computer.\n',
+            ' Install Node.Js');
+          this.useNpm = false;
         } else {
-          this.useYarn = true;
+          this.useNpm = true;
         }
         done();
       });
@@ -365,7 +365,7 @@ module.exports = class extends Generator {
 
   initializing() {
     this.pkg = require('../package.json');
-    this.checkYarn();
+    this.checkNpm();
     this.checkAngularCLI();
   }
 
@@ -578,12 +578,11 @@ module.exports = class extends Generator {
 
       this.log(yosay('All done ✌(-‿-)✌,\nHappy ng-hacking!'));
     } else {
-      this.log(`\n\nAlmost done (1/3). Running ${this.useYarn ? chalk.green('yarn install') : chalk.green('npm install')} to install the required dependencies.`);
-      if (this.useYarn) {
-        this.yarnInstall(dependencies).then(installationDone);
-      } else {
+      if (this.useNpm) {
+        this.log(`\n\nAlmost done (1/3). Running ${chalk.green('npm install')} to install the required dependencies.`);
         this.npmInstall(dependencies).then(installationDone);
-      }
+      } else {
+        this.error(`NPM / Node.JS is not found in your machine`);      }
     }
   }
 };

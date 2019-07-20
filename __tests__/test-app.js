@@ -354,25 +354,16 @@ describe('ngx-library:app', () => {
     });
   });
 
-  describe('check yarn', () => {
-    it('should set "useYarn" to true if not using npm ', () => {
-      let ngLibraryApp = createNgLibraryApp({
-        skipInstall: true,
-        npm: false
-      });
-      return ngLibraryApp.then(() => {
-        assert.equal(ngLibraryApp.generator.useYarn, true);
-      });
-    });
+  describe('check npm', () => {
 
-    it('should set "useYarn" to false if  using npm ', () => {
+    it('should set "useNpm" to false if  using npm ', () => {
       let ngLibraryApp = createNgLibraryApp({
         skipInstall: true,
         npm: true
       });
 
       return ngLibraryApp.then(() => {
-        assert.equal(ngLibraryApp.generator.useYarn, false);
+        assert.equal(ngLibraryApp.generator.useNpm, true);
       });
     });
   });

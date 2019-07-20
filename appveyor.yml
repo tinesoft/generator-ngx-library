@@ -25,8 +25,8 @@ branches:
 
 install:
   - ps: Install-Product node $env:node_version
-  - yarn global add gulp-cli yo @angular/cli
-  - yarn install
+  - npm -g install gulp-cli yo @angular/cli
+  - npm install
   - npm link
 
 test_script:
