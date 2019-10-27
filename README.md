@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="300px" width="300px" style="text-align: center;" src="https://cdn.rawgit.com/tinesoft/generator-ngx-library/master/assets/logo.png">
+  <img height="300px" width="300px" style="text-align: center;" src="https://cdn.jsdelivr.net/gh/tinesoft/generator-ngx-library@master/assets/logo.png">
  </p>
  
 # generator-ngx-library - [Yeoman](http://yeoman.io/) generator to bootstrap your [Angular](https://angular.io) library creation and publication
