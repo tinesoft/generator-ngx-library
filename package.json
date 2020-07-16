@@ -64,7 +64,7 @@
     "gulp-plumber": "1.1.0",
     "gulp-shell": "0.6.5",
     "jest": "22.0.5",
-    "lodash": "4.17.10",
+    "lodash": "4.17.19",
     "markdown-toc": "1.2.0",
     "plugin-error": "1.0.1",
     "run-sequence": "2.2.1",
